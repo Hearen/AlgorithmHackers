@@ -1,0 +1,1 @@
+This repository is used by ISCAS-14 only to practise algorithms from Leetcode; under each directory there will be a set of personal solutions to all the same set of problems and the solutions under leetcode will be the ones that are either classic or nice performance or clean style.
