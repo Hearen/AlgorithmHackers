@@ -1,10 +1,11 @@
+/*******************************************
+    Author: LHearen
+    E-mail: LHearen@126.com
+    Time  :	2015-12-02 21:28
+    Description: 
+    Source: https://leetcode.com/problems/trapping-rain-water/
+*******************************************/
 #include<stdio.h>
-/*
- *Author: LHearen 
- *E-mail: LHearen@126.com 
- *Time: Tue Dec  1 08:26:45 CST 2015
- *Source: https://leetcode.com/problems/trapping-rain-water/
- */
 //regular tests: [0,5,6,4,6,1,0,0,2,7]
 //[2,0,2], [0,2,0], [4,2,1,4,3,2,4]
 //60ms - traverse from the end - the left and right

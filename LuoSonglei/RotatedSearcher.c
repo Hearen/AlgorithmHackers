@@ -1,13 +1,13 @@
-#include<stdio.h>
+/*******************************************
+    Author: LHearen
+    E-mail: LHearen@126.com
+    Time  :	2015-12-02 21:30
+    Description: 
+    Source: https://leetcode.com/problems/search-in-rotated-sorted-array-ii/
+*******************************************/
 #include"utils.h"
-/*
- *Author: LHearen 
- *E-mail: LHearen@126.com 
- *Time: Tue Dec  1 08:26:45 CST 2015
- *Source: https://leetcode.com/problems/search-in-rotated-sorted-array-ii/
- */
 #define Size 10
-bool search0(int *nums, int numsSize, target)
+bool search0(int *nums, int numsSize, int target)
 {
     for(int i = 0; i < numsSize; i++)
     {
@@ -20,6 +20,6 @@ bool search0(int *nums, int numsSize, target)
 void main()
 {
    int nums[] = {4, 5, 6, 7, 0, 1, 2};
-   bool resutl = search0(nums, sizeof(nums) / sizeof(int));
+   bool result = search0(nums, sizeof(nums) / sizeof(int), 9);
    printf("result %d", result);
 }

@@ -1,12 +1,11 @@
-#include<stdio.h>
+/*******************************************
+    Author: LHearen
+    E-mail: LHearen@126.com
+    Time  :	2015-12-02 21:28
+    Description: 
+    Source: https://leetcode.com/problems/word-search/
+*******************************************/
 #include"utils.h"
-/*
- *Author: LHearen 
- *E-mail: LHearen@126.com 
- *Time: Tue Dec  1 08:26:45 CST 2015
- *Source: https://leetcode.com/problems/word-search/
- */
-
 bool isFound(char** board, int row, int col, char*word, int rIndex, int cIndex)
 {
     if(rIndex >= row || cIndex >= col || rIndex < 0 || cIndex < 0 || *word != board[rIndex][cIndex])

@@ -1,9 +1,10 @@
-/*
- *Author: LHearen 
- *E-mail: LHearen@126.com 
- *Time: Wed Dec  2 13:34:56 CST 2015
- *Source: https://leetcode.com/problems/two-sum/
- */
+/*******************************************
+    Author: LHearen
+    E-mail: LHearen@126.com
+    Time  :	2015-12-02 21:29
+    Description: 
+    Source: https://leetcode.com/problems/two-sum/
+*******************************************/
 //using another index array to record the indexes' changes;
 int * twoSum(int *nums, int numsSize, int target)
 {

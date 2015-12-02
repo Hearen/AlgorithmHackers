@@ -1,10 +1,11 @@
 #include<stdio.h>
-/*
- *Author: LHearen 
- *E-mail: LHearen@126.com 
- *Time: Tue Dec  1 08:26:45 CST 2015
- *Source: https://leetcode.com/problems/3sum-closest/
- */
+/*******************************************
+    Author: LHearen
+    E-mail: LHearen@126.com
+    Time  :	2015-12-02 21:26
+    Description: 
+    Source: https://leetcode.com/problems/3sum-closest/
+*******************************************/
 int abs (int a)
 {
   return a > 0 ? a : -a;

@@ -1,3 +1,10 @@
+/*******************************************
+    Author: LHearen
+    E-mail: LHearen@126.com
+    Time  :	2015-12-02 21:27
+    Description: 
+    Source: 
+*******************************************/
 #include"utils.h"
 
 void randomIntArray(int* array, int size, int low, int high)

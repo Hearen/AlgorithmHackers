@@ -1,3 +1,10 @@
+/*******************************************
+    Author: LHearen
+    E-mail: LHearen@126.com
+    Time  :	2015-12-02 21:27
+    Description: 
+    Source: 
+*******************************************/
 #ifndef UTILS_H
 #define UTILS_H
 #include<stdio.h>
