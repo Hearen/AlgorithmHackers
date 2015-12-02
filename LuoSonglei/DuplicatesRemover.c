@@ -1,6 +1,11 @@
 #include<stdio.h>
 #include"utils.h"
-
+/*
+ *Author: LHearen 
+ *E-mail: LHearen@126.com 
+ *Time: Tue Dec  1 08:26:45 CST 2015
+ *Source: https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/
+ */
 int removeDuplicates (int *nums, int numsSize)
 {
     int currentValue = nums[numsSize - 1] + 1;

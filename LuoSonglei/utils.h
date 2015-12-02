@@ -4,9 +4,10 @@
 #include<time.h>
 #include<stdlib.h>
 #include<stdbool.h>
+#include<math.h>
 
-#define SIZE 2000000
-#define MAX 10000000
+#define SIZE 200
+#define MAX 1000
 
 #define minP(pa, pb) (*(pa) > *(pb) ? (pb) : (pa))
 #define maxP(pa, pb) (*(pa) > *(pb) ? (pa) : (pb))
