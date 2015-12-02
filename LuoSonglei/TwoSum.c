@@ -1,3 +1,9 @@
+/*
+ *Author: LHearen 
+ *E-mail: LHearen@126.com 
+ *Time: Wed Dec  2 13:34:56 CST 2015
+ *Source: https://leetcode.com/problems/two-sum/
+ */
 int * twoSum(int *nums, int numsSize, int target)
 {
     int *indexes = (int*)malloc(sizeof(int) * 2);
@@ -20,7 +26,7 @@ int * twoSum(int *nums, int numsSize, int target)
                 j -= m;
             }
             nums[j] = v;
-            av[j] = av;
+            a[j] = av;
         }
 
     i = 0;
