@@ -4,6 +4,7 @@
  *Time: Wed Dec  2 13:34:56 CST 2015
  *Source: https://leetcode.com/problems/two-sum/
  */
+//using another index array to record the indexes' changes;
 int * twoSum(int *nums, int numsSize, int target)
 {
     int *indexes = (int*)malloc(sizeof(int) * 2);
