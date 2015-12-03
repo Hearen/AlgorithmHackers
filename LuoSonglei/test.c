@@ -41,13 +41,16 @@ void sort1(int *nums, int numsSize)
 }
 void main()
 {
-    int numbers[SIZE];
-    randomIntArray(numbers, SIZE, 0, MAX);
-    printArray(numbers, SIZE);
-    checkAscending(numbers, SIZE);
-    printf("After sorting:\n***********************\n");
-    sort(numbers, SIZE);
-    printArray(numbers, SIZE);
-    checkAscending(numbers, SIZE);
+    /*int numbers[SIZE];*/
+    /*randomIntArray(numbers, SIZE, 0, MAX);*/
+    /*printArray(numbers, SIZE);*/
+    /*checkAscending(numbers, SIZE);*/
+    /*printf("After sorting:\n***********************\n");*/
+    /*sort(numbers, SIZE);*/
+    /*printArray(numbers, SIZE);*/
+    /*checkAscending(numbers, SIZE);*/
+    char s[80];
+    sprintf(s, "%d->%d", 2, 3);
+    printf("length: %d\n",strlen(s));
 
 }
