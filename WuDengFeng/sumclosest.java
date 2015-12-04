@@ -1,11 +1,11 @@
 import java.util.Arrays;
 
 public class sumclosest {
-    public int threeSumClosest(int[] num, int target) {
+	public int threeSumClosest(int[] num, int target) {
         if (num == null || num.length < 3) return 0;
-        
+     
         Arrays.sort(num);
-        
+       
         int ret = 0;
         int closestDist = Integer.MAX_VALUE;
         int len =  num.length;
@@ -35,4 +35,13 @@ public class sumclosest {
         
         return ret;
     }
+	
+    public static void main(String args[]){
+        int result;
+        int[] bArray = {1,3,3,5,6,8};
+        sumclosest a=new sumclosest();
+        result=a.threeSumClosest(bArray,5);
+        System.out.println("result:"+result);
+    }
+    
 }
