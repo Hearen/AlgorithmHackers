@@ -1,11 +1,12 @@
 /*******************************************
-    Author: LHearen
-    E-mail: LHearen@126.com
-    Time  :	2015-12-02 21:29
-    Description: 
-    Source: https://leetcode.com/problems/two-sum/
+author: lhearen
+e-mail: lhearen@126.com
+time  :	2015-12-02 21:29
+description: 
+Source: https://leetcode.com/problems/two-sum/
 *******************************************/
 //using another index array to record the indexes' changes;
+//using the sequence of the sum to find the target;
 int * twoSum(int *nums, int numsSize, int target)
 {
     int *indexes = (int*)malloc(sizeof(int) * 2);
@@ -18,6 +19,7 @@ int * twoSum(int *nums, int numsSize, int target)
     for(; m > 0; m /= 3)
         for(i = m; i < numsSize; i++)
         {
+            //storing value is critical;
             v = nums[i];
             av = a[i];
             j = i;
@@ -42,8 +44,8 @@ int * twoSum(int *nums, int numsSize, int target)
             i++;
         else
         {
-            indexes[0] = a[i];
-            indexes[1] = a[j];
+            indexes[0] = a[i] > a[j]? a[j] : a[i];
+            indexes[1] = a[j] > a[i]? a[j] : a[i];
             return indexes;
         }
     }

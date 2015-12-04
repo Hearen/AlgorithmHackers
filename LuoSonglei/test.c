@@ -1,3 +1,11 @@
+/*******************************************
+Author: LHearen
+E-mail: LHearen@126.com
+Time  :	2015-12-04 08:23
+Description: 
+Source: 
+*******************************************/
+//this file is used to test some C features;
 #include"utils.h"
 void sort(int *nums, int numsSize)
 {

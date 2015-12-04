@@ -1,12 +1,12 @@
 /*******************************************
-    Author: LHearen
-    E-mail: LHearen@126.com
-    Time  :	2015-12-02 21:27
-    Description: 
-    Source: 
+Author: LHearen
+E-mail: LHearen@126.com
+Time  :	2015-12-02 21:27
+Description: This file is used to achieve 
+        assistant usage for others;
+Source: 
 *******************************************/
 #include"utils.h"
-
 void randomIntArray(int* array, int size, int low, int high)
 {
     srand(time(NULL));

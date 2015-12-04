@@ -1,16 +1,16 @@
 /*******************************************
-    Author: LHearen
-    E-mail: LHearen@126.com
-    Time  :	2015-12-02 21:28
-    Description: 
-    Source: https://leetcode.com/problems/trapping-rain-water/
+Author: LHearen
+E-mail: LHearen@126.com
+Time  :	2015-12-02 21:28
+Description: 
+Source: https://leetcode.com/problems/trapping-rain-water/
 *******************************************/
 #include<stdio.h>
 //regular tests: [0,5,6,4,6,1,0,0,2,7]
 //[2,0,2], [0,2,0], [4,2,1,4,3,2,4]
-//60ms - traverse from the end - the left and right
+//60ms - traverse to the end - from the left and right
 //at the same time until tops meet in the middle;
-int trap(int *hArray, int size)
+int trap0(int *hArray, int size)
 {
     int lUnitSum = 0;
     int rUnitSum = 0;
@@ -56,7 +56,8 @@ int trap(int *hArray, int size)
 
 //4ms - travesing from left to right and then
 //reverse the direcition to collect the water;
-int trap0(int *hArray, int size)
+//simple and direct but efficient;
+int trap1(int *hArray, int size)
 {
     int unitSum = 0;
     int sum = 0;

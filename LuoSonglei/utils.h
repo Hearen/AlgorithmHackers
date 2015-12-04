@@ -1,9 +1,9 @@
 /*******************************************
-    Author: LHearen
-    E-mail: LHearen@126.com
-    Time  :	2015-12-02 21:27
-    Description: 
-    Source: 
+Author: LHearen
+E-mail: LHearen@126.com
+Time  :	2015-12-02 21:27
+Description: assistant file for easier testing;
+Source: 
 *******************************************/
 #ifndef UTILS_H
 #define UTILS_H

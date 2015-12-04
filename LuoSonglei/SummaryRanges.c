@@ -1,14 +1,15 @@
 /*******************************************
-    Author: LHearen
-    E-mail: LHearen@126.com
-    Time  :	2015-12-03 09:02
-    Description: 
-    Source: https://leetcode.com/problems/summary-ranges/
+Author: LHearen
+E-mail: LHearen@126.com
+Time  :	2015-12-03 09:02
+Description: 
+Source: https://leetcode.com/problems/summary-ranges/
 *******************************************/
 #include <stdlib.h>
 #include<string.h>
 #include <stdio.h>
 //when dealing with malloc, be careful its range;
+//returnSize here is used to store the array length;
 char** summaryRanges(int * nums, int numsSize, int* returnSize)
 {
     char **sArray = (char**)malloc(numsSize * sizeof(char*));
@@ -39,6 +40,7 @@ char** summaryRanges(int * nums, int numsSize, int* returnSize)
         }
     }
     //in case of empty array disturbing the final result;
+    //the last range cannot be collected in previous loop;
     if(numsSize > 0)
     {
         //handle the last range;

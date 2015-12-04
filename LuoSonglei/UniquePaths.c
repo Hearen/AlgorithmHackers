@@ -1,10 +1,11 @@
 /*******************************************
-    Author: LHearen
-    E-mail: LHearen@126.com
-    Time  :	2015-12-03 08:02
-    Description: 
-    Source: https://leetcode.com/problems/unique-paths/
+Author: LHearen
+E-mail: LHearen@126.com
+Time  :	2015-12-03 08:02
+Description: 
+Source: https://leetcode.com/problems/unique-paths/
 *******************************************/
+//making use of combination to handle this instead of backtracking;
 //Runtime Error - too huge;
 long long factorial(int n)
 {
