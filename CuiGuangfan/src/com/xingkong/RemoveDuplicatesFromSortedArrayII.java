@@ -1,3 +1,4 @@
+package com.xingkong;
 
 /** 
 * @author cuiguangfan 736068048@qq.com: 
