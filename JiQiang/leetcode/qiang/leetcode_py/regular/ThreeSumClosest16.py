@@ -14,6 +14,7 @@ class Solution(object):
         closestSum = sys.maxsize
         i =0
         size = len(nums)
+        # 首先要排序
         newNums = sorted(nums)
         print(newNums)
         while i < size:
