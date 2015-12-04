@@ -12,7 +12,7 @@ void combination(int* nums, int numsSize, int** columnSizes, int* returnSize, in
 {
     if(index == numsSize)
     {
-        columnSizes[returnSize] = setIndex;
+        *columnSizes[*returnSize] = setIndex;
         return;
     }
     for(int i = 0; i < *returnSize; i++)
@@ -20,7 +20,7 @@ void combination(int* nums, int numsSize, int** columnSizes, int* returnSize, in
         if(i < *returnSize/2)
         {
             combination(nums, numsSize, columnSizes, *returnSize/2, allSets, index + 1, setIndex + 1);
-            allSet[i] = nums[index];
+            allSets[i] = nums[index];
         }
         else
         {
@@ -39,9 +39,9 @@ int **subsets(int* nums, int numsSize, int** columnSizes, int* returnSize)
     }
     columnSizes = (int*)malloc(sizeof(int*) * total);
     *returnSize = total;
-    int allSets[][] = (int*)malloc(sizeof(int*) * total);
+    int **allSets = (int*)malloc(sizeof(int*) * total);
     for(int i = 0; i < total; i++)
         allSets[i] = (int*)malloc(sizeof(int) * numsSize);
-    combination(nums, numsSize, columnSizes, returnSize, allSet, 0, 0);
+    combination(nums, numsSize, columnSizes, returnSize, allSets, 0, 0);
     return allSets;
 }
