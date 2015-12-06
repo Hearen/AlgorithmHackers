@@ -4,8 +4,10 @@ This repository is used by ISCAS14 only to practise algorithms from Leetcode; un
 
 #Attention
 ----------
-* All the arrangements will be updated before 21:30 in each monday and the corresponding personal solutions for that week will be handed in by the end of 24:00 in friday.
+* All the arrangements will be updated before 21:30 in each monday and the corresponding personal solutions for that week will be handed in by the end of 24:00 in friday - at which point I will tag the repository and any further submissions will be ignored until next week.
+
 * All personal resources should be placed in your own private folder, please always remember that before pushing a request - because if you are trying to contaminate the environment, your request will be removed!
+
 * If you would like to have some sub-folders, please always stick it in mind that too deep path might destroy others' patience; so you'd better only use two-level folders at most.
 
 #Administrators
