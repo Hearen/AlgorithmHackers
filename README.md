@@ -15,4 +15,4 @@ This repository is used by ISCAS14 only to practise algorithms from Leetcode; un
 If ever you have any questions or some constructive suggestions, please do not hesitate to contact us.
 * LHearen: LHearen@126.com
 * wziyong: wziyong@126.com
-* nijiazhi: 954142793@qq.com
+* nijiazhi: andynijiazhi@163.com
