@@ -16,7 +16,7 @@ print(k)
 ii = [i for i in range(0,9,3)]
 
 board = ["123","233"]
-print(board)
+print(board[0][0])
 sss = set([1,2,3])
 sss.add(5)
 sss.remove(1)
