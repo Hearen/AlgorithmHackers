@@ -11,14 +11,15 @@ Source: https://leetcode.com/problems/subsets/
 #include <stdio.h>
 #include<stdlib.h>
 #define TEST
-void combination(int* nums, int numsSize, int* columnSizes, int baseIndex, int returnSize, int **allSets, int index, int setIndex)
+void combination(int* nums, int numsSize, int** columnSizes, int returnSize, int **allSets, int index, int baseIndex, int setIndex)
 {
     #ifdef TEST
         printf("numsIndex: %d\t setIndex: %d\n", index, setIndex);
-        printf("columnSizes %d:\t%d\n",columnSizes[returnSize]);
     #endif
     if(index == numsSize)
     {
+        for(int i = 0; i < returnSize; i++)
+            *columnSizes[baseIndex + i] = setIndex;
         return;
     }
     
@@ -29,21 +30,20 @@ void combination(int* nums, int numsSize, int* columnSizes, int baseIndex, int r
     {
         if(i < returnSize/2)
         {
-            *allSets[i] = nums[index];
+            allSets[baseIndex + i][setIndex] = nums[index];
             #ifdef TEST
                 printf("allSets %d:\t%d\n", *allSets[i], i);
                 printf("setIndex: %d\n",setIndex);
             #endif
-            columnSizes[baseIndex + i] = setIndex;
-            combination(nums, numsSize, columnSizes, baseIndex + returnSize/2, returnSize/2, allSets, index + 1, setIndex + 1);
+            combination(nums, numsSize, columnSizes, returnSize/2, allSets, index + 1, baseIndex + returnSize/2, setIndex + 1);
         }
         else
         {
-            combination(nums, numsSize, columnSizes, baseIndex, returnSize/2, allSets, index + 1, setIndex);
+            combination(nums, numsSize, columnSizes, returnSize/2, allSets, index + 1, baseIndex, setIndex);
         }
     }
 }
-int **subsets(int* nums, int numsSize, int* columnSizes, int* returnSize)
+int **subsets(int* nums, int numsSize, int** columnSizes, int* returnSize)
 {
     int total = 1;
     int count = 0;
@@ -55,12 +55,12 @@ int **subsets(int* nums, int numsSize, int* columnSizes, int* returnSize)
     #ifdef TEST
         printf("%d\n", total);
     #endif
-    columnSizes = (int*)malloc(sizeof(int) * total);
+    columnSizes = (int**)malloc(sizeof(int*) * total);
     *returnSize = total;
     int **allSets = (int**)malloc(sizeof(int*) * total);
     for(int i = 0; i < total; i++)
         allSets[i] = (int*)malloc(sizeof(int) * numsSize);
-    combination(nums, numsSize, columnSizes, 0, *returnSize, allSets, 0, 0);
+    combination(nums, numsSize, columnSizes, returnSize, allSets, 0, 0, 0);
     return allSets;
 }
 

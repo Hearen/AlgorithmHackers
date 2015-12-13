@@ -10,8 +10,8 @@ Source:
 #include<stdio.h>
 #include<time.h>
 #include<stdlib.h>
-#include<stdbool.h>
 #include<math.h>
+#include<stdbool.h>
 
 #define SIZE 200
 #define MAX 1000
