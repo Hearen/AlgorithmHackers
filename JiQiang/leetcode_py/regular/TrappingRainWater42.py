@@ -1,5 +1,29 @@
 
 class Solution(object):
+
+    # 这个方法只需要一次遍历
+    def trap2(self,height):
+
+        if not height or len(height)<3:
+            return  0
+        left = 0
+        right = len(height)-1
+        maxLeft = height[left]
+        maxRight = height[right]
+        total = 0
+        while left< right:
+            if height[left] < height[right]:
+                left +=1
+                maxLeft = max(maxLeft,height[left])
+                total += maxLeft-height[left]
+            else:
+                right-=1
+                maxRight = max(maxRight,height[right])
+                total += maxRight-height[right]
+        return  total
+
+
+    # 下面这个方法需要两次遍历
     def trap(self, height):
         """
         :type height: List[int]
@@ -43,3 +67,4 @@ if __name__ == '__main__':
     so = Solution()
     height = [0,1,0,2,1,0,1,3,2,1,2,1]
     print(so.trap(height))
+    print(so.trap2(height))
