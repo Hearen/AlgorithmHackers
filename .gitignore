@@ -4,7 +4,9 @@
 # Time  :	2015-12-06 11:08
 # Description: Used to ignore unrelated;
 #-------------------------------------------
-
+plan.md
+AH.xlsx
+*.plan
 # Used to ignore all the unrelated files under LuoSonglei folder
 /LuoSonglei/**/*.o
 /LuoSonglei/**/*.
