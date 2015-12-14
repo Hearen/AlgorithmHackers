@@ -1,14 +1,35 @@
 /**
 * @author DuanSky
-* @date 2015Äê12ÔÂ3ÈÕ ÏÂÎç7:41:19
+* @date 2015ï¿½ï¿½12ï¿½ï¿½3ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½7:41:19
 * @content 
 */
 package com.sky.leetcode;
 
 public class _080_RemoveDuplicatesfromSortedArrayII {
 	public static void main(String args[]){
-		int[] nums={1,1,1,1,3,3};
-		System.out.println(removeDuplicates(nums));
+		int[] nums={1,1,2};
+		System.out.println(removeDuplicates_more_beautiful(nums));
+	}
+	
+	public static int removeDuplicates_more_beautiful(int[] nums){
+		if(nums.length<3)
+			return nums.length;
+		int counter=2; int exists=1; int last=1;
+		if(nums[0]==nums[1]) exists++;
+		for(int i=2;i<nums.length;i++){
+			if(nums[i]!=nums[last]){
+				counter++;exists=1;
+				nums[++last]=nums[i];
+			}
+			else{
+				if(exists!=2){
+					counter++;exists++;
+					nums[++last]=nums[i];
+				}
+			}
+			
+		}
+		return counter;
 	}
 	
 	public static int removeDuplicates(int[] nums) {
@@ -24,7 +45,7 @@ public class _080_RemoveDuplicatesfromSortedArrayII {
 				}
 				int j=i;
 				while(j<nums.length-1){
-					nums[j]=nums[j+1];
+					nums[j]=nums[j+1]; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é¿½ï¿½ï¿½ï¿½ï¿½
 					j++;
 				}
 				result--;
