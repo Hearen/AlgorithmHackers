@@ -7,6 +7,7 @@
 
 #Algorithm solutions
 --------------------
+There will be different week-folders containing all the solutions to that week;
 Each solution file will cover the source URI, basic solution and if possible some improved ones will also be provided.
 
 #Assistant resources
