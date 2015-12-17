@@ -8,7 +8,7 @@ Source: https://leetcode.com/problems/string-to-integer-atoi/
 #include<ctype.h>
 #include<limits.h>
 //handle three different types octal, decimal and hexidecimal
-int myAtoi1(char* s)
+int myAtoi0(char* s)
 {
     int unit = 10;
     int index = 0;
@@ -51,7 +51,8 @@ int myAtoi1(char* s)
 }
 
 
-int myAtoi(char* s)
+//AC - 8ms
+int myAtoi1(char* s)
 {
     int i = 0;
     int flag = 1;
@@ -76,10 +77,11 @@ int myAtoi(char* s)
     return sum;
 }
 
+//AC - 4ms - the first part should be supressed;
 int myAtoi2(char* s)
 {
     int sign = 1;
-    while(*s == ' ') s++;
+    while(*s == ' ') s++; //the preceding zero can be ignored;
     if(*s == '+' || *s == '-') 
         sign = (*s++ == '+'? 1 : -1);
     long sum = 0;

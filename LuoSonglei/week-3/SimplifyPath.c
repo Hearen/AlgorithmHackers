@@ -46,6 +46,7 @@ char* simplifyPath(char* path)
                 continue;
             if(strcmp(unit, "..") == 0) //pop out;
             {
+                //replacing this part with index > 0 ? index-- : index; will reduce the time from 8ms to 4ms;
                 if(index > 0)
                     index--;
             }
@@ -57,6 +58,8 @@ char* simplifyPath(char* path)
         }
     }
     //collecting the directories;
+    if(index == 0)
+        return "/";
     unit[0] = '/';
     unit[1] = '\0';
     unitSize = 0;
@@ -66,7 +69,7 @@ char* simplifyPath(char* path)
         strcat(unit, sArray[i]);
         strcat(unit, "/");
     }
-    if(index > 0) //overwriting the last forward slash if it's not root;
-        unit[unitSize] = '\0';
+    //overwriting the last forward slash if it's not root;
+    unit[unitSize] = '\0';
     return unit;
 }
