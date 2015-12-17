@@ -26,3 +26,42 @@ public class Solution {
         return a==b||a=='.'||b=='.';
     }
 }
+
+/**
+ *  假设s和p中都有 . * a
+ **/
+public class Solution {
+    public boolean isMatch(String s, String p) {
+        char[] cs = new char[s.length()+1];
+        char[] cp = new char[p.length()+1];
+        boolean[][] match = new boolean[cs.length][cp.length];
+        match[0][0] = true;
+        for(int i=1;i<cs.length;i++){
+            cs[i] = s.charAt(i-1);
+            if(cs[i]=='*'&&match[i-2][0])
+                match[i][0] = true;
+        }
+        for(int i=1;i<cp.length;i++){
+            cp[i] = p.charAt(i-1);
+            if(cp[i]=='*'&&match[0][i-2])
+                match[0][i] = true;
+        }
+        
+        for(int i=1;i<cs.length;i++)
+            for(int j=1;j<cp.length;j++){  //* . a 3x3 共9种情况，但是提炼出共性
+                if(cs[i]!='*'&&cp[j]!='*'){
+                    match[i][j] = match[i-1][j-1]&&isMatch(cs[i],cp[j]);
+                }else if(cp[j]!='*'){
+                    match[i][j] = match[i-2][j]||(match[i][j-1]&&isMatch(cs[i-1],cp[j]));
+                }else if(cs[i]!='*'){
+                    match[i][j] = match[i][j-2]||(match[i-1][j]&&isMatch(cs[i],cp[j-1]));
+                }else{
+                    match[i][j] = match[i-2][j]||match[i][j-2];  
+                }
+            }
+        return match[cs.length-1][cp.length-1];
+    }
+    boolean isMatch(char a,char b){
+        return a==b||a=='.'||b=='.';
+    }
+}
