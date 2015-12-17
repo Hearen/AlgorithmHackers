@@ -1,0 +1,19 @@
+public class Solution {
+    public boolean isPalindrome(String s) {
+        char str[] = s.toLowerCase().toCharArray();
+        int l=0,r = str.length-1;
+        while(l<r){
+            if(!(str[l]>='a'&&str[l]<='z')&&!(str[l]>='0'&&str[l]<='9')){ //'1a2' 为false，说好的只算字母表呢
+                ++l;
+                continue;
+            }
+            if(!(str[r]>='a'&&str[r]<='z')&&!(str[r]>='0'&&str[r]<='9')){
+                --r;
+                continue;
+            }
+            if(str[l]!=str[r]) return false;
+            ++l;--r;
+        }
+        return true;
+    }
+}
