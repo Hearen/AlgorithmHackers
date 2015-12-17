@@ -5,6 +5,8 @@ Time  :	2015-12-15 08:27
 Description: 
 Source: https://leetcode.com/problems/string-to-integer-atoi/
 *******************************************/
+#include<ctype.h>
+#include<limits.h>
 //handle three different types octal, decimal and hexidecimal
 int myAtoi1(char* s)
 {
@@ -72,4 +74,19 @@ int myAtoi(char* s)
     sum = sum > INT_MAX ? INT_MAX : sum;
     sum = sum < INT_MIN ? INT_MIN : sum;
     return sum;
+}
+
+int myAtoi2(char* s)
+{
+    int sign = 1;
+    while(*s == ' ') s++;
+    if(*s == '+' || *s == '-') 
+        sign = (*s++ == '+'? 1 : -1);
+    long sum = 0;
+    while(isdigit(*s) && sum < INT_MAX)
+        sum = 10 * sum + (*s++ - '0');
+    if(sign == 1)
+        return sum > INT_MAX ? INT_MAX : sum;
+    else
+        return (sum *= sign) < INT_MIN ? INT_MIN : sum;
 }
