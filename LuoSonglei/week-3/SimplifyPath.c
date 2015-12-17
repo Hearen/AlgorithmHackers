@@ -39,7 +39,7 @@ char* simplifyPath(char* path)
             unitSize = cur - pre - 1;
             if(unitSize < 0)//pre and cur point to the same position;
                 continue;
-            strncpy(unit, path+pre+1, unitSize);
+            strncpy(unit, path+pre+1, unitSize);//cur - pre > 0 is ensured;
             unit[unitSize] = '\0';
             pre = cur;
             if(strcmp(unit, ".") == 0 || strcmp(unit, "") == 0) //stay the same;
