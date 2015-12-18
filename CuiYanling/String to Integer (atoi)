@@ -1,0 +1,23 @@
+//一些比较刁钻的数据："" "+"  "2147483648"(Expected:2147483647)
+public class Solution {
+    public int myAtoi(String str) {
+        boolean negative = false;
+        str = str.trim();
+        int i=0;
+        if(i<str.length()&&str.charAt(i)=='+'){++i;}  //空串
+        else if(i<str.length()&&str.charAt(i)=='-') {++i;negative = true;}
+        long ans = 0;
+        for(;i<str.length();i++){
+            int c = str.charAt(i)-'0';
+            if(c<0||c>9) break; //开始有异常输入会直接跳出，输出0。后面有异常输入，则后面的不被计算
+            if(!negative){
+                ans = ans*10+c;
+                if(ans>Integer.MAX_VALUE) return Integer.MAX_VALUE;
+            }else{
+                ans = ans*10-c;
+                if(ans<Integer.MIN_VALUE) return Integer.MIN_VALUE;
+            }
+        }
+        return (int)ans;
+    }
+}
