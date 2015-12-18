@@ -20,6 +20,7 @@ class Solution(object):
     def maxRectangle(self, hist):
         stk = []
         maxx = 0
+        # append 0 to calc the area including the last hist
         hist.append(0)
         for i in xrange(len(hist)):
             while len(stk) > 0 and hist[i] < hist[stk[-1]]:
