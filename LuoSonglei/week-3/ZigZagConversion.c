@@ -8,24 +8,25 @@ Source      : https://leetcode.com/problems/zigzag-conversion/
 
 char* convert(char* s, int num)
 {
-    int size = strlen(s);
-    char* col = (char*)malloc(sizeof(char) * (size+1));
-    int cIndex = 0;
-    int sIndex = 0;
-    int mid = num / 2;
-    int d = 0;
+    if(num == 1)
+        return s;
+    int size = strlen(s) + 1;
+    char* col = (char*)malloc(sizeof(char)*size);
+    int d0 = num * 2 - 2;
+    int index = 0;
     for(int i = 0; i < num; i++)
     {
-        d = num + 1;
-        if(i == mid)
-            d /= 2;
-        sIndex = i;
-        while(sIndex < size)
+        int d = d0 - i * 2; //get the first distance;
+        for(int j = i; j < size - 1;)
         {
-            col[cIndex++] = s[sIndex];
-            sIndex += d;
+            if(d > 0)
+            {
+                col[index++] = *(s+j);
+                j += d; //move to the next character;
+            }
+            d = d0 - d; //get the next complementary distance;  
         }
     }
-    col[cIndex] = '\0';
+    col[index] = '\0';
     return col;
 }

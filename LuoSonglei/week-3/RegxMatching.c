@@ -16,19 +16,19 @@ bool isMatch(char* s, char* p)
 {
     if(*p == '\0')
         return *s == '\0';
-    if(*(p+1) != '*')
+    if(*p != '*')
     {
         if(!match(s,p))
             return false;
-        return isMatch(s+1, p+1);
+        else
+            return isMatch(s+1, p+1);
     }
     else
     {
-        if(isMatch(s, p+2)) //repeat the previous character zero time;
-            return true;
-        while(match(s, p)) //repeat the previous at least one time unitl it fits;
-            if(isMatch(++s, p+2))
+        while(*s!= '\0')
+            if(isMatch(s++, p+1))
                 return true;
+        return false;
     }
 }
 
