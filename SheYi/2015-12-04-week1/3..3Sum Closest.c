@@ -15,17 +15,16 @@ int threeSumClosest(int* nums, int numsSize, int target) {
     void quicksort(int* s, int l, int r);//快排
 	int twoSumClosest(int* nums,int numsSize, int target);//子问题 2sum
 	int* temp=(int*)malloc(sizeof(int) * (numsSize-1)); //new int[numsSize-1];
-	 
+	 quicksort(nums,0,numsSize-1);
 	int start=0;
 	int* interResult=(int*)malloc(sizeof(int) * (numsSize)); //new int[numsSize];
 	for(int i=0;i<numsSize;i++){
 		start=0;
 		for(int j=0;j<numsSize;j++){
 		     if(i==j) continue;
-			 temp[start++]=nums[j];
+			 temp[start++]=nums[j];	 
 		}
-		quicksort(temp,0,numsSize-2);
-	    interResult[i]=nums[i]+twoSumClosest(temp,numsSize-1,target);
+	    interResult[i]=nums[i]+twoSumClosest(temp,numsSize-1,target-nums[i]);
 	} 
 	int result=interResult[0];
 	for(int k=1;k<numsSize;k++){
@@ -83,8 +82,3 @@ void quicksort (int* a, int lo, int hi)
     if (lo<j) quicksort(a, lo, j);
     if (i<hi) quicksort(a, i, hi);
 }
-/** Trapping Rain Water **/
-还未完成
-
-/** Word Search **/
-还未完成
