@@ -1,55 +1,54 @@
 package com.zyy.week3;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class StringToIntegerATOI {
 	// 把字符串转换成int类型，需要找到其中的数字组成的字符串
 	public int myAtoi(String str) {
-		if (str.equals("")) {
-			return 0;
-		}
-		int target = 0;
-		int len = 0;
-		StringBuilder sb = new StringBuilder();
-		int start = 0;
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		for (int i = 0; i < 10; i++) {
-			map.put("'" + i + "'", i);
-		}
+		int first = 0;
+		int result = 0;
+		boolean flag = false;
 		for (int i = 0; i < str.length(); i++) {
-			if ("-".equals(str.charAt(i)) || "+".equals(str.charAt(i))) {
-				start = i;
-			}
-		}
-
-		for (int i = start + 1; i < i + 10; i++) {
-			if (map.containsKey(str.charAt(i))) {
-				sb.append(map.get(str.charAt(i)));
-				len++;
+			// 空字符unicode 32
+			if (str.charAt(i) == (char) 32) {
+				continue;
 			} else {
-				break;
+				if(!(str.charAt(i) == (char) '-' || str.charAt(i) >= '0'
+						&& str.charAt(i) <= '9'))
+				if (str.charAt(i) == (char) '-' || str.charAt(i) >= '0'
+						&& str.charAt(i) <= '9') {
+					first = i;
+					flag = true;
+					break;
+				} else {
+					return 0;
+				}
 			}
 		}
-
-		target = Integer.parseInt(sb.toString());
-
-		if (target > Integer.MAX_VALUE) {
-			target = Integer.MAX_VALUE;
-		}
-
-		if ("-".equals(str.charAt(start))) {
-			return 0 - target;
+		if (!flag) {
+			return 0;
 		} else {
-			return target;
+			if (first == str.length() - 1 && str.charAt(first) == (char) '-') {
+				return 0;
+			}
+			result = Integer.valueOf(str.substring(first, str.length()));
+			if (result > Integer.MAX_VALUE) {
+				return Integer.MAX_VALUE;
+			} else if (result < Integer.MIN_VALUE) {
+				return Integer.MIN_VALUE;
+			} else {
+				return result;
+			}
 		}
-
 	}
 
 	public static void main(String[] args) {
+		System.out.println(Integer.valueOf("-+1"));
 		String data = "   -53423";
+		// System.out.println(Integer.valueOf("123"));
 		StringToIntegerATOI st = new StringToIntegerATOI();
 		System.out.println(st.myAtoi(data));
+		System.out.println(st.myAtoi("-"));
+		System.out.println(st.myAtoi("-+1"));
+		System.out.println(st.myAtoi("       "));
 	}
 
 }
