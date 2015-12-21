@@ -6,6 +6,8 @@ Description :
 Source      : https://leetcode.com/problems/largest-rectangle-in-histogram/
 *******************************************/
 //AC - 8ms
+//only calculate the stack - ascending order
+//the width will be calculated by the stored indexes;
 int largestRectangleArea(int* heights, int heightSize)
 {
     heightSize++;
