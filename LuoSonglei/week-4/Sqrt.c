@@ -12,31 +12,28 @@ Source      : https://leetcode.com/problems/sqrtx/
 //Newton method - 8ms;
 int intSqrt(int x)
 {
-    double a = 10e-5;
-    double g = rand()%x;
-    while((g*g - x) > a)
-    {
-        g = (g+x/g)/2;
-    }
+    long g = x;
+    while(g*g > x)
+        g = (g + x/g) / 2;
     return g; 
 }
 
-//bit manipulation - 4ms;
+//bit manipulation - 4ms or 8ms due to format;
 int bitSqrt(int x)
 {
-    if(x == 0)
-        return 0;
+    if(x == 0 || x == 1)
+        return x;
     int h = 0;
-    while((long)(1<<h)*(long)(1<<h) <= x)
+    while((long)(1 << h) * (long)(1 << h) <= x)
         h++;
     h--;
-    int res = 1<<h;
-    int b = h-1;
-    while(b >= 0) //find the rest bits status;
+    int d = h - 1;
+    int res = (1 << h);
+    while(d >= 0)
     {
-        if((long)(res | (1<<b))*(long)(res | (1<<b)) <= x)
-            res |= (1<<b);
-        b--;
+        if((long)(res | 1 << d)*(long)(res | 1 << d) <= x)
+            res |= (1 << d);
+        d--;
     }
     return res;
 }
