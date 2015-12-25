@@ -36,7 +36,7 @@ struct ListNode* merge(struct ListNode* l, struct ListNode* r)
 
 //AC - 392ms;
 //multi-thread programming might be helpful in this case;
-struct ListNode* mergeKLists(struct ListNode** lists, int listsSize)
+struct ListNode* mergeKLists0(struct ListNode** lists, int listsSize)
 {
     struct ListNode** stack0 = (struct ListNode**)malloc(sizeof(struct ListNode*) * listsSize);
     struct ListNode** stack1 = (struct ListNode**)malloc(sizeof(struct ListNode*) * listsSize);
@@ -59,4 +59,18 @@ struct ListNode* mergeKLists(struct ListNode** lists, int listsSize)
         stack1 = tmp;
     }
     return stack0[top0];
+}
+
+//Time Limit Exceeded - simpler version;
+struct ListNode* mergeKLists(struct ListNode** lists, int listsSize)
+{
+    struct ListNode** stack = (struct ListNode**)malloc(sizeof(struct ListNode*) * listsSize);
+    int top = -1;
+    for(int i = 0; i < listsSize; i++)
+        stack[++top] = lists[i];
+    while(top > 0)
+    {
+        stack[++top] = merge(stack[top--], stack[top--]);
+    }
+    return stack[top];
 }
