@@ -69,3 +69,4 @@ bool searchMatrix2(int** matrix, int rowSize, int colSize, int target)
     } 
     return matrix[low / colSize][low % colSize] == target;
 }
+
