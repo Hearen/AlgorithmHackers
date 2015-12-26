@@ -1,0 +1,11 @@
+public class Solution {
+    public int mySqrt(int x) {
+        int left = 0,right = Math.max(1,x/2);
+        while(left<right){
+            int mid = (left+right+1)/2;
+            if((long)mid*mid>x) right = mid-1;
+            else left = mid;
+        }
+        return left;
+    }
+}
