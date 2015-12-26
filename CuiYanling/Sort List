@@ -1,0 +1,61 @@
+1、利用归并排序。此方法比较慢，因为找中点时遍历一遍，合并时又遍历一遍
+public class Solution {
+    public ListNode sortList(ListNode head) {
+        if(head==null||head.next==null) return head;
+        ListNode left = head,right = head.next;
+        while(right!=null&&right.next!=null){
+            left = left.next;
+            right = right.next.next;
+        }
+        right = sortList(left.next);
+        left.next = null;
+        left = sortList(head);
+        head = new ListNode(-1);
+        ListNode p = head;
+        while(left!=null&&right!=null){
+            if(left.val<=right.val){
+                p.next = left;
+                left = left.next;
+            }else{
+                p.next = right;
+                right = right.next;
+            }
+            p = p.next;
+        }
+        if(left!=null) p.next = left;
+        if(right!=null) p.next = right;
+        return head.next;
+    }
+}
+
+2、三路排序的快排的思想。借助传递终止节点，只需要遍历一遍，即分成左右中三支的时候。
+public class Solution {
+    public ListNode sortList(ListNode head) {
+        return sortList(head,null);
+    }
+    public ListNode sortList(ListNode head,ListNode end){
+        if(head==end||head.next==end)
+            return head;
+        ListNode mid = new ListNode(-1),left = new ListNode(-1),right = new ListNode(-1);
+        ListNode m = mid,l = left,r = right;
+        int pivot = head.val;
+        while(head!=end){
+            if(head.val==pivot){
+                m.next = head;
+                m = m.next;
+            }else if(head.val<pivot){
+                l.next = head;
+                l = l.next;
+            }else{
+                r.next = head;
+                r = r.next;
+            }
+            head = head.next;
+        }
+        r.next = end;
+        right = sortList(right.next,end);
+        m.next = right;
+        l.next = mid.next;
+        return sortList(left.next,l.next);
+    }
+}
