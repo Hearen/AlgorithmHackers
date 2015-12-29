@@ -9,7 +9,7 @@
 ## Specification 
 One intrinsic solution to this problem is to use three loops to traverse and find them all, during which we are going to find the line equation determined by two points and then check the last one in the innermost loop; but using two points to get the line equation is quite inconvenient and inefficient so we need to search for another method that can be used more easily - at last we find out determine whether three points in one line or not can simply determined by slope and one fixed point, by the way the slope must be calculated with the fixed point.
 
-### Another 
+### Attention
 To completely solve this problem, we have to care for several details:
 
 1. calculating the slope might encounter underflow;
