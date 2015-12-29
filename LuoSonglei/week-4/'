@@ -74,21 +74,24 @@ struct ListNode* merge1(struct ListNode* l, struct ListNode* r)
     return head.next;
 }
 
+
+struct ListNode* swiftSort(struct ListNode* head)
+{
+    return sort(head, NULL);
+}
 struct ListNode* partition(struct ListNode* head, struct ListNode* tail)
 {
-    if(head == tail || head->next == tail)
-        return head;
-    int pivot = head->val;
-    struct ListNode left, mid, right;
-    struct ListNode *l=&left, *m=&mid, *r=&right;
-    while(head != tail)
+    struct ListNode t;
+    struct ListNode *left=&t, *mid=&t, *right=&t;
+    struct ListNode *l=left, *m=mid, *r=right;
+    while(head!=tail)
     {
-        if(head->val < pivot)
+        if(head->val < mid->val)
         {
             l->next = head;
             l = l->next;
         }
-        else if(head->val > pivot)
+        else if(head->val > mid->val)
         {
             r->next = head;
             r = r->next;
@@ -100,16 +103,9 @@ struct ListNode* partition(struct ListNode* head, struct ListNode* tail)
         }
         head = head->next;
     }
-    r->next = tail;
-    m->next = partition(right.next, tail); 
-    l->next = mid.next;
-    return partition(left.next, l->next);
-}
-
-
-//http://www.geeksforgeeks.org/quicksort-on-singly-linked-list/
-//AC - 16ms;
-struct ListNode* swiftSort(struct ListNode* head)
-{
-    return partition(head, NULL);
+    left = partition(left, l);
+    left->next = mid->next;
+    partition(right, r);
+    m->next = right->next;
+    return left->next;
 }

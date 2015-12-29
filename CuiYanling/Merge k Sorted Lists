@@ -1,0 +1,85 @@
+ * m = n1+n2+...nk
+ * m*k 每次遍历k个链表头取最小的数
+ * m*logm 所有数放在一起，统一排序，没有利用链表的有序性
+ * m*logk 用堆存储链表头元素，每次取堆顶的最小值；分治：两辆merge；利用队列实现两辆合并
+ 
+ 1、用小顶堆存储所有链表的表头元素，依次选取最小的
+ public class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        Queue<ListNode> pq = new PriorityQueue<ListNode>(new Comparator<ListNode>(){
+           public int compare(ListNode i,ListNode j){
+               return i.val-j.val;
+           }
+        });
+        ListNode head = new ListNode(-1);
+        ListNode p = head;
+        for(int i=0;i<lists.length;i++)
+            if(lists[i]!=null) pq.add(lists[i]);
+        while(!pq.isEmpty()){
+            ListNode k = pq.poll();
+            p.next = k;
+            p = p.next;
+            k = k.next;
+            if(k!=null) pq.add(k);
+        }
+        return head.next;
+    }
+}
+
+2、分治，将数组分成左右两部分
+public class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        return merge2List(lists,0,lists.length-1);
+    }
+    private ListNode merge2List(ListNode[] lists,int x,int y){
+        if(x>y) return null;
+        if(x==y) return lists[x];
+        int mid = (x+y)/2;
+        ListNode left = merge2List(lists,x,mid);
+        ListNode right = merge2List(lists,mid+1,y);
+        ListNode head = new ListNode(-1);
+        ListNode p = head;
+        while(left!=null&&right!=null){
+            if(left.val<=right.val){
+                p.next = left;
+                left = left.next;
+            }else{
+                p.next = right;
+                right = right.next;
+            }
+            p =p.next;
+        }
+        if(left!=null) p.next = left;
+        if(right!=null) p.next = right;
+        return head.next;
+    }
+}
+
+3、利用队列尽量实现两两合并
+public class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        Queue<ListNode> queue = new LinkedList<ListNode>();
+        for(ListNode node:lists)
+            queue.add(node);
+        while(queue.size()>1)
+            queue.add(merge2List(queue.poll(),queue.poll()));
+        return queue.peek();
+    }
+    private ListNode merge2List(ListNode node1,ListNode node2){
+        ListNode head = new ListNode(-1);
+        ListNode p = head;
+        while(node1!=null&&node2!=null){
+            if(node1.val<=node2.val){
+                p.next = node1;
+                node1 = node1.next;
+            }else{
+                p.next = node2;
+                node2 = node2.next;
+            }
+            p = p.next;
+        }
+        if(node1!=null) p.next = node1;
+        if(node2!=null) p.next = node2;
+        return head.next;
+    }
+}
