@@ -10,20 +10,20 @@
 
 *Source      : https://leetcode.com/problems/n-queens-ii/*
 
-#### Specification 
+#### Prefix 
 Obviously there are two quite different solutions to this problem though both of them are belonging to backtracking:
 * one is to use stack to store the state for each row and check the new row for a viable column but when there is no suitable one, we back track to the previous row until the first;
 
 * the other is to use several arrays to store the status of the blocked columns and when the column of the current row is taken, we move forward and due to the recursion we will in the end search out all the suitable arrangements and return the total count.
 
-###### Using stack
+##### Using stack
 Before we truly get started, we have to figure out two basic methods to be used in the following solutions:
 * row-based traversing method which means we will check each row of the board and find the suitable columns for them; 
 * check the conflict by the *slope* calculated from the *row index* and *column index* of two different queens.
 
 To use a stack to record the viable arrangement for the handled rows and when the current row does not have a suitable arrangement, we will go back to select a another column for the previous row but when the previous row also reaches its end, we will look back further to the previous row and continue the process until we reach the end - the first row which meantime also reaches its end; when the column works, we will move further to the next row until the end but we will not stop till the last row reaches it end - the last column to find the all the viable arrangments and then go back to the previous row and the next column of the previous row and the like until first row reaches it end and at that time we will have collected all the viable arrangments and return the count.
 
-* Using DFS - a recursive method
+##### Using DFS - a recursive method
 In this method, we will use three different arrays to store the position arealdy blocked: the column, the forward slash and back slash direction and check the viability of each column for the current row and then move forward till the end which might turn out to be valid for some and invalid for the others but we will only collect the valid ones and return the total count.
 
 
