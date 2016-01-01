@@ -1,4 +1,4 @@
-### N-Queens problem
+#### N-Queens problem
 
 *Author      : LHearen*
 
@@ -10,7 +10,7 @@
 
 *Source      : https://leetcode.com/problems/n-queens-ii/*
 
-#### Prefix 
+##### Prefix 
 Obviously there are two quite different solutions to this problem though both of them are belonging to backtracking:
 * one is to use stack to store the state for each row and check the new row for a viable column but when there is no suitable one, we back track to the previous row until the first;
 
@@ -27,7 +27,7 @@ To use a stack to record the viable arrangement for the handled rows and when th
 In this method, we will use three different arrays to store the position arealdy blocked: the column, the forward slash and back slash direction and check the viability of each column for the current row and then move forward till the end which might turn out to be valid for some and invalid for the others but we will only collect the valid ones and return the total count.
 
 
-#### Code Part - C
+##### Code in C
 *AC with 4ms - using stack*
 ```
 #include <stdbool.h>
