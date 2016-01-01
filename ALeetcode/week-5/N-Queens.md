@@ -1,4 +1,4 @@
-### Max Points on a Line
+### N-Queens problem
 
 *Author      : LHearen*
 
