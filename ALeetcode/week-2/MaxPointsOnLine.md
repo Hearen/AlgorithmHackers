@@ -19,8 +19,8 @@ To completely solve this problem, we have to care for several details:
 1. calculating the slope might encounter underflow;
 2. overlapped points should be handled separately;
 
-#### Code
-* AC with 20ms
+#### Code Part - C
+*AC with 20ms*
 ```
 bool isEqual(struct Point pA, struct Point pB)
 {
@@ -81,5 +81,5 @@ int maxPoints(struct Point* points, int pointsSize)
 
 ```
 
-#### Final
+##### Additional
 There must be some better solutions to this problem, if you've got one, please never hesitate to inform me of that.
