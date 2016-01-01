@@ -1,9 +1,13 @@
 ### Max Points on a Line
 
 *Author      : LHearen*
+
 *E-mail      : LHearen@126.com*
+
 *Time        : 2015-12-29 20:30*
+
 *Description : Given n points on a 2D plane, find the maximum number of points that lie on the same straight line.*
+
 *Source      : https://leetcode.com/problems/max-points-on-a-line/*
 
 #### Specification 
