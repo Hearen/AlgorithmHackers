@@ -1,21 +1,21 @@
-# Max Points on a Line
+### Max Points on a Line
 
-* Author      : LHearen
-* E-mail      : LHearen@126.com
-* Time        : 2015-12-29 20:30
-* Description : Given n points on a 2D plane, find the maximum number of points that lie on the same straight line.
-* Source      : https://leetcode.com/problems/max-points-on-a-line/
+* Author      : LHearen *
+* E-mail      : LHearen@126.com *
+* Time        : 2015-12-29 20:30 *
+* Description : Given n points on a 2D plane, find the maximum number of points that lie on the same straight line. *
+* Source      : https://leetcode.com/problems/max-points-on-a-line/ *
 
-## Specification 
+#### Specification 
 One intrinsic solution to this problem is to use three loops to traverse and find them all, during which we are going to find the line equation determined by two points and then check the last one in the innermost loop; but using two points to get the line equation is quite inconvenient and inefficient so we need to search for another method that can be used more easily - at last we find out determine whether three points in one line or not can simply determined by slope and one fixed point, by the way the slope must be calculated with the fixed point.
 
-### Attention
+#### Attention
 To completely solve this problem, we have to care for several details:
 
 1. calculating the slope might encounter underflow;
 2. overlapped points should be handled separately;
 
-### Code
+#### Code
 * AC with 20ms
 ```
 bool isEqual(struct Point pA, struct Point pB)
@@ -77,5 +77,5 @@ int maxPoints(struct Point* points, int pointsSize)
 
 ```
 
-## Final
+#### Final
 There must be some better solutions to this problem, if you've got one, please never hesitate to inform me of that.
