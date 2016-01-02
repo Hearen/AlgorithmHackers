@@ -16,7 +16,7 @@ void find(int row, int n, int* rows, bool* cols, bool* fslash, bool* bslash, cha
         boards[*count] = (char**)malloc(sizeof(char*)*n);
         for(int i = 0; i < n; i++)
         {
-            boards[*count][i] = (char*)malloc(sizeof(char)*n);
+            boards[*count][i] = (char*)malloc(sizeof(char)*(n+1));
             for(int j = 0; j < n; j++)
                 boards[*count][i][j] = '.';
             boards[*count][i][n] = '\0';
