@@ -25,23 +25,13 @@ void find(int row, int n, int* rows, bool* cols, bool* fslash, bool* bslash, cha
         {
             boards[*count][i][rows[i]] = 'Q';
         }
-        /*for(int i = 0; i < n; i++)*/
-        /*{*/
-            /*for(int j = 0; j < n; j++)*/
-                /*printf("%c\t", boards[*count][i][j]);*/
-            /*printf("\n");*/
-        /*}*/
-        /*printf("count: %d\n", *count);*/
         (*count)++;
         return;
     }
     for(int i = 0; i < n; i++)
     {
-        printf("inside loop i: %d\n", i);
-        printf("col: %d\tfslash: %d\tbslash: %d\n", cols[i], fslash[i], bslash[i]);
         if(cols[i] && fslash[row+i] && bslash[row+n-1-i])
         {
-            printf("viable column: %d\n", i);
             cols[i] = fslash[row+i] = bslash[row+n-1-i] = false;
             rows[row] = i;
             find(row+1, n, rows, cols, fslash, bslash, boards, count);
@@ -80,8 +70,7 @@ int main(int argc, char *argv[])
         printf("board No. %d\n", i);
         for(int row = 0; row < n; row++)
         {
-            for(int col = 0; col < n; col++)
-                printf("%c\t", boards[i][row][col]);
+            printf("%s\t", boards[i][row]);
             printf("\n");
         }
         printf("\n\n\n");
