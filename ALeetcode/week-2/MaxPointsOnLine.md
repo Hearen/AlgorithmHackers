@@ -82,4 +82,4 @@ int maxPoints(struct Point* points, int pointsSize)
 ```
 
 ##### Additional
-There must be some better solutions to this problem, if you've got one, please never hesitate to inform me of that.
+There must be some better solutions to this problem, if you've got one, please never hesitate to inform me of that, so many thanks in advance!
