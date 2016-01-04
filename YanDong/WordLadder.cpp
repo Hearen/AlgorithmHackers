@@ -164,6 +164,35 @@ public:
         return ret;
 
     }
+    int ladderLength(string beginWord, string endWord, unordered_set<string>& wordList){
+        queue<string> q;
+        q.push(beginWord);
+
+        unordered_map<string,int> dist;
+        dist.insert(pair<string,int>(beginWord,0));
+
+        while(!q.empty()){
+            string cur = q.front();
+            q.pop();
+            int cur_dist = (dist.find(cur))->second;
+            //cout<<cur_dist<<endl;
+            for(int i = 0;i<cur.size();++i){
+                for(int j = 'a';j<='z';++j){
+                    if(cur[i] == j) continue;
+                    string tmp = cur;
+                    tmp[i] = j;
+                    if(cur == endWord)
+                        return cur_dist + 1;
+                    if(wordList.find(tmp) != wordList.end() && dist.find(tmp)==dist.end()){
+
+                        dist.insert(pair<string,int>(tmp,cur_dist+1));
+                        q.push(tmp);
+                    }
+                }
+            }
+
+        }
+    }
 };
 int main(){
     Solution sol;
