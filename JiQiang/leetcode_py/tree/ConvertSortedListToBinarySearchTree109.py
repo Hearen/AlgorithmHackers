@@ -30,17 +30,19 @@ class Solution(object):
         if begin > end:
             return  None
         mid = (begin+end)//2
-        leftTree = self.buildBST(self.node,begin,mid-1)
+        leftTree = self.buildBST(begin,mid-1)
         root = TreeNode(self.node.val)
         root.left = leftTree
         self.node = self.node.next
-        root.right = self.buildBST(self.node,mid+1,end)
+        root.right = self.buildBST(mid+1,end)
         return  root
 
 if __name__ == '__main__':
 
     so = Solution()
-    root = TreeNode.buildBinaryTreeFromSer([1,2,3])
+    head = ListNode.getOneListNode([1,2,3,4,5])
+    root = so.sortedListToBST(head)
+    TreeNode.inOrderRec(root)
 
 
 
