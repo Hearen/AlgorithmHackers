@@ -24,6 +24,7 @@ class Solution
             return ladderLength(bList, eList, wordList, 1);
         }
     private:
+        //If there is no '&' before set, the time cost will be tripled;
         int ladderLength(unordered_set<string>& bList, unordered_set<string>& eList, unordered_set<string>& wordList, int len)
         {
             if(bList.empty())
@@ -54,42 +55,46 @@ class Solution
         }
 };
 
-//AC - 64ms;
+//AC - 60ms;
 class Solution
 {
     public:
         int ladderLength(string bWord, string eWord, unordered_set<string>& wordList)
         {
-            unordered_set<string> bSet, eSet, *set0, *set1;
-            bSet.insert(bWord);
-            eSet.insert(eWord);
+            if(bWord==eWord)
+                return 1;
+            unordered_set<string> bList, eList, tmpList;
+            bList.insert(bWord);
+            eList.insert(eWord);
+            wordList.erase(bWord);
+            wordList.erase(eWord);
             int len = 1;
             int wLen = bWord.size();
-            while(!bSet.empty() && !eSet.empty())
+            while(!bList.empty()&&!eList.empty())
             {
-                (bSet.size() <= eSet.size()) ? (set0=&bSet, set1=&eSet) : (set0=&eSet, set1=&bSet);
-                unordered_set<string> tmpSet;
-                len++;
-                for(std::unordered_set<string>::iterator it=set0->begin(); it!=set0->end(); it++)
+                if(bList.size() > eList.size())
+                    bList.swap(eList);
+                for(auto it=bList.begin(); it!=bList.end(); it++)
                 {
-                    string cur = *it;
-                    for(int i=0; i!=wLen; i++)
+                    string cur=*it;
+                    for(int i=0; i<wLen; i++)
                     {
-                        char c0 = cur.at(i);
+                        char c0=cur[i];
                         for(char c='a'; c<='z'; c++)
                         {
-                            cur.at(i) = c;
-                            if(set1->count(cur)) return len;
+                            cur[i]=c;
+                            if(eList.count(cur)) return len+1;
                             if(wordList.count(cur))
                             {
-                                tmpSet.insert(cur);
-                                dict.erase(cur);
+                                tmpList.insert(cur);
+                                wordList.erase(cur);
                             }
                         }
-                        cur.at(i) = c0;
-                    }    
+                        cur[i]=c0;
+                    }
                 }
-                set0->swap(tmpSet);
+                bList.swap(tmpList);
+                len++;
             }
             return 0;
         }
