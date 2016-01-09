@@ -63,7 +63,7 @@ class Solution
         {
             if(bWord==eWord)
                 return 1;
-            unordered_set<string> bList, eList, tmpList;
+            unordered_set<string> bList, eList;
             bList.insert(bWord);
             eList.insert(eWord);
             wordList.erase(bWord);
@@ -74,6 +74,7 @@ class Solution
             {
                 if(bList.size() > eList.size())
                     bList.swap(eList);
+                unordered_set<string> tmpList; //instead of declaring just one global and clear itself here, using this method to initialize a bran-new object will save some cost - space for time;
                 for(auto it=bList.begin(); it!=bList.end(); it++)
                 {
                     string cur=*it;
