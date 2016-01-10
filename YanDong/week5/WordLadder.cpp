@@ -164,11 +164,16 @@ public:
         return ret;
 
     }
+
+    /*AC 但是效率不高*/
+    class Solution {
+public:
+
     int ladderLength(string beginWord, string endWord, unordered_set<string>& wordList){
         queue<string> q;
         q.push(beginWord);
 
-        unordered_map<string,int> dist;
+        map<string,int> dist;
         dist.insert(pair<string,int>(beginWord,0));
 
         while(!q.empty()){
@@ -186,6 +191,42 @@ public:
                     if(wordList.find(tmp) != wordList.end() && dist.find(tmp)==dist.end()){
 
                         dist.insert(pair<string,int>(tmp,cur_dist+1));
+                        q.push(tmp);
+                    }
+                }
+            }
+
+        }
+    }
+};
+/*更改数据结构，效率有一丝的提升*/
+    int ladderLength(string beginWord, string endWord, unordered_set<string>& wordList){
+        queue<string> q;
+        q.push(beginWord);
+
+        queue<int> distQueue;
+
+        distQueue.push(0);
+        //map<string,int> dist;
+        //dist.insert(pair<string,int>(beginWord,0));
+
+        while(!q.empty()){
+            string cur = q.front();
+            q.pop();
+            int cur_dist = distQueue.front();
+            distQueue.pop();
+            //cout<<cur_dist<<endl;
+            for(int i = 0;i<cur.size();++i){
+                for(int j = 'a';j<='z';++j){
+                    if(cur[i] == j) continue;
+                    string tmp = cur;
+                    tmp[i] = j;
+                    if(cur == endWord)
+                        return cur_dist + 1;
+                    unordered_set<string>::iterator it = wordList.find(tmp);
+                    if(it != wordList.end()){
+                        wordList.erase(it);
+                        distQueue.push(cur_dist + 1);
                         q.push(tmp);
                     }
                 }
