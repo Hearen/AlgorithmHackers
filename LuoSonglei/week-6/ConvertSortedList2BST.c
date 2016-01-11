@@ -19,7 +19,8 @@ struct TreeNode
     struct TreeNode* right;
 };
 
-//Currently the tested cases are all passed but the Runtime Error just came out from nowhere;
+//Currently the tested cases are all passed but 
+//the Runtime Error just came out from nowhere;
 struct TreeNode* sortedListToBST(struct ListNode* head)
 {
     if(head == NULL)
