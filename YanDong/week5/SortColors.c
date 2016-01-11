@@ -2,13 +2,12 @@
 void sortColors(int* nums, int numsSize) {
     int i = 0,j = numsSize-1,k = 0;
     int tmp;
-    while(k<numsSize){
+    while(k<=j){
         if(nums[k] == 0){
             if(k>i) swap(nums,i++,k);
             else k+=1;
         }else if(nums[k]==2){
-            if(k < j) swap(nums,j--,k);
-            else k+=1;
+            swap(nums,j--,k);
         }else{
             k+=1;
         }
