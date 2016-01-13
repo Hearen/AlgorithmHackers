@@ -32,6 +32,8 @@ void shellSort(int *nums, int size)
 }
 
 //AC - 4ms;
+//http://stackoverflow.com/questions/1622532/algorithm-to-find-next-greater-permutation-of-a-given-string
+//Get the next bigger permutation;
 int** permuteUnique(int* nums, int size, int* returnSize)
 {
     *returnSize = 0;
