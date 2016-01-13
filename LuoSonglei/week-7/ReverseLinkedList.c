@@ -13,7 +13,7 @@ struct ListNode
 };
 
 //AC - 0ms;
-struct ListNode* reverseList(struct ListNode *head)
+struct ListNode* reverseList0(struct ListNode *head)
 {
     struct ListNode *t0 = head;
     struct ListNode *t1 = (struct ListNode*)malloc(sizeof(struct ListNode));
@@ -26,4 +26,18 @@ struct ListNode* reverseList(struct ListNode *head)
         t1->next = t0;
     }
     return t1->next;
+}
+
+//AC - 0ms;
+struct ListNode* reverseList1(struct ListNode *head)
+{
+    struct ListNode *pre = NULL, *cur = head, *next = NULL;
+    while(cur)
+    {
+        next = cur->next;
+        cur->next = pre;
+        pre = cur;
+        cur = next;
+    }
+    return pre;
 }
