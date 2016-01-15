@@ -39,6 +39,7 @@ int majorityElement0(int* nums, int size)
 }
 
 //AC - 8ms;
+//Boyer-Moore majority vote algorithm;
 int majorityElement1(int* nums, int size)
 {
     int majority = nums[0], count = 1;
