@@ -45,15 +45,10 @@ int majorityElement1(int* nums, int size)
     int majority = nums[0], count = 1;
     for(int i = 1; i < size; i++)
     {
-        if(nums[i] == majority)
-            count++;
-        else if(nums[i] != majority && count > 0)
-            count--;
+        if(count == 0 || nums[i] == majority)
+            count++, majority = nums[i];
         else
-        {
-            majority = nums[i];
-            count = 1;
-        }
+            count--;
     }
     return majority;
 }
