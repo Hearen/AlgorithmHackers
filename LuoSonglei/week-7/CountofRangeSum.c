@@ -5,6 +5,7 @@ Time        : 2016-01-14 20:42
 Description : 
 Source      : https://leetcode.com/problems/count-of-range-sum/
 *******************************************/
+#include <limits.h>
 void swap(long*p, long*q)
 {
     long t = *p;
@@ -32,7 +33,7 @@ void swiftSort(long* arr, int low, int high)
         swiftSort(arr, l, high);
 }
 
-int indexOf(long* arr, int size, float a)
+int indexOf(long* arr, int size, double a)
 {
     int l = 0, r = size-1, m;
     while(l <= r)
@@ -67,9 +68,13 @@ int counter(long* nums, int l, int h, int low, int high)
     return counter(nums, l, m, low, high) + counter(nums, m+1, h, low, high) + count;
 }
 
+//AC - 72ms;
 int countRangeSum(int* nums, int size, int low, int high)
 {
     if(size == 0)
         return 0;
-    return counter(nums, 0, size-1, low, high);
+    long *a = (long*)malloc(sizeof(long)*size);
+    for(int i = 0; i < size; i++)
+        nums[i] == INT_MIN? (a[i] = -1*INT_MIN) : (a[i] = nums[i]);
+    return counter(a, 0, size-1, low, high);
 }
