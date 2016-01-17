@@ -1,7 +1,17 @@
-package linkedlist.merge.twolist;
+#69. Sqrt(x)
 
-import linkedlist.ListNode;
-public class Solution {
+## Problem
+
+Merge two sorted linked lists and return it as a new list. The new list should be made by splicing together the nodes of the first two lists.
+
+tag:
+- linked list
+
+## Solution
+
+**java**
+
+```java
 	public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
 		ListNode dummyHead = new ListNode(0);
 		ListNode p = dummyHead;
@@ -21,8 +31,4 @@ public class Solution {
 			p.next = l2;
 		return dummyHead.next;
 	}
-}
-
-
-
-
+```

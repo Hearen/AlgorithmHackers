@@ -1,15 +1,17 @@
 # 46. Permutations
 
-## Front-matter
----
-title: 46. Permutations
-description: "无重复数的全排列生成算法"
+## Problem
+
+Given a collection of distinct numbers, return all possible permutations.
+
+For example,
+[1,2,3] have the following permutations:
+[1,2,3], [1,3,2], [2,1,3], [2,3,1], [3,1,2], and [3,2,1].
+
 tags:
 - backtracking
 - 排列与组合
-categories:
-- week7
----
+
 
 
 ## Solution
@@ -21,12 +23,12 @@ categories:
 - 轮转法
 
 ### 递归
-n个不重复数的全排列:
-n=1 即为当前排列
+n个不重复数的全排列:  
+n=1 即为当前排列  
 n>1 先排第一位 则P<sub>n</sub> = iP<sub>n-1</sub> (i=1,2,3,...n)
 
-**golang**
-```golang
+**go**
+```go
 func Permtuate(res *[][]int, nums []int, begin int, end int) {
 	if begin == end {
 		*res = append(*res, nums)

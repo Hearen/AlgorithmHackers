@@ -1,6 +1,22 @@
-package math;
+#69. Sqrt(x)
 
-public class Solution {
+## Problem
+
+Implement int sqrt(int x).
+
+Compute and return the square root of x.
+
+Subscribe to see which companies asked this question
+
+tag:
+- math
+- binary search
+
+## Solution
+
+**java**
+
+```java
 	public int mySqrt(int x) {
 		long l = 0, r = x / 2 + 1;
 
@@ -15,4 +31,4 @@ public class Solution {
 		}
 		return (int) r;
 	}
-}
+```

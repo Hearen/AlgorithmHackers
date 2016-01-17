@@ -1,9 +1,19 @@
-package linkedlist.merge.klist;
+#69. Sqrt(x)
 
-import java.util.List;
+## Problem
 
-import linkedlist.ListNode;
+Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity.
 
+tag:
+- divide and conquer
+- linked list
+- heap
+
+## Solution
+
+**java**
+
+```java
 public class Solution {
 
 	public ListNode mergeKLists(ListNode[] lists) {
@@ -45,3 +55,4 @@ public class Solution {
 		return dummyHead.next;
 	}
 }
+```
