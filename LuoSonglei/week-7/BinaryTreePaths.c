@@ -12,11 +12,14 @@ struct TreeNode
     int val;
     struct TreeNod *left, *right;
 };
-char* int2Str(int a, int* len)
+char* int2Str(int a)
 {
-    int sign = (a>=0)? 1 : -1;
+    int minus = 0;
     if(a < 0)
+    {
+        minus = 1;
         a *= -1;
+    }
     int index = 0;
     char* s = (char*)malloc(sizeof(char)*32);
     char* t = (char*)malloc(sizeof(char)*32);
@@ -26,13 +29,11 @@ char* int2Str(int a, int* len)
         a /= 10;
     }
     int j = 0;
-    if(sign == -1)
+    if(minus)
         s[j++] = '-';
     for(int i = 0; i < index; i++)
         s[j++] = t[index-i-1];
     s[j] = '\0';
-    printf("string: %s\n", s);
-    len = j;
     return s;
 }
 void traverse( struct TreeNode* root, struct TreeNode** stack, int top, char** sArr, int* count )
@@ -43,15 +44,14 @@ void traverse( struct TreeNode* root, struct TreeNode** stack, int top, char** s
         sArr[*count] = (char*)malloc(sizeof(char)*size);
         sArr[*count][0] = '\0';
         int index = 0;
-        int len = 0;
         int i = 0;
         for(; i < top; i++)
         {
-            char* s = int2Str(stack[i]->val, &len);
+            char* s = int2Str(stack[i]->val);
             strcat(sArr[*count], s);
             strcat(sArr[*count], "->");
         }
-        char* s = int2Str(stack[i]->val, &len);
+        char* s = int2Str(stack[i]->val);
         strcat(sArr[*count], s);
         (*count)++;
     }
@@ -72,7 +72,7 @@ void traverse( struct TreeNode* root, struct TreeNode** stack, int top, char** s
     }
 }
 
-//AC - 8ms;
+//AC - 4ms;
 char** binaryTreePaths( struct TreeNode* root, int* returnSize )
 {
     if(root == NULL)
