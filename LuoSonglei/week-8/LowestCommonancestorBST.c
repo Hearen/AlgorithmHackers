@@ -41,3 +41,17 @@ struct TreeNode* lowestCommonAncestor1( struct TreeNode* root, struct TreeNode* 
             return root;
     }
 }
+
+//AC - 24ms;
+struct TreeNode* lowestCommonAncestor2( struct TreeNode* root, struct TreeNode *p, struct TreeNode* q )
+{
+    if(!p) return q;
+    if(!q) return p;
+    if(!root || root == p || root == q) return root;
+    struct TreeNode *left = lowestCommonAncestor(root->left, p, q);
+    struct TreeNode *right = lowestCommonAncestor(root->right, p, q);
+    if(left&&right) return root;
+    if(!left) return right;
+    if(!right) return left;
+}
+
