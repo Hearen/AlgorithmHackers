@@ -44,11 +44,27 @@ void swiftSort(int* a, int low, int high)
 }
 
 //AC - 12ms;
-bool containsDuplicate(int* nums, int size)
+bool containsDuplicate1(int* nums, int size)
 {
     swiftSort(nums, 0, size-1);
     for(int i = 1; i < size; i++)
         if(nums[i] == nums[i-1])
+            return true;
+    return false;
+}
+
+//This method can only be used in limited range of 
+//array elements which should also be positive for indexing;
+bool containsDuplicate2(int* nums, int size)
+{
+    int max = 0;
+    for(int i = 0; i < size; i++)
+        if(nums[i] > max)
+            max = nums[i];
+    max++;
+    int* a = (int*)malloc(sizeof(int)*max);
+    for(int i = 0; i < size; i++)
+        if(a[nums[i]]++ > 0)
             return true;
     return false;
 }
