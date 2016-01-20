@@ -18,7 +18,7 @@ int countFactors(int a, int b)
 }
 
 //Time Limit Exceeded;
-//Wrong result;
+//Wrong Result;
 int trailingZeroes0(int n)
 {
     int count2 = 0;
