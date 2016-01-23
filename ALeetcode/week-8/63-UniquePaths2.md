@@ -27,7 +27,7 @@ To fully make use of the outstanding features of DP, we have to allocate an arra
 Both of them will cost O(row*column) in space and time complexity.
 
 ##### Code in C - 4ms;
-'''
+```
 int traverse(int** grid, int row, int col, int** arrs)
 {
     if(row < 0 || col < 0)
@@ -54,19 +54,17 @@ int uniquePathsWithObstacles1(int** grid, int rSize, int cSize)
         arrs[i] = (int*)malloc(sizeof(int)*cSize);
         for(int j = 0; j < cSize; j++)
             arrs[i][j] = -1;
-    
     }
     traverse(grid, rSize-1, cSize-1, arrs);
     return arrs[rSize-1][cSize-1];
-
 }
-'''
+```
 
 #### Solution 2 - Dynamic Programming
 As we can see, the previous solution will demand initialization before traversal and then in each recursion there will also require further function invoking, to further improve the performance and save time cost, we can have a try at Dynamic Programming which is a bottom-up method and the major clues are quite the same as the previous one.
 
 ##### Code in C - 0ms;
-'''
+```
 //AC - 0ms;
 int uniquePathsWithObstacles0(int** grid, int rSize, int cSize)
 {
@@ -95,7 +93,7 @@ int uniquePathsWithObstacles0(int** grid, int rSize, int cSize)
         }
     return arrs[rSize-1][cSize-1];
 }
-'''
+```
 
 ##### Additional
 There must be some better solutions to this problem, if you\'ve got one, please never hesitate to inform me of that, so many thanks in advance!
