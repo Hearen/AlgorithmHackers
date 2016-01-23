@@ -96,4 +96,4 @@ int uniquePathsWithObstacles0(int** grid, int rSize, int cSize)
 ```
 
 ##### Additional
-There must be some better solutions to this problem, if you\'ve got one, please never hesitate to inform me of that, so many thanks in advance!
+There must be some better solutions to this problem, if you've got one, please never hesitate to inform me of that, so many thanks in advance!
