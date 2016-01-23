@@ -20,11 +20,11 @@ tags:
 *Source      : https://leetcode.com/problems/unique-paths-ii/*
 
 #### Prefix
-    There is a direct way as UniquePaths, but that will definitely make the solution hard to realize and the complexity in space and time cost is rather high. At this very moment, we can spot one special feature in this problem, over-lapping sub-problems and the direct way will take lots of time to do the same sub-problems and that is why it will cost so much. So to improve the performance, we should try to store the handled sub-problems for later use and as a result we can try *Memoization* to hack it first; since *Memoization* can be simply used, then the *Dynamic Programming* might be helpful, so we will have the second solution.
+There is a direct way as UniquePaths, but that will definitely make the solution hard to realize and the complexity in space and time cost is rather high. At this very moment, we can spot one special feature in this problem, over-lapping sub-problems and the direct way will take lots of time to do the same sub-problems and that is why it will cost so much. So to improve the performance, we should try to store the handled sub-problems for later use and as a result we can try *Memoization* to hack it first; since *Memoization* can be simply used, then the *Dynamic Programming* might be helpful, so we will have the second solution.
 
 #### Solution 1 - Memoization
-    To fully make use of the outstanding features of DP, we have to allocate an array to store the states for each position and initialize them to -1 for checking whether it is handled already or not, and when it is handled, we can then directly use it to further decrease time cost. As we can easily understand, when there is a block in the **position** the path will be set as 0 and all others will be determined by the left and upper position and before we continue we will record the current result to the array for re-use.
-    Both of them will cost O(row*column) in space and time complexity.
+To fully make use of the outstanding features of DP, we have to allocate an array to store the states for each position and initialize them to -1 for checking whether it is handled already or not, and when it is handled, we can then directly use it to further decrease time cost. As we can easily understand, when there is a block in the **position** the path will be set as 0 and all others will be determined by the left and upper position and before we continue we will record the current result to the array for re-use.
+Both of them will cost O(row*column) in space and time complexity.
 
 ##### Code in C - 4ms;
 '''
@@ -63,7 +63,7 @@ int uniquePathsWithObstacles1(int** grid, int rSize, int cSize)
 '''
 
 #### Solution 2 - Dynamic Programming
-    As we can see, the previous solution will demand initialization before traversal and then in each recursion there will also require further function invoking, to further improve the performance and save time cost, we can have a try at Dynamic Programming which is a bottom-up method and the major clues are quite the same as the previous one.
+As we can see, the previous solution will demand initialization before traversal and then in each recursion there will also require further function invoking, to further improve the performance and save time cost, we can have a try at Dynamic Programming which is a bottom-up method and the major clues are quite the same as the previous one.
 
 ##### Code in C - 0ms;
 '''
@@ -80,13 +80,11 @@ int uniquePathsWithObstacles0(int** grid, int rSize, int cSize)
             {
                 arrs[i][j] = 1;
                 continue;
-            
             }
             if(grid[i][j] == 1)
             {
                 arrs[i][j] = 0;
                 continue;
-            
             }
             int count = 0;
             if(j-1 > -1)
@@ -94,12 +92,10 @@ int uniquePathsWithObstacles0(int** grid, int rSize, int cSize)
             if(i-1 > -1)
                 count += arrs[i-1][j];
             arrs[i][j] = count;
-        
         }
     return arrs[rSize-1][cSize-1];
-
 }
 '''
 
 ##### Additional
-    There must be some better solutions to this problem, if you\'ve got one, please never hesitate to inform me of that, so many thanks in advance!
+There must be some better solutions to this problem, if you\'ve got one, please never hesitate to inform me of that, so many thanks in advance!
