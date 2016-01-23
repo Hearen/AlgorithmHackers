@@ -13,13 +13,13 @@ tags:
 
 *E-mail      : LHearen@126.com*
 
-*Time        : Sat Jan 23 20:53:00 CST 2016
+*Time        : Sat Jan 23 20:53:00 CST 2016*
 
 *Description : Follow up for Unique Paths: Now consider if some obstacles are added to the grids. How many unique paths would there be? An obstacle and empty space is marked as 1 and 0 respectively in the grid.*
 
 *Source      : https://leetcode.com/problems/unique-paths-ii/*
 
-#### Prefix
+#### Specification
 There is a direct way as UniquePaths, but that will definitely make the solution hard to realize and the complexity in space and time cost is rather high. At this very moment, we can spot one special feature in this problem, over-lapping sub-problems and the direct way will take lots of time to do the same sub-problems and that is why it will cost so much. So to improve the performance, we should try to store the handled sub-problems for later use and as a result we can try *Memoization* to hack it first; since *Memoization* can be simply used, then the *Dynamic Programming* might be helpful, so we will have the second solution. 
 
 Both of them will cost O(row*column) in space and time complexity.
