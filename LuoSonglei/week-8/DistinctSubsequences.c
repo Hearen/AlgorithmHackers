@@ -13,7 +13,7 @@ int numDistinct(char* s, char* t)
     int *cur = (int*)malloc(sizeof(int)*(sLen+1));
     for(int i = 0; i <= sLen; i++)
         pre[i] = 1;
-    for(int i = 0; i <= tLen; i++)
+    for(int i = 1; i <= tLen; i++)
     {
         for(int j = 1; j <= sLen; j++)
         {
