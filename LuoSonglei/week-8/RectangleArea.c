@@ -8,11 +8,13 @@ Source      : https://leetcode.com/problems/rectangle-area/
 //AC - 20ms;
 int computeArea(int a, int b, int c, int d, int e, int f, int g, int h)
 {
-    if(a>=g || c<=e || b>=h || d<=f)
-        return (c-a)*(d-b)+(g-e)*(h-f);
+    int size = (c-a)*(d-b)+(g-e)*(h-f);
+    if(a>=g || c<=e || b>=h || d<=f)//without overlap;
+        return size; 
+    //overlapped area;
     int leftMax = a > e? a : e;
     int bottomMax = b > f? b : f;
     int rightMin = c < g? c : g;
     int topMin = d < h? d : h;
-    return (c-a)*(d-b)+(g-e)*(h-f) - (rightMin-leftMax)*(topMin-bottomMax);
+    return size - (rightMin-leftMax)*(topMin-bottomMax);
 }
