@@ -43,7 +43,7 @@ bool traverse(struct TreeNode** stack, int top, int sum )
 //the testing results are weird;
 //the leaf node is that node without any child;
 //AC - 8ms;
-bool hasPathSum( struct TreeNode* root, int sum )
+bool hasPathSum0( struct TreeNode* root, int sum )
 {
     if(root == NULL)
         return false;
@@ -52,4 +52,28 @@ bool hasPathSum( struct TreeNode* root, int sum )
     int top = -1;
     stack[++top] = root;
     return traverse(stack, top, sum);
+}
+
+
+
+//AC - 8ms;
+bool hasPathSum1( struct TreeNode* root, int sum )
+{
+    if(!root)
+        return false;
+    if(root->left==NULL && root->right==NULL && root->val==sum)
+        return true;
+    int newSum = sum-root->val;
+    return hasPathSum(root->left, newSum) || hasPathSum(root->right, newSum);
+}
+
+//AC - 4ms;
+bool hasPathSum2( struct TreeNode* root, int sum )
+{
+    if(!root)
+        return false;
+    int newSum = sum-root->val;
+    if(newSum==0 && root->left==NULL && root->right==NULL)
+        return true;
+    return hasPathSum(root->left, newSum) || hasPathSum(root->right, newSum);
 }
