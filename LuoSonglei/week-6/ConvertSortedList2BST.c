@@ -19,8 +19,7 @@ struct TreeNode
     struct TreeNode* right;
 };
 
-//Currently the tested cases are all passed but 
-//the Runtime Error just came out from nowhere;
+//AC - 12ms;
 struct TreeNode* sortedListToBST(struct ListNode* head)
 {
     if(head == NULL)
@@ -28,6 +27,7 @@ struct TreeNode* sortedListToBST(struct ListNode* head)
     if(head->next == NULL)
     {
         struct TreeNode *t = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+        t->right = t->left = NULL;
         t->val = head->val;
         return t;
     }
@@ -40,25 +40,6 @@ struct TreeNode* sortedListToBST(struct ListNode* head)
     }
     struct ListNode *left=head, *right=slow->next;
     slow->next = NULL;
-    #ifdef FOO
-        struct ListNode *p = left, *q = right;
-        printf("left part: \t");
-        while(p != NULL)
-        {
-            printf("%d\t", p->val);
-            p = p->next;
-                                
-        }
-        printf("\n");
-        printf("right part: \t");
-        while(q != NULL)
-        {
-            printf("%d\t", q->val);
-            q = q->next;
-        }
-        printf("\n");
-        //printf("left: %d\tcenter: %d\tright: %d\n", left.next->val, right.next->val, right.next->next->val);
-    #endif
     struct TreeNode* root = (struct TreeNode*)malloc(sizeof(struct TreeNode));
     root->val = right->val;
     root->left = sortedListToBST(left);
