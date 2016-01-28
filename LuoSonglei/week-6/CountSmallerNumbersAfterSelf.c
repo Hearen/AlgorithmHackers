@@ -5,28 +5,56 @@ Time        : 2016-01-11 08:54
 Description : 
 Source      : https://leetcode.com/problems/count-of-smaller-numbers-after-self/
 *******************************************/
-//Time Limit Exceeded; 
+#include <stdlib.h>
+struct MyTreeNode
+{
+    int val, lessCount;
+    struct MyTreeNode *left, *right;
+};
+
+typedef struct MyTreeNode TreeNode;
+
+TreeNode* makeTreeNode(int val)
+{
+    TreeNode *node = (TreeNode*)malloc(sizeof(TreeNode));
+    node->val = val;
+    node->lessCount = 0;
+    node->left = node->right = NULL;
+    return node;
+}
+
+void insert(TreeNode* root, int val, int *lessCount)
+{
+    if(val < root->val)
+    {
+        root->lessCount++;
+        if(NULL == root->left)
+            root->left = makeTreeNode(val);
+        else
+            insert(root->left, val, lessCount);
+    }
+    else 
+    {
+        *lessCount += root->lessCount;
+        if(val > root->val)
+            (*lessCount)++;
+        if(NULL == root->right)
+            root->right = makeTreeNode(val);
+        else
+            insert(root->right, val, lessCount);
+    }
+}
+
+//AC - 20ms;
 int* countSmaller(int* nums, int size, int* returnSize)
 {
-    int* counts = (int*)malloc(sizeof(int)*size);
     *returnSize = size;
-    for(int i = 0; i < size; i++)
-        counts[i] = 0;
+    if(size == 0)
+        return NULL;
+    int *count = (int*)malloc(sizeof(int)*size);
+    memset(count, 0, sizeof(int)*size);
+    TreeNode *root = makeTreeNode(nums[size-1]);
     for(int i = size-2; i > -1; i--)
-    {
-        int cur = i;
-        for(int j = i+1; j < size; j++)
-        {
-            if(nums[cur] > nums[j])
-            {
-                counts[cur]++;
-                if(nums[j] > 0)
-                {
-                    counts[cur] += counts[j];
-                    break;
-                }
-            }
-        }
-    }
-    return counts;
+        insert(root, nums[i], count+i);
+    return count;
 }
