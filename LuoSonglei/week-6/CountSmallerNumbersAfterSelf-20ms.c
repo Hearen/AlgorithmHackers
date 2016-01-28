@@ -8,10 +8,9 @@ Source      : https://leetcode.com/problems/count-of-smaller-numbers-after-self/
 #include <stdlib.h>
 struct MyTreeNode
 {
-    int val, lessCount;
+    int val, lessCount, count;
     struct MyTreeNode *left, *right;
 };
-
 typedef struct MyTreeNode TreeNode;
 
 TreeNode* makeTreeNode(int val)
@@ -19,13 +18,15 @@ TreeNode* makeTreeNode(int val)
     TreeNode *node = (TreeNode*)malloc(sizeof(TreeNode));
     node->val = val;
     node->lessCount = 0;
+    node->count = 1;
     node->left = node->right = NULL;
     return node;
 }
 
 void insert(TreeNode* root, int val, int *lessCount)
 {
-    if(val < root->val)
+    int curVal = root->val;
+    if(val < curVal)
     {
         root->lessCount++;
         if(NULL == root->left)
@@ -33,15 +34,19 @@ void insert(TreeNode* root, int val, int *lessCount)
         else
             insert(root->left, val, lessCount);
     }
-    else 
+    else if(val > curVal)
     {
-        *lessCount += root->lessCount;
-        if(val > root->val)
-            (*lessCount)++;
+        *lessCount += root->lessCount + root->count;
         if(NULL == root->right)
             root->right = makeTreeNode(val);
         else
             insert(root->right, val, lessCount);
+    }
+    else
+    {
+        *lessCount += root->lessCount;
+        root->count++;
+        return ;
     }
 }
 
@@ -58,3 +63,4 @@ int* countSmaller(int* nums, int size, int* returnSize)
         insert(root, nums[i], count+i);
     return count;
 }
+
