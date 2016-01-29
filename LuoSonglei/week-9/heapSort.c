@@ -42,6 +42,18 @@ void heapSort(int* a, int size)
     }
 }
 
+void headSort1(int *a, int l, int r)
+{
+    int size = r-l+1;
+    for(int k=size/2; k >= 0; k--)
+        fixDown(a+l, size, k);
+    while(size > 1)
+    {
+        swap(a+l, a+l+size-1);
+        fixDown(a+l, --size, 0);
+    }
+}
+
 void main()
 {
     int numbers[10000];
