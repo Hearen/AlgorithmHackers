@@ -31,7 +31,7 @@ void fixDown(int* a, int size, int k)
 }
 
 
-void heapSort(int* a, int size)
+void heapSort0(int* a, int size)
 {
     for(int k=size/2+1; k >= 0; k--)
         fixDown(a, size, k);
