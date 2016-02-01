@@ -2,7 +2,8 @@
 Author      : LHearen
 E-mail      : LHearen@126.com
 Time        : 2016-01-29 09:30
-Description : Used to achieve heap sorting;
+Description : 
+Source      : 
 *******************************************/
 void swap(int *p, int *q)
 {
