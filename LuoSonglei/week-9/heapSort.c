@@ -2,7 +2,10 @@
 Author      : LHearen
 E-mail      : LHearen@126.com
 Time        : 2016-01-29 09:30
-Description : Used to achieve heap sorting;
+Description : Used to achieve heap sorting, 
+		this method is quicker than 
+		normal methods but slower than
+		quick and merge sorting;
 *******************************************/
 void swap(int *p, int *q)
 {
