@@ -26,7 +26,7 @@ void fixDown(int* a, int size, int k)
     while(2*k < size)
     {
         j = 2*k;
-        if(j < size-1 && a[j] < a[j+1]) j++;
+        if(j < size-1 && a[j] < a[j+1]) j++;//select the bigger one;
         if(a[k] >= a[j]) break;
         swap(a+k, a+j), k = j;
     }
@@ -44,6 +44,7 @@ void heapSort0(int* a, int size)
     }
 }
 
+//More portable;
 void headSort1(int *a, int l, int r)
 {
     int size = r-l+1;
