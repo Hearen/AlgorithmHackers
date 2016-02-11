@@ -6,7 +6,7 @@ Description :
 Source      : https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/
 *******************************************/
 //AC - 4ms;
-int maxProfit(int* prices, int size)
+int maxProfit0(int* prices, int size)
 {
     if(size <= 1)
         return 0;
@@ -38,4 +38,28 @@ int maxProfit(int* prices, int size)
             profit = t;
     }
     return lProfits[size-1] > profit ? lProfits[size-1] : profit;
+}
+
+//AC - 4ms;
+#include <limits.h>
+#define MAX(a, b) (a)>(b)? (a):(b)
+int maxProfit(int* prices, int size)
+{
+    int k = 2;
+    int *holds = (int*)malloc(sizeof(int)*(k+1));
+    int *solds = (int*)malloc(sizeof(int)*(k+1));
+    memset(solds, 0, sizeof(int)*(k+1));
+    for(int i = 0; i <= k; i++)
+        holds[i] = INT_MIN;
+    int cur = 0;
+    for(int i=0; i < size; i++)
+    {
+        cur = prices[i];
+        for(int j = k; j > 0; j--)
+        {
+            solds[j] = MAX(solds[j], holds[j]+cur);
+            holds[j] = MAX(holds[j], solds[j-1]-cur);
+        }
+    }
+    return solds[k];
 }
