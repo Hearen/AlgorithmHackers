@@ -7,6 +7,7 @@ Source      : https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with
 *******************************************/
 #include <limits.h>
 //AC - 4ms;
+//https://leetcode.com/discuss/71354/share-my-thinking-process
 #define MAX(a, b) (a)>(b)? (a):(b)
 int maxProfit(int* prices, int size)
 {
