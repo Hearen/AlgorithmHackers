@@ -6,7 +6,7 @@ Description :
 Source      : https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/
 *******************************************/
 //AC - 4ms;
-int maxProfit(int* prices, int size)
+int maxProfit0(int* prices, int size)
 {
     if(size == 0)
         return 0;
@@ -24,6 +24,20 @@ int maxProfit(int* prices, int size)
             if(i < size-1)//update the min searching for the next range;
                 min = prices[i+1];
         }
+    }
+    return profit;
+}
+
+//AC - 4ms;
+int maxProfit(int* prices, int size)
+{
+    if(size <= 1)
+        return 0;
+    int profit = 0;
+    for(int i = 1; i < size; i++)
+    {
+        if(prices[i] > prices[i-1])
+            profit += prices[i]-prices[i-1];
     }
     return profit;
 }
