@@ -57,8 +57,15 @@ void main()
     /*sort(numbers, SIZE);*/
     /*printArray(numbers, SIZE);*/
     /*checkAscending(numbers, SIZE);*/
-    char s[80];
-    sprintf(s, "%d->%d", 2, 3);
-    printf("length: %d\n",strlen(s));
-
+    /*char s[80];*/
+    /*sprintf(s, "%d->%d", 2, 3);*/
+    /*printf("length: %d\n",strlen(s));*/
+    int a = 1;
+    for(int i = 0; i <= 32; i++)
+    {
+        printf("%d,", a);
+        a *= 2;
+        if(i % 10 == 0)
+            printf("\n");
+    }
 }
