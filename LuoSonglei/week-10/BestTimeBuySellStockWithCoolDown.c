@@ -11,14 +11,14 @@ Source      : https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with
 #define MAX(a, b) (a)>(b)? (a):(b)
 int maxProfit(int* prices, int size)
 {
-    int buy0 = INT_MIN, buy1 = INT_MIN;
-    int sell0 = 0, sell1 = 0;
+    int preBuy = INT_MIN, curBuy = INT_MIN;
+    int preSell = 0, curSell = 0;
     for(int i = 0; i < size; i++)
     {
-        buy0 = buy1;
-        buy1 = MAX(sell0-prices[i], buy1);
-        sell0 = sell1;
-        sell1 = MAX(buy0+prices[i], sell1);
+        curBuy = MAX(preBuy, preSell-prices[i]);
+        preBuy = curBuy;
+        preSell = curSell;
+        curSell = MAX(curSell, preBuy+prices[i]);
     }
-    return sell1;
+    return curSell;
 }
