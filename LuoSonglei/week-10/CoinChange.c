@@ -6,7 +6,7 @@ Description :
 Source      : https://leetcode.com/problems/coin-change/
 *******************************************/
 //AC - 44ms;
-int coinChange(int* coins, int size, int amount)
+int coinChange0(int* coins, int size, int amount)
 {
     int *mins = (int*)malloc(sizeof(int)*(amount+1));
     mins[0] = 0;
@@ -27,4 +27,28 @@ int coinChange(int* coins, int size, int amount)
         mins[i] = min;
     }
     return mins[amount];
+}
+
+//AC - 40ms;
+int coinChange(int* coins, int size, int amount)
+{
+    int *mins = (int*)malloc(sizeof(int)*(amount+1));
+    for(int i = 1; i <= amount; i++)
+    {
+        int min = amount+1;
+        for(int j = 0; j < size; j++)
+        {
+            int t =  i-coins[j];
+            if(t >= 0)
+            {
+                t = mins[t]+1;
+                min = t < min? t : min;
+            }
+        }
+        mins[i] = min;
+    }
+    if(mins[amount] > amount)
+        return -1;
+    else
+        return mins[amount];
 }
