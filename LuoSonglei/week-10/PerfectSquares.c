@@ -7,7 +7,7 @@ Source      : https://leetcode.com/problems/perfect-squares/
 *******************************************/
 #include <limits.h>
 //AC - 144ms;
-int numSquares(int n)
+int numSquares0(int n)
 {
     int *mins = (int*)malloc(sizeof(int)*(n+1));
     mins[0] = 0;
@@ -26,4 +26,19 @@ int numSquares(int n)
     return mins[n];
 }
 
-
+//AC - 4ms;
+//https://leetcode.com/discuss/56982/o-sqrt-n-in-ruby-c-c
+int numSquares(int n)
+{
+    while(n%4 == 0)
+        n >>= 2;
+    if(n%8 == 7)
+        return 4;
+    for(int a=0; a*a <= n; ++a)
+    {
+        int b = sqrt(n-a*a);
+        if(a*a + b*b == n)
+            return 1+!!a;
+    }
+    return 3;
+}
