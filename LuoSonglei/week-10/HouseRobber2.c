@@ -32,6 +32,24 @@ int rob0(int* nums, int size)
     return profits[size];
 }
 
+int rob1(int* nums, int size)
+{
+    if(size == 0)
+        return 0;
+    if(size == 1)
+        return nums[0];
+    int *profits = (int*)malloc(sizeof(int)*size);
+    profits[0] = nums[0];
+    profits[1] = nums[1] > nums[0] ? nums[1] : nums[0];
+    for(int i = 2; i < size; i++)
+    {
+        int profit = profits[i-2] + nums[i];
+        if(profits[i-1] > profit)
+            profit = profits[i-1];
+        profits[i] = profit;
+    }
+    return profits[size-1];
+}
 
 //AC - 0ms;
 int rob(int* nums, int size)
