@@ -6,6 +6,7 @@ Description :
 Source      : https://leetcode.com/problems/maximal-square/
 *******************************************/
 //AC - 4ms;
+//https://leetcode.com/discuss/38489/easy-solution-with-detailed-explanations-8ms-time-and-space
 int maximalSquare(char** matrix, int rSize, int cSize)
 {
     int max = 0;
