@@ -39,7 +39,7 @@ bool isScramble1(char* s1, char* s2)
     return isScramble0(s1, s2, len);
 }
 
-//AC - 24ms - beats 100% submissions - DP solution;
+//AC - 20ms - beats 100% submissions - DP solution;
 bool isScramble(char* s1, char* s2)
 {
     int len = strlen(s1);
@@ -61,10 +61,7 @@ bool isScramble(char* s1, char* s2)
     for(int size = 2; size <= len; size++)
         for(int i = 0; i <= len-size; i++)
             for(int j = 0; j <= len-size; j++)
-            {
-                match[size][i][j] = false;
                 for(int k = 1; k<size && !match[size][i][j]; k++)
                     match[size][i][j] = (match[k][i][j] && match[size-k][i+k][j+k]) || (match[k][i+size-k][j] && match[size-k][i][j+k]);
-            }
     return match[len][0][0];
 }
