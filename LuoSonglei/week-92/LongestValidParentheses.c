@@ -61,12 +61,12 @@ int longestValidParentheses1(char* s)
 }
 
 //AC - 0ms - DP solution;
-int longestValidParentheses(char* s)
+int longestValidParentheses2(char* s)
 {
     int len = strlen(s);
     if(len < 2) return 0;
     int max = 0;
-    int *maxs = (int*)malloc(sizeof(int)*len);
+    int *maxs = (int*)malloc(sizeof(int)*len); //record the max viable length ending with the current;
     memset(maxs, 0, sizeof(int)*len);
     for(int i = 1; i < len; i++)
     {
@@ -84,5 +84,22 @@ int longestValidParentheses(char* s)
                 max = maxs[i];
         }
     }
+    return max;
+}
+
+//AC - 0ms;
+int longestValidParentheses(char* s)
+{
+    int len = strlen(s);
+    int max = 0;
+    int *maxs = (int*)malloc(sizeof(int)*len); //record the max viable length ending with the current;
+    memset(maxs, 0, sizeof(int)*len);
+    for(int i = 1; i < len; i++)
+        if(s[i] == ')')
+        {
+            int t = i-maxs[i-1];
+            if(s[t-1] == '(') maxs[i] = maxs[i-1] + maxs[t-2] + 2; 
+            if(maxs[i] > max) max = maxs[i];
+        }
     return max;
 }
