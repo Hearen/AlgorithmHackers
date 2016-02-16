@@ -87,7 +87,7 @@ int longestValidParentheses2(char* s)
     return max;
 }
 
-//AC - 0ms;
+//AC - 0ms - optimized DP solution - more terse and clean;
 int longestValidParentheses(char* s)
 {
     int len = strlen(s);
