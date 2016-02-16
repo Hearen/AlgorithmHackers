@@ -59,3 +59,30 @@ int longestValidParentheses1(char* s)
     }
     return max;
 }
+
+//AC - 0ms - DP solution;
+int longestValidParentheses(char* s)
+{
+    int len = strlen(s);
+    if(len < 2) return 0;
+    int max = 0;
+    int *maxs = (int*)malloc(sizeof(int)*len);
+    memset(maxs, 0, sizeof(int)*len);
+    for(int i = 1; i < len; i++)
+    {
+        if(s[i] == ')')
+        {
+            if(s[i-1] == '(')
+            {
+                maxs[i] = 2;
+                if(i > 1)
+                    maxs[i] = 2+maxs[i-2];
+            }
+            else if(i-maxs[i-1] > 0 && s[i-maxs[i-1]-1] == '(')
+                    maxs[i] = maxs[i-1] + maxs[i-maxs[i-1]-2] + 2; 
+            if(maxs[i] > max)
+                max = maxs[i];
+        }
+    }
+    return max;
+}
