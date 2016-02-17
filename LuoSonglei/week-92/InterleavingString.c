@@ -15,13 +15,13 @@ bool isInterleave(char* s1, char* s2, char* s3)
     bool* cur=(bool*)malloc(sizeof(bool)*(len2+1));
     bool* pre=(bool*)malloc(sizeof(bool)*(len2+1));
     memset(pre, 0, sizeof(bool)*(len2+1));
-    pre[0] = true;
+    pre[0] = true; //initialize boundary condition;
     for(int i = 1; i <= len2; i++)
         if(s2[i-1] == s3[i-1])
             pre[i] = true;
         else
             break;
-    for(int i = 1; i <= len1; i++)
+    for(int i = 1; i <= len1; i++) //i and j represent length of s1 and s2 respectively;
     {
         for(int j = 0; j <= len2; j++)
             cur[j] = (j>0 && cur[j-1] && s2[j-1]==s3[i+j-1]) ||
