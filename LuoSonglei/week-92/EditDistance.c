@@ -51,7 +51,7 @@ int minDistance(char* s1, char* s2)
         pre = cur[0];
         for(int j = 1; j <= len2; j++)
         {
-            int t = cur[j];
+            int t = cur[j]; //store the previous value of the previous row before being overwrittern;
             cur[j] = s1[i-1] == s2[j-1]? pre : min(cur[j-1], cur[j], pre) + 1;
             pre = t;
         }
