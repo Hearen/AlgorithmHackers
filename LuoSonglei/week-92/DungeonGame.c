@@ -33,22 +33,32 @@ int calculateMinimumHP0(int** dungeon, int rSize, int cSize)
 }
 
 //AC - 8ms - reduce the different conditions by adding an edge;
-int calculateMinimumHP(int** dungeon, int rSize, int cSize)
+int calculateMinimumHP1(int** dungeon, int rSize, int cSize)
 {
     int** mins = (int**)malloc(sizeof(int*)*(rSize+1));
     for(int i = 0; i <=rSize; i++)
-    {
         mins[i] = (int*)malloc(sizeof(int)*(cSize+1));
-        memset(mins[i], 0, sizeof(int)*cSize);
-    }
     for(int i = 0; i <= rSize; i++)
         mins[i][cSize] = INT_MAX;
     for(int i = 0; i <= cSize; i++)
         mins[rSize][i] = INT_MAX;
-    mins[rSize-1][cSize] = 1;
+    mins[rSize-1][cSize] = 1; //for the very start - mins[rSize-1][cSize-1];
     mins[rSize][cSize-1] = 1;
     for(int i = rSize-1; i >= 0; i--)
         for(int j = cSize-1; j >= 0; j--)
             mins[i][j] = MAX(1, MIN(mins[i+1][j], mins[i][j+1])-dungeon[i][j]);
     return mins[0][0];
+}
+
+//AC - 8ms;
+int calculateMinimumHP(int** dungeon, int rSize, int cSize)
+{
+    int *mins = (int*)malloc(sizeof(int)*(cSize+1));
+    for(int i = 0; i <= cSize; i++)
+        mins[i] = INT_MAX;
+    mins[cSize-1] = 1;
+    for(int i = rSize-1; i >= 0; i--)
+        for(int j = cSize-1; j >= 0; j--)
+            mins[j] = MAX(1, MIN(mins[j], mins[j+1])-dungeon[i][j]);
+    return mins[0];
 }
