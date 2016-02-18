@@ -28,7 +28,7 @@ struct TreeNode** fillNext( struct TreeNode** stack, int size , int* newSize)
 }
 
 //AC - 4ms;
-bool isSymmetric( struct TreeNode * root )
+bool isSymmetric0( struct TreeNode * root )
 {
     if(!root || (!(root->left) && !(root->right))) return true;
     if(!root->left || !root->right) return false;
@@ -58,4 +58,19 @@ bool isSymmetric( struct TreeNode * root )
         count = lCount;
     }
     return true;
+}
+
+
+bool symmetric( struct TreeNode* left, struct TreeNode* right )
+{
+    if(!left && !right) return true;
+    else if(!left || !right) return false;
+    if(left->val != right->val) return false;
+    return symmetric(left->right, right->left) && symmetric(left->left, right->right);
+}
+//AC - 4ms;
+bool isSymmetric( struct TreeNode * root )
+{
+    if(!root) return true;
+    return symmetric(root->left, root->right);
 }
