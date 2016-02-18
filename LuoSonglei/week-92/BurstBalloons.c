@@ -13,10 +13,13 @@ int maxCoins(int* nums, int size)
     for(int i = 0; i < size; i++)
         nums1[i+1] = nums[i];
     size += 2;
-    int** maxs = (int**)malloc(sizeof(int*)*size); //maxs store the max between i and j exclusively;
+    int** maxs = (int**)malloc(sizeof(int*)*size); //maxs store the max result between index i and j exclusively;
     for(int i = 0; i < size; i++)
+    {
         maxs[i] = (int*)malloc(sizeof(int)*size);
-    for(int i = 2; i < size; i++)
+        memset(maxs[i], 0, sizeof(int)*size);
+    }
+    for(int i = 2; i < size; i++) //start from length - 2 till length - size-1;
         for(int left = 0; left+i < size; left++)
         {
             int right = left+i;
@@ -27,5 +30,5 @@ int maxCoins(int* nums, int size)
                     maxs[left][right] = t;
             }
         }
-    return maxs[0][size-1];
+    return maxs[0][size-1]; //the max between the first and last - extra 1;
 }
