@@ -16,7 +16,7 @@ int minDepth0( struct TreeNode* root )
 {
     if(!root) return 0;
     if(!root->left && !root->right) return 1;
-    int lDepth=INT_MAX, rDepth=INT_MAX;
+    int lDepth=INT_MAX, rDepth=INT_MAX; //the current node is not a leaf;
     if(root->left)
         lDepth = minDepth(root->left)+1;
     if(root->right)
@@ -24,7 +24,7 @@ int minDepth0( struct TreeNode* root )
     return lDepth > rDepth? rDepth : lDepth;
 }
 
-//AC - 4ms;
+//AC - 4ms - level traversing;
 int minDepth( struct TreeNode* root )
 {
     if(!root) return 0;
@@ -47,7 +47,7 @@ int minDepth( struct TreeNode* root )
             if(queue0[i]->right)
                 queue1[index++] = queue0[i]->right;
         } 
-        level++;
+        level++; //move to the next level;
         struct TreeNode** t = queue0;
         queue0 = queue1;
         queue1 = t;
