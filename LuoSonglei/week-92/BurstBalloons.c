@@ -13,7 +13,7 @@ int maxCoins(int* nums, int size)
     for(int i = 0; i < size; i++)
         nums1[i+1] = nums[i];
     size += 2;
-    int** maxs = (int**)malloc(sizeof(int*)*size); 
+    int** maxs = (int**)malloc(sizeof(int*)*size); //maxs store the max between i and j exclusively;
     for(int i = 0; i < size; i++)
         maxs[i] = (int*)malloc(sizeof(int)*size);
     for(int i = 2; i < size; i++)
