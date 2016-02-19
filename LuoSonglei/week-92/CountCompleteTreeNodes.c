@@ -11,16 +11,6 @@ struct TreeNode
     struct TreeNode *left, *right;
 };
 
-int pow(int base, int exponent)
-{
-    int result = 1;
-    while(exponent)
-    {
-        result *= base;
-        exponent--;
-    }
-    return result;
-}
 
 //this traversal will slow the whole operation down dramatically;
 //since it's a complete tree - TLE;
@@ -36,7 +26,6 @@ int traverse(struct TreeNode* root)
 }
 
 
-//AC - 196ms;
 int countNodes0(struct TreeNode* root)
 {
     if(!root) return 0;
@@ -53,9 +42,8 @@ int countNodes0(struct TreeNode* root)
         t = t->right;
         rHeight++;
     }
-    int sum = myPow(2, lHeight);
-    if(lHeight==rHeight) return sum-1; 
-    return countNodes(root->left)+countNodes(root->right)+1;
+    if(lHeight==rHeight) return (1<<lHeight)-1; 
+    return traverse(root);
 }
 
 
