@@ -18,8 +18,8 @@ void connect(struct TreeLinkNode* root)
     struct TreeLinkNode *p = root, *nextFirst;
     while(p)
     {
-        nextFirst = NULL;
-        while(p)
+        nextFirst = NULL; //defaulted to NULL to jump out the loop;
+        while(p) //search for the first valid node of the next level;
         {
             if(p->left)
             {
@@ -34,10 +34,10 @@ void connect(struct TreeLinkNode* root)
             p = p->next;
         }
         struct TreeLinkNode *cur=nextFirst, *next;
-        while(p)
+        while(p) //connect the next level;
         {
             next = p->left;
-            if(next && cur!=next)
+            if(next && cur!=next) //only valid nodes can be connected and the next cannot be the same with current node;
             {
                 cur->next = next;
                 cur = next;
@@ -50,6 +50,6 @@ void connect(struct TreeLinkNode* root)
             }
             p = p->next;
         }
-        p = nextFirst;
+        p = nextFirst; //move to the next level;
     }
 }
