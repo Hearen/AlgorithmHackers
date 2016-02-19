@@ -20,8 +20,8 @@ struct TreeNode* traverseLeft(struct TreeNode* root)
     struct TreeNode *leftmost = root; //in case of NULL left;
     if(root->left)
         leftmost = traverseLeft(root->left);
-    root->left = NULL;
-    leftmost->right = t;
+    root->left = NULL; //make sure all the left pointer is NULL;
+    leftmost->right = t; //using the leftmost pointer to connect the right children;
     if(t)
         traverseLeft(t); 
 }
