@@ -79,11 +79,12 @@ int* postorderTraversal(struct TreeNode* root, int* returnSize)
     struct TreeNode** stack = (struct TreeNode**)malloc(sizeof(struct TreeNode*)*LEN);
     int size = 0;
     stack[size++] = root;
-    struct TreeNode* pre = NULL;
+    struct TreeNode* pre = NULL; //either the parent or the child of cur;
     while(size)
     {
         struct TreeNode *cur = stack[size-1];
-        if(!pre || pre->left==cur || pre->right==cur)
+        if(!pre || pre->left==cur || pre->right==cur) //pushing only one child to the stack each time;
+        //from the current node to collect the children;
         {
             if(cur->left)
                 stack[size++] = cur->left;
@@ -99,7 +100,8 @@ int* postorderTraversal(struct TreeNode* root, int* returnSize)
                 }
             }
         }
-        else if(cur->left == pre)
+        //start to collect the right part from bottom to top;
+        else if(cur->left == pre) //left part has been handled;
         {
             if(cur->right)
                 stack[size++] = cur->right;
