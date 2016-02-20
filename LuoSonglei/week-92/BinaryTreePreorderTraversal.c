@@ -47,7 +47,7 @@ void storeAndCollectLeftNodes(struct TreeNode* root, struct TreeNode*** stack, i
 }
 
 //AC - 0ms;
-int* preorderTraversal(struct TreeNode* root, int* returnSize)
+int* preorderTraversal1(struct TreeNode* root, int* returnSize)
 {
     if(!root) return NULL;
     int* arr = (int*)malloc(sizeof(int));
@@ -61,6 +61,46 @@ int* preorderTraversal(struct TreeNode* root, int* returnSize)
         size--;
         if(root->right) //handle the right children of leftmost nodes;
             storeAndCollectLeftNodes(root->right, &stack, &size, &arr, returnSize);
+    }
+    return arr;
+}
+
+
+//AC - 0ms;
+//Using Morris Traversal to traverse in preorder;
+int* preorderTraversal(struct TreeNode* root, int* returnSize)
+{
+    if(!root) return NULL;
+    int* arr = (int*)malloc(sizeof(int));
+    *returnSize = 0;
+    while(root)
+    {
+        if(!root->left)
+        {
+            *returnSize += 1;
+            arr = (int*)realloc(arr, sizeof(int)*(*returnSize));
+            arr[*returnSize-1] = root->val;
+            root = root->right;
+        }
+        else
+        {
+            struct TreeNode* pre = root->left;
+            while(pre->right && pre->right!=root)
+                pre = pre->right;
+            if(!pre->right) //before moving to the left, collect it now;
+            {
+                *returnSize += 1;
+                arr = (int*)realloc(arr, sizeof(int)*(*returnSize));
+                arr[*returnSize-1] = root->val;
+                pre->right = root;
+                root = root->left;
+            }
+            else
+            {
+                pre->right = NULL; //restore the modified nodes;
+                root = root->right;
+            }
+        }
     }
     return arr;
 }
