@@ -22,9 +22,8 @@ void collectLeft(struct TreeNode* root, struct BSTIterator* t)
 {
     for(struct TreeNode* l=root; l; l=l->left)
     {
-        t->size++;
         /*t->stack = (struct TreeNode**)realloc(t->stack, sizeof(struct TreeNode*)*(t->size+1));*/
-        t->stack[t->size-1] = l;
+        t->stack[(t->size)++] = l;
     }
 }
 
@@ -36,8 +35,6 @@ struct BSTIterator* bstIteratorCreate(struct TreeNode* root)
     t->stack = (struct TreeNode**)malloc(sizeof(struct TreeNode*)*LEN);
     t->size = 0;
     collectLeft(root, t);
-    for(int i = 0; i < t->size; i++)
-        printf("stack: %d\n", t->stack[i]->val);
     return t;
 }
 
@@ -50,7 +47,7 @@ int bstIteratorNext(struct BSTIterator* iter)
 {
     int ret = iter->stack[iter->size-1]->val;
     iter->size--;
-    collectLeft(iter->stack[iter->size]->right, iter);
+    collectLeft(iter->stack[iter->size]->right, iter); //since the current node is being popped, collecting the next bigger part - its right children;
     return ret;
 }
 
