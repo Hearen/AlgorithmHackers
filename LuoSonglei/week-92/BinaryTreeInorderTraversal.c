@@ -44,7 +44,7 @@ void collectLeftNodes(struct TreeNode* root, struct TreeNode*** stack, int* size
     }
 }
 //AC - 0ms;
-int* inorderTraversal(struct TreeNode* root, int* returnSize)
+int* inorderTraversal1(struct TreeNode* root, int* returnSize)
 {
     if(!root) return NULL;
     int* arr = (int*)malloc(sizeof(int));
@@ -61,6 +61,47 @@ int* inorderTraversal(struct TreeNode* root, int* returnSize)
         arr[*returnSize-1] = root->val; //collecting the leftmost;
         root = root->right; //preparing to collect the right children of the leftmost node;
         collectLeftNodes(root, &stack, &size);
+    }
+    return arr;
+}
+
+//http://stackoverflow.com/questions/5502916/explain-morris-inorder-tree-traversal-without-using-stacks-or-recursion
+//http://www.cnblogs.com/AnnieKim/archive/2013/06/15/MorrisTraversal.html
+//AC - 0ms;
+//non-recursion and non-stack;
+int* inorderTraversal(struct TreeNode* root, int* returnSize)
+{
+    if(!root) return NULL;
+    int* arr = (int*)malloc(sizeof(int));
+    *returnSize = 0;
+    while(root)
+    {
+        if(!root->left) 
+        {
+            *returnSize += 1;
+            arr = (int*)realloc(arr, sizeof(int)*(*returnSize));
+            arr[*returnSize-1] = root->val;
+            root = root->right;
+        }
+        else
+        {
+            struct TreeNode *pre = root->left; //check whether the current has been traversed;
+            while(pre->right && pre->right != root)
+                pre = pre->right;
+            if(!pre->right)//not traversed before, connect the current to the rightmost of the left child for later traversal;
+            {
+                pre->right = root;
+                root = root->left;
+            }
+            else //traversed before and now it's time to record its value;
+            {
+                *returnSize += 1;
+                arr = (int*)realloc(arr, sizeof(int)*(*returnSize));
+                arr[*returnSize-1] = root->val;
+                pre->right = NULL; //restore the modified node;
+                root = root->right;
+            }
+        }
     }
     return arr;
 }
