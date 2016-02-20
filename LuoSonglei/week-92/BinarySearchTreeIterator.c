@@ -10,6 +10,8 @@ struct TreeNode
     int val;
     struct TreeNode *left, *right;
 };
+
+#define LEN 100
 struct BSTIterator
 {
     struct TreeNode** stack;
@@ -21,16 +23,17 @@ void collectLeft(struct TreeNode* root, struct BSTIterator* t)
     for(struct TreeNode* l=root; l; l=l->left)
     {
         t->size++;
-        t->stack = (struct TreeNode**)realloc(t->stack, sizeof(struct TreeNode*)*(t->size+1));
+        /*t->stack = (struct TreeNode**)realloc(t->stack, sizeof(struct TreeNode*)*(t->size+1));*/
         t->stack[t->size-1] = l;
     }
 }
 
-//AC - 16ms;
+//AC - 16ms; - using a fixed size is better in this case - removing realloc method;
+//AC - 12ms;
 struct BSTIterator* bstIteratorCreate(struct TreeNode* root)
 {
     struct BSTIterator* t = (struct BSTIterator*)malloc(sizeof(struct BSTIterator));
-    t->stack = (struct TreeNode**)malloc(sizeof(struct TreeNode*));
+    t->stack = (struct TreeNode**)malloc(sizeof(struct TreeNode*)*LEN);
     t->size = 0;
     collectLeft(root, t);
     for(int i = 0; i < t->size; i++)
