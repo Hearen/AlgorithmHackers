@@ -15,13 +15,13 @@ void traverse(struct TreeNode* root, struct TreeNode** pre, struct TreeNode** fi
 {
     if(!root) return ;
     traverse(root->left, pre, first, second);
-    if((*pre) && (*pre)->val>root->val) //check whether the previous node is abnormal in a inorder traversal;
+    if((*pre) && (*pre)->val>root->val) //check whether the previous node is abnormal in in-order traversal;
     {
         if(!(*first)) //if *first is never used then it should be used to store the bigger; 
             *first=*pre; 
-        *second = root; //the swap can be adjacent and distant;
+        *second = root; //the two swapped nodes can be adjacent and distant;
     }
-    *pre = root; //store the previous node inorder traversal;
+    *pre = root; //store the previous node in in-order traversal;
     traverse(root->right, pre, first, second);
 }
 //AC - 20ms;
