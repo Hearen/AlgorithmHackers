@@ -17,15 +17,11 @@ void traverse(struct TreeNode* root, struct TreeNode** pre, struct TreeNode** fi
     traverse(root->left, pre, first, second);
     if((*pre) && (*pre)->val>root->val) //check whether the previous node is abnormal in a inorder traversal;
     {
-        if(*first) //if *first is used then there will be two distant swapped nodes; 
-            *second = root;
-        else //the two swapped nodes are adjacent;
-        {
+        if(!(*first)) //if *first is never used then it should be used to store the bigger; 
             *first=*pre; 
-            *second=root;
-        }
+        *second = root; //the swap can be adjacent and distant;
     }
-    *pre = root;
+    *pre = root; //store the previous node inorder traversal;
     traverse(root->right, pre, first, second);
 }
 //AC - 20ms;
