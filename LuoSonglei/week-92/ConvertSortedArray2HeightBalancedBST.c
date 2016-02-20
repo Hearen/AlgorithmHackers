@@ -27,7 +27,7 @@ struct TreeNode* sortedArrayToBST(int* nums, int size)
 struct TreeNode* sortedArrayToBST(int* nums, int size)
 {
     if(!size) return NULL;
-    int mid = size>>1; //get the mid of the index part instead of size;
+    int mid = size>>1; //get the mid from the size; 
     struct TreeNode* root = (struct TreeNode*)malloc(sizeof(struct TreeNode));
     root->val = nums[mid];
     root->left=root->right=NULL;
