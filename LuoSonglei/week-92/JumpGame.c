@@ -6,7 +6,8 @@ Description :
 Source      : https://leetcode.com/problems/jump-game/
 *******************************************/
 #include <stdbool.h>
-bool canJump(int* nums, int size)
+//TLE;
+bool canJump0(int* nums, int size)
 {
     bool* jumpable = (bool*)malloc(sizeof(bool)*size);
     memset(jumpable, 0, sizeof(bool)*size);
@@ -16,8 +17,32 @@ bool canJump(int* nums, int size)
         for(int j = 1; j <= len; j++)
         {
             if(i+j >= size) jumpable[i] = true;
-            else if(jumpable[i+j]) jumpable[i] = true;
+            else if(jumpable[i+j]) 
+            {
+                jumpable[i] = true;    
+                break;
+            }
         }
     }
     return jumpable[0];
+}
+
+//AC - 4ms;
+bool canJump(int* nums, int size)
+{
+    if(size < 2) return true;
+    for(int cur=size-2; cur > -1; cur--)
+    {
+        if(nums[cur] == 0)
+        {
+            int len = 1;
+            while(len > nums[cur])
+            {
+                len++;
+                cur--;
+                if(cur < 0) return false;
+            }
+        }
+    }
+    return true;
 }
