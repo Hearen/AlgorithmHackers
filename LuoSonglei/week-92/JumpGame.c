@@ -28,7 +28,7 @@ bool canJump0(int* nums, int size)
 }
 
 //AC - 4ms;
-bool canJump(int* nums, int size)
+bool canJump1(int* nums, int size)
 {
     if(size < 2) return true;
     for(int cur=size-2; cur > -1; cur--)
@@ -43,6 +43,18 @@ bool canJump(int* nums, int size)
                 if(cur < 0) return false;
             }
         }
+    }
+    return true;
+}
+
+//AC - 4ms;
+bool canJump(int* nums, int size)
+{
+    int max = 0;
+    for(int i = 0; i < size; i++, max--)
+    {
+        max = max > nums[i]? max : nums[i];
+        if(max<1 && i!=size-1) return false;
     }
     return true;
 }
