@@ -19,21 +19,21 @@ struct ListNode* rotateRight(struct ListNode* head, int k)
     struct ListNode* p = head;
     while(p)
         len++, p = p->next;
-    k %= len;
+    k %= len; //after a circle of rotation, the chain will be the same;
     if(!k) return head;
     struct ListNode *cur=head, *kth=head;
-    while(k)
+    while(k) //move forward by k nodes;
         kth=kth->next, k--;
-    while(kth->next)
+    while(kth->next) //there will be k nodes after cur - end of the loop;
     {
         cur = cur->next;
         kth = kth->next;
     }
-    kth = cur->next;
+    kth = cur->next; //the head of the right chain;
     cur->next = NULL;
-    cur = kth;
+    cur = kth; //the new head;
     while(kth->next)
-        kth = kth->next;
-    kth->next = head;
+        kth = kth->next; //move to the end of the right chain;
+    kth->next = head; //connect the left to the end of the right;
     return cur;
 }
