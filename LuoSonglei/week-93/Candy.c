@@ -20,7 +20,7 @@ int candy(int* ratings, int size)
     for(int i = 1; i < size; i++) //from left to right and collect the results;
     {
         if(ratings[i] > ratings[i-1]) limits[i] = MAX(limits[i], limits[i-1]+1);
-        else limits[i] = MIN(limits[i-1]-1, limits[i]);
+        else limits[i] = limits[i]; //only constrained by the right;
         sum += limits[i];
     }
     return sum;
