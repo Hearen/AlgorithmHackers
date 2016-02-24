@@ -8,7 +8,7 @@ Source      : https://leetcode.com/problems/3sum/
 void sort(int* nums, int begin, int end)
 {
     int l=begin, r=end;
-    int v = nums[begin+(end-begin)/2];
+    int v = nums[l+(r-l)/2];
     while(l <= r)
     {
         while(nums[l] < v) l++;
@@ -36,11 +36,11 @@ int** threeSum(int* nums, int size, int* returnSize)
     *returnSize = 0;
     for(int i = 0; i < size-2; i++)
     {
-        while(i<size-2 && i>0 && nums[i]==nums[i-1]) i++;
+        while(i<size-2 && i>0 && nums[i]==nums[i-1]) i++; //avoid redundant traversal by isolating the duplicates;
         left = i+1;
         right = size-1;
         int sum = -nums[i];
-        while(left < right)
+        while(left < right) //the searching process is the same with the 2-sum problem;
         {
             int t = nums[left]+nums[right];
             if(t > sum) right--;
@@ -48,7 +48,7 @@ int** threeSum(int* nums, int size, int* returnSize)
             else
             {
                 if(!*returnSize || (*returnSize && (nums[i]!=arr[*returnSize-1][0] ||
-                                nums[left]!=arr[*returnSize-1][1])))
+                                nums[left]!=arr[*returnSize-1][1]))) //collect the qualified and isolating the duplicates;
                 {
                     *returnSize += 1;
                     arr = (int**)realloc(arr, sizeof(int*)*(*returnSize));
