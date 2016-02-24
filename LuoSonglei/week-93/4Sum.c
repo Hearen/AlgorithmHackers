@@ -36,12 +36,14 @@ int** fourSum(int* nums, int size, int target, int* returnSize)
     *returnSize = 0;
     for(int i = 0; i < size-3; i++)
     {
-        while(i && i<size-3 && nums[i]==nums[i-1]) i++;
+        if(i && nums[i]==nums[i-1]) continue;
         int t0 = target-nums[i]; //target for 3Sum;
         for(int j = i+1; j < size-2; j++)
         {
-            while(j!=i+1 && j<size-2 && (nums[j]==nums[j-1] || (*returnSize && nums[j]==arr[*returnSize-1][1]))) j++; //the start position should be handled carefully, it's i+1 while removing redundancy;
+            if(j!=i+1 && nums[j]==nums[j-1]) continue; //the start position should be handled carefully, it's i+1 while removing redundancy;
             int t1 = t0-nums[j]; //target for 2Sum;
+            if(nums[j+1]+nums[j+2] > t1) break;
+            if(nums[size-1]+nums[size-2] < t1) continue;
             int l = j+1;
             int r = size-1;
             while(l < r) //2Sum problem;
