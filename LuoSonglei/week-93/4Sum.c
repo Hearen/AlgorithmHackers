@@ -40,7 +40,7 @@ int** fourSum(int* nums, int size, int target, int* returnSize)
         int t0 = target-nums[i]; //target for 3Sum;
         for(int j = i+1; j < size-2; j++)
         {
-            while(j!=i+1 && j<size-2 && nums[j]==nums[j-1]) j++; //the start position should be handled carefully, it's i+1 while removing redundancy;
+            while(j!=i+1 && j<size-2 && (nums[j]==nums[j-1] || (*returnSize && nums[j]==arr[*returnSize-1][1]))) j++; //the start position should be handled carefully, it's i+1 while removing redundancy;
             int t1 = t0-nums[j]; //target for 2Sum;
             int l = j+1;
             int r = size-1;
