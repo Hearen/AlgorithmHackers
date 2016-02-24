@@ -28,7 +28,7 @@ void sort(int* nums, int begin, int end)
         sort(nums, l, end);
 }
 
-//AC - 28ms;
+//AC - 8ms;
 int** fourSum(int* nums, int size, int target, int* returnSize)
 {
     sort(nums, 0, size-1);
@@ -55,7 +55,7 @@ int** fourSum(int* nums, int size, int target, int* returnSize)
                 {
                     if(!*returnSize || (*returnSize && (nums[i]!=arr[*returnSize-1][0]
                                     || nums[j]!=arr[*returnSize-1][1]
-                                    || nums[l]!=arr[*returnSize-1][2])))
+                                    || nums[l]!=arr[*returnSize-1][2]))) //avoid duplicates;
                     {
                         *returnSize += 1;
                         arr = (int**)realloc(arr, sizeof(int*)*(*returnSize));
