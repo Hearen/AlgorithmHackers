@@ -35,7 +35,9 @@ void helper(int* nums, int size, int start, int k, int target, int* stack, int t
         *returnSize += 1;
         *colSizes = (int*)realloc(*colSizes, sizeof(int)*(*returnSize));
         (*colSizes)[*returnSize-1] = k;
+        printf("Before allocating for *arr...\n");
         *arr = (int**)realloc(*arr, sizeof(int*)*(*returnSize));
+        printf("After allocating for *arr...\n");
         (*arr)[*returnSize-1] = (int*)malloc(sizeof(int)*k);
         for(int i = 0; i < k; i++)
             (*arr)[*returnSize-1][i] = stack[i];
