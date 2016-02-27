@@ -14,6 +14,8 @@ void reverse(int* nums, int begin, int end)
     for(int i = begin; i < (begin+end+1)/2; i++)
         swap(nums+i, nums+end+begin-i);
 }
+
+//AC - 4ms;
 void nextPermutation(int* nums, int size)
 {
     int i=size-1, j=size-1;
