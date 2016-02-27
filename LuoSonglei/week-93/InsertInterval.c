@@ -11,42 +11,40 @@ struct Interval
     int end;
 };
 
-//AC - 576ms;
 struct Interval* insert(struct Interval* intervals, int size, struct Interval newInterval, int* returnSize)
 {
-    struct Interval *arr = (struct Interval*)malloc(sizeof(struct Interval));
     size++;
-    struct Interval *arr0 = (struct Interval*)malloc(sizeof(struct Interval)*size);
+    struct Interval *arr = (struct Interval*)malloc(sizeof(struct Interval)*size);
     int j = 0;
     int i = 0;
     int count=0;
-    while(i < size-1)
+    while(i < size-1) //inserting newInterval into arr with all in ascending order;
     {
-        if(intervals[i].start < newInterval.start || count)
-            arr0[i+count] = intervals[i++];
+        if(intervals[i].start < newInterval.start || count) // newInterval already inserted then we need to collect the remained intervals or it's bigger then we need to collect the intervals first;
+            arr[i+count] = intervals[i++];
         else
-            arr0[i] = newInterval, count++;
+            arr[i] = newInterval, count++; //inserting newInterval and counter it as a flag;
     }
-    if(count == 0) arr0[i] = newInterval;
+    if(count == 0) arr[i] = newInterval; //make sure newInterval is not missed at the end of the intervals;
     *returnSize = 0;
     int max = 0;
     i = 0;
     while(i < size)
     {
         struct Interval t;
-        t.start = arr0[i].start;
+        t.start = arr[i].start;
         int j = i+1;
-        max = arr0[i].end;
-        while(j<size && arr0[j].start<=max)
+        max = arr[i].end;
+        while(j<size && arr[j].start<=max) //merging intervals in arr now;
         {
-            if(arr0[j].end > max) max = arr0[j].end;
+            if(arr[j].end > max) max = arr[j].end;
             j++;
         }
-        i = j;
+        i = j; //update the next start index;
         t.end = max;
         *returnSize += 1;
-        arr = (struct Interval*)realloc(arr, sizeof(struct Interval)*(*returnSize));
-        arr[*returnSize-1] = t;
+        arr[*returnSize-1] = t; //since we are merging, arr then can be reused;
     }
     return arr;
 }
+
