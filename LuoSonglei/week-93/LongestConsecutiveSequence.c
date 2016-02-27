@@ -35,12 +35,12 @@ int longestConsecutive(int* nums, int size)
     int count = 1;
     for(int i = 1; i < size; i++)
     {
-        if(nums[i] == nums[i-1]) continue;
+        if(nums[i] == nums[i-1]) continue; //just ignore the equivalent elements;
         if(nums[i] == nums[i-1]+1) count++;
-        else 
+        else  //there is a gap - nonconsecutive;
         {
             max = max > count? max : count;
-            count = 1;
+            count = 1; //reset counter;
         }
     }
     max = max > count? max : count; //collect the last section;
