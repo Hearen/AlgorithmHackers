@@ -19,10 +19,11 @@ int missingNumber0(int* nums, int size)
 }
 
 //AC - 12ms;
+//a^a=0 and 0^b=b;
 int missingNumber(int* nums, int size)
 {
-    int t = 0;
+    int t = size;
     for(int i = 0; i < size; i++)
         t ^= nums[i]^i;
-    return t^size;
+    return t;
 }
