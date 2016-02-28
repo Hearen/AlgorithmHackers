@@ -14,6 +14,7 @@ bool isPrime(int a)
     return true;
 }
 
+//AC - 876ms;
 int countPrimes0(int n)
 {
     int count = 0;
@@ -22,21 +23,28 @@ int countPrimes0(int n)
     return count;
 }
 
+//AC - 32ms - using Sieve of Eratosthenes algorithm;
 int countPrimes(int n)
 {
     if(n <= 2) return 0;
     bool *arr = (bool*)malloc(sizeof(bool)*n);
     memset(arr, 0, sizeof(bool)*n);
     int root = sqrt(n);
-    int count = n-2;
+    int count = n-2; //original start, take 4, 5 to initialize;
     int base = 2;
-    for(int i = 2; i <= root; i++)
-        if(!arr[i])
-            for(int j=i*i; j < n; j+=i)
+    for(int i = 2; i <= root; i++) //sqrt is enough since n=p*q, one of them must be smaller or equal to sqrt;
+    {
+        if(!arr[i]) //unset;
+        {
+            for(int j=i*i; j < n; j+=i) //set all its multiples within n;
+            {
                 if(!arr[j])
                 {
                     arr[j] = true;
-                    count--;
+                    count--; //set one multiples within n, decrease the amount of primes;
                 }
+            }
+        }
+    }
     return count;
 }
