@@ -20,18 +20,15 @@ int bulbSwitch0(int n)
             k += i+1;
         }
     }
-    int count;
+    int count = 0;
     for(int i = 0; i < n; i++)
         if(lights[i])
             count++;
     return count;
 }
 
+//AC - 0ms;
 int bulbSwitch(int n)
 {
-    if(n < 4) return 1;
-    int a = 1;
-    for(int i = 3; i <= n; i++)
-        a += a%2? 0 : 1;
-    return a;
+    return sqrt(n);
 }
