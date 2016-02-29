@@ -7,6 +7,7 @@ Source      : https://leetcode.com/problems/self-crossing/
 *******************************************/
 #include <bool.h>
 //AC - 0ms;
+//https://leetcode.com/discuss/89336/the-best-submission-searching-for-crossing-pattern-the-key
 bool isSelfCrossing(int* x, int size)
 {
     for(int i = 3; i < size; i++)
