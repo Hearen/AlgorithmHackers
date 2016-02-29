@@ -3,7 +3,7 @@ Author      : LHearen
 E-mail      : LHearen@126.com
 Time        : 2016-02-29 16:29
 Description : 
-Source      : https://leetcode.com/problems/fraction-to-recurring-decimal/
+Source      : https://leetcode.com/problems/bulb-switcher/
 *******************************************/
 #include <bool.h>
 //TLE;
@@ -28,6 +28,7 @@ int bulbSwitch0(int n)
 }
 
 //AC - 0ms;
+//https://leetcode.com/discuss/89449/the-simplest-and-most-efficient-solution-in-well-explained
 int bulbSwitch(int n)
 {
     return sqrt(n);
