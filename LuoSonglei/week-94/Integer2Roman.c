@@ -7,7 +7,7 @@ Source      : https://leetcode.com/problems/integer-to-roman/
 *******************************************/
 #include <stdlib.h>
 //AC - 28ms;
-char* intToRoman(int num)
+char* intToRoman0(int num)
 {
     if(num<1 || num>3999) return NULL;
     int index = 0;
@@ -82,6 +82,31 @@ char* intToRoman(int num)
     {
         s[index++] = 'I';
         num--;
+    }
+    s[index] = '\0';
+    return s;
+}
+
+//AC - 28ms;
+//how to define an array of strings in C;
+char* intToRoman(int num)
+{
+    char *table[] = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+    int units[] = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+    int index = 0;
+    char *s = (char*)malloc(sizeof(char)*100);
+    for(int i = 0; i < sizeof(units)/sizeof(int); i++)
+    {
+        while(num >= units[i])
+        {
+            if(i%2)
+            {
+                s[index++] = table[i][0];
+                s[index++] = table[i][1];
+            }
+            else s[index++] = table[i][0];
+            num -= units[i];
+        }
     }
     s[index] = '\0';
     return s;
