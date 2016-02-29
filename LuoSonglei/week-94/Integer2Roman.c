@@ -99,7 +99,7 @@ char* intToRoman1(int num)
     {
         while(num >= units[i])
         {
-            if(i%2)
+            if(i%2) //the integrated numerals are in odd position in table;
             {
                 s[index++] = table[i][0];
                 s[index++] = table[i][1];
