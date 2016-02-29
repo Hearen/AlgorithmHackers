@@ -89,12 +89,12 @@ char* intToRoman0(int num)
 
 //AC - 28ms;
 //how to define an array of strings in C;
-char* intToRoman(int num)
+char* intToRoman1(int num)
 {
     char *table[] = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
     int units[] = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
     int index = 0;
-    char *s = (char*)malloc(sizeof(char)*100);
+    char *s = (char*)malloc(sizeof(char)*20);
     for(int i = 0; i < sizeof(units)/sizeof(int); i++)
     {
         while(num >= units[i])
@@ -109,5 +109,21 @@ char* intToRoman(int num)
         }
     }
     s[index] = '\0';
+    return s;
+}
+
+//AC - 20ms;
+char* intToRoman(int num)
+{
+    char* M[] = {"", "M", "MM", "MMM"};
+    char* C[] = {"", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"};
+    char* X[] = {"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"};
+    char* I[] = {"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"};
+    char* s = (char*)malloc(sizeof(char)*20);
+    *s = '\0';
+    strcat(s, M[num/1000]);
+    strcat(s, C[(num%1000)/100]);
+    strcat(s, X[(num%100)/10]);
+    strcat(s, I[(num%10)]);
     return s;
 }
