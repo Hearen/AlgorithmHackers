@@ -30,7 +30,7 @@ int calculate(char* s)
         else if(*s == '(') //store the sign before opening bracket;
         {
             signs = (int*)realloc(signs, sizeof(int)*(top+2));
-            signs[top+1] = sign*signs[top];
+            signs[top+1] = sign*signs[top]; //to avoid evaluation sequence problem, moving top++ to another statement;
             top++;
             sign = 1;
         }
@@ -38,7 +38,6 @@ int calculate(char* s)
         {
             ret += signs[top--]*sign*num;
             num = 0;
-            sign = 1;
         }
         s++;
     }
