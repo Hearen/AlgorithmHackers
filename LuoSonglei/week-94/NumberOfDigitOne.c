@@ -13,9 +13,9 @@ int countDigitOne(int n)
     long long count = 0;
     for(long long m = 1; m <= n; m *= 10)
     {
-        long long a = n/m;
-        long long b = n%m;
-        count += (a+8)/10*m+(a%10==1)*(b+1);
+        int a = n/m;
+        int b = n%m;
+        count += (a+8)/10*m+(a%10==1)*(b+1); //0, 1 and >=2 should be treated differently when we are counting for each unit;
     }
     return count;
 }
