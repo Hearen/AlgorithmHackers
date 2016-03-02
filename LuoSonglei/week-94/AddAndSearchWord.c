@@ -6,67 +6,83 @@ Description :
 Source      : https://leetcode.com/problems/add-and-search-word-data-structure-design/
 *******************************************/
 #include <bool.h>
-struct WordDictionary
+#define SIZE 26
+struct TrieNode
 {
-    char **words;
-    int size;
+    bool isWord;
+    struct TrieNode *children[SIZE];
 };
 
+struct WordDictionary
+{
+    struct TrieNode *root;
+};
+
+struct TrieNode* trieNodeMaker()
+{
+    printf("making a trie node now\n");
+    struct TrieNode *t = (struct TrieNode*)malloc(sizeof(struct TrieNode));
+    t->isWord = false;
+    for(int i = 0; i < SIZE; i++)
+        t->children[i] = NULL;
+    printf("return the newly created trie node\n");
+    return t;
+}
 struct WordDictionary* wordDictionaryCreate()
 {
     struct WordDictionary *dict = (struct WordDictionary*)malloc(sizeof(struct WordDictionary));
-    char **words = (char**)malloc(sizeof(char*));
-    dict->words = words;
-    dict->size = 0;
+    dict->root = trieNodeMaker();
     return dict;
 }
 
 void addWord(struct WordDictionary* dict, char* word)
 {
-    dict->size += 1;
-    dict->words = (char**)realloc(dict->words, sizeof(char*)*dict->size);
-    dict->words[dict->size-1] = word;
-}
-
-bool equal(char* s1, char* s2)
-{
-    while(*s1 && *s2)
+    struct TrieNode *cur = dict->root;
+    for(int i = 0; word[i]; i++)
     {
-        if(!(*s1==*s2 || *s1=='.' || *s2=='.'))
-            return false;
-        s1++;
-        s2++;
+        printf("inserting: %c\n", word[i]);
+        if(!(cur->children[word[i]-'a']))
+            cur->children[word[i]-'a'] = trieNodeMaker();
+        cur = cur->children[word[i]-'a'];
     }
-    if(*s1 || *s2) return false;
-    return true;
+    printf("inserting done!\n");
+    cur->isWord = true;
 }
 
-//TLE;
+
+bool trieSearch(const char* word, struct TrieNode* root)
+{
+    printf("searching for %s in dict\n", word);
+    struct TrieNode *cur = root;
+    for(int i = 0; word[i]; i++)
+    {
+        if(cur && word[i]!='.')
+            cur = cur->children[word[i]-'a'];
+        else if(cur && word[i]=='.')
+        {
+            struct TrieNode *t = cur;
+            for(int j = 0; j < SIZE; j++)
+            {
+                cur = t->children[i];
+                if(trieSearch(word+i+1, cur))
+                    return true;
+            }
+        }
+        else break;
+    }
+    return cur&&cur->isWord;
+}
+
+//Runtime Error - unkonwn!
 bool search(struct WordDictionary* dict, char* word)
 {
-    int size = dict->size;
-    int len = strlen(word);
-    for(int i = 0; i < size; i++)
-    {
-        char *s1 = dict->words[i];
-        char *s2 = word;
-        if(strlen(s1) != len) continue;
-        while(*s1 && *s2)
-        {
-            if(!(*s1==*s2 || *s1=='.' || *s2=='.'))
-                break;
-            s1++;
-            s2++;
-        }
-        if(*s1 || *s2) continue;
-        return true;
-    }
-    return false;
+    trieSearch(word, dict->root);
 }
 
 
 void wordDictionaryFree(struct WordDictionary *dict)
 {
-    free(dict->words);
+    free(dict->root->children);
+    free(dict->root);
     free(dict);
 }
