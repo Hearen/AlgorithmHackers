@@ -74,6 +74,7 @@ bool trieSearch(const char* word, struct TrieNode* root)
 }
 
 //Runtime Error - unkonwn!
+//https://leetcode.com/discuss/39022/80ms-clear-c-code-with-detailed-explanations
 bool search(struct WordDictionary* dict, char* word)
 {
     trieSearch(word, dict->root);
