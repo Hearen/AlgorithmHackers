@@ -10,7 +10,7 @@ Source      : https://leetcode.com/problems/add-and-search-word-data-structure-d
 struct TrieNode
 {
     bool isWord;
-    struct TrieNode *children[SIZE];
+    struct TrieNode **children;
 };
 
 struct WordDictionary
@@ -20,12 +20,11 @@ struct WordDictionary
 
 struct TrieNode* trieNodeMaker()
 {
-    printf("making a trie node now\n");
     struct TrieNode *t = (struct TrieNode*)malloc(sizeof(struct TrieNode));
     t->isWord = false;
-    for(int i = 0; i < SIZE; i++)
-        t->children[i] = NULL;
-    printf("return the newly created trie node\n");
+    int space = sizeof(struct TrieNode*)*SIZE;
+    t->children = (struct TrieNode**)malloc(space);
+    memset(t->children, 0, space);
     return t;
 }
 struct WordDictionary* wordDictionaryCreate()
@@ -40,42 +39,38 @@ void addWord(struct WordDictionary* dict, char* word)
     struct TrieNode *cur = dict->root;
     for(int i = 0; word[i]; i++)
     {
-        printf("inserting: %c\n", word[i]);
         if(!(cur->children[word[i]-'a']))
             cur->children[word[i]-'a'] = trieNodeMaker();
         cur = cur->children[word[i]-'a'];
     }
-    printf("inserting done!\n");
     cur->isWord = true;
 }
 
 
 bool trieSearch(const char* word, struct TrieNode* root)
 {
-    printf("searching for %s in dict\n", word);
     struct TrieNode *cur = root;
     for(int i = 0; word[i]; i++)
     {
-        if(cur && word[i]!='.')
+        if(!cur) return false;
+        if(word[i]!='.')
             cur = cur->children[word[i]-'a'];
-        else if(cur && word[i]=='.')
+        else if(word[i]=='.')
         {
-            struct TrieNode *t = cur;
-            for(int j = 0; j < SIZE; j++)
-            {
-                cur = t->children[i];
-                if(trieSearch(word+i+1, cur))
+            for(int j = 0; j < SIZE; j++) //try every possible path;
+                if(trieSearch(word+i+1, cur->children[j]))
                     return true;
-            }
+            return false; //all possible paths have failed;
         }
-        else break;
     }
-    return cur&&cur->isWord;
+    return cur&&cur->isWord; //the last checking;
 }
 
-//Runtime Error - unkonwn!
+//Runtime Error - unkonwn! - pointer of an array -> children;
+// The term comes from "retrieval" and the originator, Edward Fredkin, pronounced it "tree." However, "trey" is the more common pronounciation. "Try" is rare and considered incorrect.
 //https://leetcode.com/discuss/39022/80ms-clear-c-code-with-detailed-explanations
 //https://en.wikipedia.org/wiki/Trie
+//AC - 44ms;
 bool search(struct WordDictionary* dict, char* word)
 {
     trieSearch(word, dict->root);
