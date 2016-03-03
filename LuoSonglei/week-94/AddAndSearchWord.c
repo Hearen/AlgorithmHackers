@@ -10,7 +10,7 @@ Source      : https://leetcode.com/problems/add-and-search-word-data-structure-d
 
 struct WordDictionary
 {
-    bool isWord;
+    bool isWord; //determine whether a word exists in the path;
     struct WordDictionary **children;
 };
 
@@ -34,12 +34,10 @@ void addWord(struct WordDictionary* dict, char* word)
     for(int i = 0; word[i]; i++)
     {
         if(!(cur->children[word[i]-'a']))
-        {
             cur->children[word[i]-'a'] = nodeMaker();
-        }
         cur = cur->children[word[i]-'a'];
     }
-    cur->isWord = true;
+    cur->isWord = true; //set the flag for the existence of the word in the current path;
 }
 
 //Runtime Error - unkonwn! - pointer of an array -> children;
@@ -52,10 +50,10 @@ bool search(struct WordDictionary* root, char* word)
     struct WordDictionary *cur = root;
     for(int i = 0; word[i]; i++)
     {
-        if(!cur) return false;
-        if(word[i]!='.')
+        if(!cur) return false; //the path is interrupted;
+        if(word[i]!='.') //track the path down;
             cur = cur->children[word[i]-'a'];
-        else if(word[i]=='.')
+        else if(word[i]=='.') //while there is dot, the possible paths can be all;
         {
             for(int j = 0; j < SIZE; j++) //try every possible path;
                 if(search(cur->children[j], word+i+1))
