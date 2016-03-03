@@ -32,32 +32,35 @@ void insert(struct TrieNode *root, char *word)
 {
     for(int i = 0; word[i]; i++)
     {
-        if(!(root->children[word[i]-'a']))
-            root->children[word[i]-'a'] = nodeMaker();
-        root = root->children[word[i]-'a'];
+        int index = word[i]-'a';
+        if(!(root->children[index])) //when there is no such child, create one;
+            root->children[index] = nodeMaker();
+        root = root->children[index];
     }
-    root->isWord = true;
+    root->isWord = true; //label this child as the leaf of the word;
 }
 
-//AC - 40ms;
+struct TrieNode *findLeaf(struct TrieNode *root, char *word)
+{
+    for(int i = 0; word[i]; i++) //following the word to traverse the tree;
+    {
+        root = root->children[word[i]-'a']; 
+        if(!root) return false; //there is no corresponding child node;
+    }
+    return root; //at the end of the traversal, return the last node;
+}
+
+//AC - 36ms;
 bool search(struct TrieNode *root, char *word)
 {
-    for(int i = 0; word[i]; i++)
-    {
-        root = root->children[word[i]-'a'];
-        if(!root) return false;
-    }
-    return root&&root->isWord;
+    root = findLeaf(root, word);
+    return root&&root->isWord; //check whether the node exists and it's the leaf of a word;
 }
 
 bool startsWith(struct TrieNode *root, char *prefix)
 {
-    for(int i = 0; prefix[i]; i++)
-    {
-        root = root->children[prefix[i]-'a'];
-        if(!root) return false;
-    }
-    return root;
+    root = findLeaf(root, word);
+    return root; //check whether the node is valid;
 }
 
 void trieFree(struct TrieNode *root)
