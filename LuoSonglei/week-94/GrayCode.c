@@ -6,6 +6,7 @@ Description :
 Source      : https://leetcode.com/problems/gray-code/
 *******************************************/
 //AC - 0ms;
+//convert a unsigned binary number to reflected binary Gray Code (num >> 1) ^ num;
 int grayCode(int n, int* returnSize)
 {
     *returnSize = 0;
@@ -15,7 +16,7 @@ int grayCode(int n, int* returnSize)
     {
         *returnSize += 1;
         arr = (int*)realloc(arr, sizeof(int)*(*returnSize));
-        arr[*returnSize-1] = ((i<<1)^i)>>1;
+        arr[*returnSize-1] = i ^ (i>>1);
     }
     return arr;
 }
