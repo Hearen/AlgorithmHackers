@@ -27,25 +27,28 @@ Output:
 
 Source      : https://leetcode.com/problems/combination-sum-iii/
 *******************************************/
-void helper(int* nums, int size, int start, int k, int target, int* stack, int top, int*** arr, int** colSizes, int* returnSize)
+#include <stdlib.h>
+#include <stdio.h>
+void traverse(int* nums, int size, int start, int k, int target, int* stack, int top, int*** arr, int** colSizes, int* returnSize)
 {
-    if(target < 0 || (top==k-1 && target>0)) return ;
-    if(target == 0)
+    if(top+1 > k) return ;
+    /*printf("start index for this round: %d\t target: %d\ttop number: %d\t stack size: %d\n", start, target, stack[top], top+1);*/
+    if(target==0 && top+1==k)
     {
         *returnSize += 1;
         *colSizes = (int*)realloc(*colSizes, sizeof(int)*(*returnSize));
         (*colSizes)[*returnSize-1] = k;
-        printf("Before allocating for *arr...\n");
         *arr = (int**)realloc(*arr, sizeof(int*)*(*returnSize));
-        printf("After allocating for *arr...\n");
         (*arr)[*returnSize-1] = (int*)malloc(sizeof(int)*k);
         for(int i = 0; i < k; i++)
             (*arr)[*returnSize-1][i] = stack[i];
+        return ;
     }
-    for(int i = start+1; i < size; i++)
+    for(int i = start; i < size; i++)
     {
+        if(nums[i] > target) return ;
         stack[top+1] = nums[i];
-        helper(nums, size, i, k, target-nums[i], stack, top+1, arr, colSizes, returnSize);
+        traverse(nums, size, i+1, k, target-nums[i], stack, top+1, arr, colSizes, returnSize);
     }
 }
 int** combinationSum3(int k, int target, int** colSizes, int* returnSize)
@@ -54,12 +57,32 @@ int** combinationSum3(int k, int target, int** colSizes, int* returnSize)
     int size = sizeof(nums)/sizeof(int);
     int** arr = (int**)malloc(sizeof(int*));
     *returnSize = 0;
-    int stack[2];
+    *colSizes = (int*)malloc(sizeof(int));
+    int *stack = (int*)malloc(sizeof(int)*k);
     int top = -1;
-    for(int i = 0; i < sizeof(nums)/sizeof(int); i++)
+    for(int i = 0; i < size; i++)
     {
+        if(nums[i] > target) break;
         stack[top+1] = nums[i];
-        helper(nums, size, i, k, target-nums[i], stack, top+1, &arr, colSizes, returnSize);
+        traverse(nums, size, i+1, k, target-nums[i], stack, top+1, &arr, colSizes, returnSize);
     }
     return arr;
+}
+
+int main()
+{
+    int k = 6;
+    int target = 30;
+    scanf("%d", &target);
+    printf("target: %d\n", target);
+    int *colSizes;
+    int size;
+    int **arr = combinationSum3(k, target, &colSizes, &size); 
+    for(int i = 0;  i < size; i++)
+    {
+        for(int j = 0; j < k; j++)
+            printf("%d\t", arr[i][j]);
+        printf("\n");
+    }
+    return 0;
 }
