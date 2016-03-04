@@ -10,7 +10,7 @@ Source      : https://leetcode.com/problems/bitwise-and-of-numbers-range/
 int rangeBitwiseAnd(int m, int n)
 {
     int count = 0;
-    while(m != n)
+    while(m != n) //until the left identical bits, all the right will be cancelled by increments from m to n;;
     {
         m >>= 1;
         n >>= 1;
