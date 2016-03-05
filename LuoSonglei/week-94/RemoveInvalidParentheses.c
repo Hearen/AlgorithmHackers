@@ -12,9 +12,9 @@ Examples:
 ")(" -> [""]")"
 Source      : https://leetcode.com/problems/remove-invalid-parentheses/
 *******************************************/
-void traverse(char* s, int len, int start, int left, int right, int pair, char* stack, int top, char*** arr, int *returnSize)
+void traverse(char* s, int start, int left, int right, int pair, char* stack, int top, char*** arr, int *returnSize)
 {
-    if(start == len)
+    if(start == strlen(s))
     {
         if(!left && !right && !pair)
         {
@@ -43,24 +43,24 @@ void traverse(char* s, int len, int start, int left, int right, int pair, char* 
     if(c == '(')
     {
         if(left)
-            traverse(s, len, start+1, left-1, right, pair, stack, top, arr, returnSize);
+            traverse(s, start+1, left-1, right, pair, stack, top, arr, returnSize);
         stack[top+1] = c;
-        traverse(s, len, start+1, left, right, pair+1, stack, top+1, arr, returnSize);
+        traverse(s, start+1, left, right, pair+1, stack, top+1, arr, returnSize);
     }
     else if(c == ')')
     {
         if(right)
-            traverse(s, len, start+1, left, right-1, pair, stack, top, arr, returnSize);
+            traverse(s, start+1, left, right-1, pair, stack, top, arr, returnSize);
         if(pair)
         {
             stack[top+1] = c;
-            traverse(s, len, start+1, left, right, pair-1, stack, top+1, arr, returnSize);
+            traverse(s, start+1, left, right, pair-1, stack, top+1, arr, returnSize);
         }
     }
     else
     {
         stack[top+1] = c;
-        traverse(s, len, start+1, left, right, pair, stack, top+1, arr, returnSize);
+        traverse(s, start+1, left, right, pair, stack, top+1, arr, returnSize);
     }
 }
 
@@ -82,6 +82,6 @@ char** removeInvalidParentheses(char* s, int* returnSize)
     int len = strlen(s);
     char *stack = (char*)malloc(sizeof(char)*len);
     int top = -1;
-    traverse(s, len, 0, left, right, 0, stack, top, &arr, returnSize);
+    traverse(s, 0, left, right, 0, stack, top, &arr, returnSize);
     return arr;
 }
