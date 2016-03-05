@@ -17,6 +17,7 @@ Return ["JFK","ATL","JFK","SFO","ATL","SFO"].
 Another possible reconstruction is ["JFK","SFO","ATL","JFK","ATL","SFO"]. But it is larger in lexical order.
 Source      : https://leetcode.com/problems/reconstruct-itinerary/
 *******************************************/
+#include <stdlib.h>
 struct Mapper
 {
     char *key;
@@ -53,12 +54,60 @@ void insert(struct Mapper*** dict, int* size, char* key, char* value)
     (*dict)[*size-1] = t;
 }
 
+void traverse(struct Mapper *start, struct Mapper** dict, int size, char** stack, int* returnSize, int tCount)
+{
+    printf("\n\n");
+    printf("collected: \n");
+    for(int j = 0; j < *returnSize; j++)
+        printf("%s -> ", stack[j]);
+    printf("current: %s\treturnSize: %d\n", start->key, *returnSize);
+    if(*returnSize == tCount) return ;
+    *returnSize += 1;
+    stack[*returnSize-1] = start->key;
+    if(*returnSize == tCount) return ;
+    for(int i = 0; i < start->size; i++)
+    {
+        int t = *returnSize;
+        struct Mapper *next = NULL;
+        for(int j = 0; j < size; j++)
+            if(!strcmp(dict[j]->key, start->values[i]))
+                next = dict[j];
+        if(!next) return ;
+        traverse(next, dict, size, stack, returnSize, tCount);
+        if(*returnSize == tCount) return ;
+        *returnSize = t;
+    }
+}
 char** findItinerary(char*** tickets, int rSize, int cSize, int* returnSize)
 {
     int count = 0;
     struct Mapper **dict = (struct Mapper**)malloc(sizeof(struct Mapper*));
     for(int i = 0; i < rSize; i++) //constructing graph in edges list;
         insert(&dict, &count, tickets[i][0], tickets[i][1]);
+    char** tt = (char**)malloc(sizeof(char*)*2*rSize);
+    int tCount = 0;
+    for(int i = 0; i < rSize; i++)
+    {
+        int j = 0;
+        while(j < tCount)
+        {
+            if(!strcmp(tickets[i][0], tt[j]))
+                break;
+            j++;
+        }
+        if(j == tCount)
+            tt[tCount++] = tickets[i][0];
+        j = 0;
+        while(j < tCount)
+        {
+            if(!strcmp(tickets[i][1], tt[j]))
+                break;
+            j++;
+        }
+        if(j == tCount)
+            tt[tCount++] = tickets[i][1];
+    }
+    printf("tCount: %d\n", tCount);
     for(int i = 0; i < count; i++)
     {
         printf("key: %s\t --> ", dict[i]->key);
@@ -66,4 +115,14 @@ char** findItinerary(char*** tickets, int rSize, int cSize, int* returnSize)
             printf("\t%s", dict[i]->values[j]);
         printf("\n");
     }
+    char** stack = (char**)malloc(sizeof(char*)*count);
+    for(int i = 0; i < count; i++)
+    {
+        *returnSize = 0;
+        traverse(dict[i], dict, count, stack, returnSize, tCount);
+        for(int j = 0; j < *returnSize; j++)
+            printf("%s -> ", stack[j]);
+        if(*returnSize == tCount) return stack;
+    }
+    return NULL;
 }
