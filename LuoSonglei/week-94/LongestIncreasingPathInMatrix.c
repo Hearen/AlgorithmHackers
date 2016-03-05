@@ -41,9 +41,43 @@ int traverse(int r, int c, int rSize, int cSize, int** matrix, int** maxes)
     if(!inRange(r, c, rSize, cSize)) return 0;
     if(maxes[r][c] != -1) return maxes[r][c];
     int cur = matrix[r][c];
-    int max = 1;
+    int max = 1; //as long as it's valid, it will be at least 1;
     int t = 0;
-    for(int i = 0; i < 4; i++)
+    if(inRange(r-1, c, rSize, cSize) && cur > matrix[r-1][c])
+    {
+        t = traverse(r-1, c, rSize, cSize, matrix, maxes)+1;
+        if(t > max)
+            max = t;
+    }
+    if(inRange(r+1, c, rSize, cSize) && cur > matrix[r+1][c])
+    {
+        t = traverse(r+1, c, rSize, cSize, matrix, maxes)+1;
+        if(t > max)
+            max = t;
+    }
+    if(inRange(r, c-1, rSize, cSize) && cur > matrix[r][c-1])
+    {
+        t = traverse(r, c-1, rSize, cSize, matrix, maxes)+1;
+        if(t > max)
+            max = t;
+    }
+    if(inRange(r, c+1, rSize, cSize) && cur > matrix[r][c+1])
+    {
+        t = traverse(r, c+1, rSize, cSize, matrix, maxes)+1;
+        if(t > max)
+            max = t;
+    }
+    return maxes[r][c] = max;
+}
+
+int traverse0(int r, int c, int rSize, int cSize, int** matrix, int** maxes)
+{
+    if(!inRange(r, c, rSize, cSize)) return 0;
+    if(maxes[r][c] != -1) return maxes[r][c];
+    int cur = matrix[r][c];
+    int max = 1; //as long as it's valid, it will be at least 1;
+    int t = 0;
+    for(int i = 0; i < 4; i++) //check the cells around;
     {
         int r0 = r+Directions[i][0];
         int c0 = c+Directions[i][1];
@@ -54,20 +88,20 @@ int traverse(int r, int c, int rSize, int cSize, int** matrix, int** maxes)
                 max = t;
         }
     }
-    return maxes[r][c] = max;
+    return maxes[r][c] = max;//update the current cell;
 }
 
 int longestIncreasingPath(int** matrix, int rSize, int cSize)
 {
     int **maxes = (int**)malloc(sizeof(int*)*rSize);
-    for(int i = 0; i < rSize; i++)
+    for(int i = 0; i < rSize; i++) //initialize the maxes states matrix;
     {
         maxes[i] = (int*)malloc(sizeof(int)*cSize);
         for(int j = 0; j < cSize; j++)
             maxes[i][j] = -1;
     }
     int max = 0;
-    for(int r = 0; r < rSize; r++)
+    for(int r = 0; r < rSize; r++) //try to start the traversal from each cell;
     {
         for(int c = 0; c < cSize; c++)
         {
