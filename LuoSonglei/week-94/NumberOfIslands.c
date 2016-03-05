@@ -29,7 +29,7 @@ bool inRange(int r, int c, int rSize, int cSize)
     return r>=0 && r<rSize && c>=0 && c<cSize;
 }
 
-void traverse(int r, int c, int rSize, int cSize, char** grid, bool** visited)
+void traverse0(int r, int c, int rSize, int cSize, char** grid, bool** visited)
 {
     if(!inRange(r, c, rSize, cSize)) return ;
     if(visited[r][c]) return ;
@@ -43,7 +43,8 @@ void traverse(int r, int c, int rSize, int cSize, char** grid, bool** visited)
     }
 }
 
-int numIslands(char** grid, int rSize, int cSize)
+//AC - 4ms;
+int numIslands0(char** grid, int rSize, int cSize)
 {
     bool** visited = (bool**)malloc(sizeof(bool*)*rSize);
     for(int r = 0; r < rSize; r++)
@@ -61,5 +62,37 @@ int numIslands(char** grid, int rSize, int cSize)
                 count++;
             }
         }
+    return count;
+}
+
+void traverse(int r, int c, int rSize, int cSize, char** grid)
+{
+    grid[r][c] = '0';
+    if(r>0 && grid[r-1][c]=='1')
+        traverse(r-1, c, rSize, cSize, grid);
+    if(c>0 && grid[r][c-1]=='1')
+        traverse(r, c-1, rSize, cSize, grid);
+    if(r<rSize-1 && grid[r+1][c]=='1')
+        traverse(r+1, c, rSize, cSize, grid);
+    if(r<cSize-1 && grid[r][c+1]=='1')
+        traverse(r, c+1, rSize, cSize, grid);
+}
+
+//AC - 0ms;
+int numIslands(char** grid, int rSize, int cSize)
+{
+    if(rSize==0 || cSize==0) return 0;
+    int count = 0;
+    for(int r = 0; r < rSize; r++)
+    {
+        for(int c = 0; c < cSize; c++)
+        {
+            if(grid[r][c] == '1')
+            {
+                count++;
+                traverse(r, c, rSize, cSize, grid);
+            }
+        }
+    }
     return count;
 }
