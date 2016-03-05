@@ -56,7 +56,7 @@ int numIslands0(char** grid, int rSize, int cSize)
     for(int r = 0; r < rSize; r++)
         for(int c = 0; c < cSize; c++)
         {
-            if(grid[r][c]=='1' && !visited[r][c])
+            if(grid[r][c]=='1' && !visited[r][c]) //start a new traversal;
             {
                 traverse(r, c, rSize, cSize, grid, visited);
                 count++;
@@ -68,7 +68,7 @@ int numIslands0(char** grid, int rSize, int cSize)
 void traverse(int r, int c, int rSize, int cSize, char** grid)
 {
     grid[r][c] = '0';
-    if(r>0 && grid[r-1][c]=='1')
+    if(r>0 && grid[r-1][c]=='1') //since we are just moving upwards, just checking row's validity is enough;
         traverse(r-1, c, rSize, cSize, grid);
     if(c>0 && grid[r][c-1]=='1')
         traverse(r, c-1, rSize, cSize, grid);
@@ -87,7 +87,7 @@ int numIslands(char** grid, int rSize, int cSize)
     {
         for(int c = 0; c < cSize; c++)
         {
-            if(grid[r][c] == '1')
+            if(grid[r][c] == '1') //using in-place trick to improve conciseness and performance;
             {
                 count++;
                 traverse(r, c, rSize, cSize, grid);
