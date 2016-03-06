@@ -23,5 +23,71 @@ Source      : https://leetcode.com/problems/minimum-height-trees/
 *******************************************/
 int* findMinHeightTrees(int n, int** edges, int rSize, int cSize, int* returnSize)
 {
-
+    int* arr = (int*)malloc(sizeof(int)*n);
+    *returnSize = 0;
+    if(n == 1)
+    {
+        *returnSize += 1;
+        arr[*returnSize-1] = 0;
+        return arr;
+    }
+    int** graph = (int**)malloc(sizeof(int*)*n); //constructing the graph as a DAG - Directed Acyclic Graph;
+    for(int i = 0; i < n; i++)
+        graph[i] = (int*)malloc(sizeof(int));
+    int* colSizes = (int*)malloc(sizeof(int)*n);
+    memset(colSizes, 0, sizeof(int)*n);
+    for(int i = 0; i < rSize; i++)
+    {
+        int begin = edges[i][0];
+        int end = edges[i][1];
+        colSizes[begin]++;
+        graph[begin] = (int*)realloc(graph[begin], sizeof(int)*colSizes[begin]); //dynamically allocate the space - just use the required space, nothing more;
+        graph[begin][colSizes[begin]-1] = end;
+        colSizes[end]++;
+        graph[end] = (int*)realloc(graph[end], sizeof(int)*colSizes[end]);
+        graph[end][colSizes[end]-1] = begin;
+    }
+    for(int i = 0; i < n; i++) //collecting the bottom leaves;
+    {
+        if(colSizes[i] == 1)
+        {
+            *returnSize += 1;
+            arr[*returnSize-1] = i;
+        }
+    }
+    int* nextLevel = (int*)malloc(sizeof(int)*n); //traversing in a bottom-up way;
+    int next = 0;
+    while(*returnSize) //there is more;
+    {
+        for(int i = 0; i < *returnSize; i++)
+        {
+            int end = arr[i];
+            for(int j = 0; j < n; j++) //remove it from its connected vertexes;
+            {
+                for(int k = 0; k < colSizes[j]; k++) //searching it in node j checking whether they are connected;
+                {
+                    if(graph[j][k] == end) //connected then remove it from node j;
+                    {
+                        int h = k+1;
+                        while(h < colSizes[j]) //remove it;
+                        {
+                            graph[j][h-1] = graph[j][h];
+                            h++;
+                        }
+                        colSizes[j]--;
+                        if(colSizes[j] == 1) //if now node j becomes a leaf itself, add it to the nextLevel;
+                        {
+                            next++;
+                            nextLevel[next-1] = j;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+        if(!next) return arr; //no next level any more then arr collected all the top-level and return it;
+        *returnSize = next; //prepare for the next level traversal;
+        next = 0;
+        int *t = arr; arr=nextLevel; nextLevel=t;
+    }
 }
