@@ -25,7 +25,7 @@ int* findMinHeightTrees(int n, int** edges, int rSize, int cSize, int* returnSiz
 {
     int* arr = (int*)malloc(sizeof(int)*n);
     *returnSize = 0;
-    if(n == 1)
+    if(n == 1) //corner case;
     {
         *returnSize += 1;
         arr[*returnSize-1] = 0;
@@ -36,7 +36,7 @@ int* findMinHeightTrees(int n, int** edges, int rSize, int cSize, int* returnSiz
         graph[i] = (int*)malloc(sizeof(int));
     int* colSizes = (int*)malloc(sizeof(int)*n);
     memset(colSizes, 0, sizeof(int)*n);
-    for(int i = 0; i < rSize; i++)
+    for(int i = 0; i < rSize; i++) //constructing the graph in edges list format;
     {
         int begin = edges[i][0];
         int end = edges[i][1];
@@ -47,47 +47,36 @@ int* findMinHeightTrees(int n, int** edges, int rSize, int cSize, int* returnSiz
         graph[end] = (int*)realloc(graph[end], sizeof(int)*colSizes[end]);
         graph[end][colSizes[end]-1] = begin;
     }
+    int* degrees = (int*)malloc(sizeof(int)*n);
     for(int i = 0; i < n; i++) //collecting the bottom leaves;
     {
+        degrees[i] = colSizes[i]; //copy the degrees;
         if(colSizes[i] == 1)
         {
             *returnSize += 1;
             arr[*returnSize-1] = i;
         }
     }
-    int* nextLevel = (int*)malloc(sizeof(int)*n); //traversing in a bottom-up way;
+    int count = n; //record the vertexes left;
+    int* nextLevel = (int*)malloc(sizeof(int)*n); //used with arr imitating queue operations;
     int next = 0;
-    while(*returnSize) //there is more;
+    while(count > 2)
     {
         for(int i = 0; i < *returnSize; i++)
         {
             int end = arr[i];
-            for(int j = 0; j < n; j++) //remove it from its connected vertexes;
+            count--; //remove the leaf then the vertexes left should be decremented;
+            for(int k = 0; k < colSizes[end]; k++) //decrement related vertexes in degrees;
             {
-                for(int k = 0; k < colSizes[j]; k++) //searching it in node j checking whether they are connected;
-                {
-                    if(graph[j][k] == end) //connected then remove it from node j;
-                    {
-                        int h = k+1;
-                        while(h < colSizes[j]) //remove it;
-                        {
-                            graph[j][h-1] = graph[j][h];
-                            h++;
-                        }
-                        colSizes[j]--;
-                        if(colSizes[j] == 1) //if now node j becomes a leaf itself, add it to the nextLevel;
-                        {
-                            next++;
-                            nextLevel[next-1] = j;
-                        }
-                        break;
-                    }
-                }
+                int begin = graph[end][k];
+                degrees[begin]--;
+                if(degrees[begin] == 1) //when the degree of the connected vertex is 1 which means it turns leaf now, collect it for next level;
+                    nextLevel[next++] = graph[end][k];
             }
         }
-        if(!next) return arr; //no next level any more then arr collected all the top-level and return it;
-        *returnSize = next; //prepare for the next level traversal;
+        *returnSize = next; //update next, returnSize, arr and nextLevel for next round;
         next = 0;
-        int *t = arr; arr=nextLevel; nextLevel=t;
+        int *t=arr; arr=nextLevel; nextLevel=t;
     }
+    return arr;
 }
