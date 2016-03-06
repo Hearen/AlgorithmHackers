@@ -12,9 +12,9 @@ Examples:
 ")(" -> [""]")"
 Source      : https://leetcode.com/problems/remove-invalid-parentheses/
 *******************************************/
-void traverse(char* s, int start, int left, int right, int pair, char* stack, int top, char*** arr, int *returnSize)
+void traverse(char* s, int len, int start, int left, int right, int pair, char* stack, int top, char*** arr, int *returnSize)
 {
-    if(start == strlen(s))
+    if(start == len)
     {
         if(!left && !right && !pair)
         {
@@ -24,13 +24,13 @@ void traverse(char* s, int start, int left, int right, int pair, char* stack, in
                 t[i] = stack[i];
             t[size] = '\0';
             int i = 0;
-            while(i < *returnSize)
+            while(i < *returnSize) //remove duplicates;
             {
                 if(!strcmp(t, (*arr)[i]))
                     break;
                 i++;
             }
-            if(i == *returnSize)
+            if(i == *returnSize) //add a bran-new string;
             {
                 *returnSize += 1;
                 *arr = (char**)realloc(*arr, sizeof(char*)*(*returnSize));
@@ -42,25 +42,25 @@ void traverse(char* s, int start, int left, int right, int pair, char* stack, in
     char c = s[start];
     if(c == '(')
     {
-        if(left)
-            traverse(s, start+1, left-1, right, pair, stack, top, arr, returnSize);
-        stack[top+1] = c;
-        traverse(s, start+1, left, right, pair+1, stack, top+1, arr, returnSize);
+        if(left) //try to remove it;
+            traverse(s, len, start+1, left-1, right, pair, stack, top, arr, returnSize);
+        stack[top+1] = c; //try to add it as a pair;
+        traverse(s, len, start+1, left, right, pair+1, stack, top+1, arr, returnSize);
     }
     else if(c == ')')
     {
-        if(right)
-            traverse(s, start+1, left, right-1, pair, stack, top, arr, returnSize);
-        if(pair)
+        if(right) //try to remove it;
+            traverse(s, len, start+1, left, right-1, pair, stack, top, arr, returnSize);
+        if(pair) //try to use it as the other half of a pair;
         {
             stack[top+1] = c;
-            traverse(s, start+1, left, right, pair-1, stack, top+1, arr, returnSize);
+            traverse(s, len, start+1, left, right, pair-1, stack, top+1, arr, returnSize);
         }
     }
-    else
+    else //just collect since it's not brackets;
     {
         stack[top+1] = c;
-        traverse(s, start+1, left, right, pair, stack, top+1, arr, returnSize);
+        traverse(s, len, start+1, left, right, pair, stack, top+1, arr, returnSize);
     }
 }
 
@@ -70,7 +70,7 @@ char** removeInvalidParentheses(char* s, int* returnSize)
     char** arr = (char**)malloc(sizeof(char*));
     *returnSize = 0;
     int left=0, right=0;
-    for(int i = 0; s[i]; i++)
+    for(int i = 0; s[i]; i++) //find out how many opening and closing brackets should be removed;
     {
         if(s[i] == '(') left++;
         else if(s[i] == ')')
@@ -82,6 +82,6 @@ char** removeInvalidParentheses(char* s, int* returnSize)
     int len = strlen(s);
     char *stack = (char*)malloc(sizeof(char)*len);
     int top = -1;
-    traverse(s, 0, left, right, 0, stack, top, &arr, returnSize);
+    traverse(s, len, 0, left, right, 0, stack, top, &arr, returnSize);
     return arr;
 }
