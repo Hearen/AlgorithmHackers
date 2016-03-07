@@ -19,14 +19,14 @@ struct ListNode
 //AC - 4ms;
 struct ListNode *deleteDuplicates(struct ListNode* head)
 {
-    if(!head || !head->next) return head;
-    struct ListNode *newHead = (struct ListNode*)malloc(sizeof(struct ListNode));
+    if(!head || !head->next) return head; //needless to handle;
+    struct ListNode *newHead = (struct ListNode*)malloc(sizeof(struct ListNode)); //we need a head node for more convenient handling needless to consider the first node separately now ^^;
     newHead->next = head;
     struct ListNode *pre=newHead, *cur=head;
-    int preVal = head->val-1;
+    int preVal = head->val-1; //record the previous value of the current node;
     while(cur)
     {
-        if(cur->val!=preVal && (!cur->next||cur->next->val!=cur->val))
+        if(cur->val!=preVal && (!cur->next||cur->next->val!=cur->val)) //only when both the previous value and the next are not equal to the current one, we can then collect it;
         {
             pre->next = cur;
             pre = pre->next;
@@ -34,6 +34,6 @@ struct ListNode *deleteDuplicates(struct ListNode* head)
         preVal = cur->val;
         cur = cur->next;
     }
-    pre->next = NULL;
+    pre->next = NULL; //terminate the list;
     return newHead->next;
 }
