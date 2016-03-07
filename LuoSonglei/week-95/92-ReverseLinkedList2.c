@@ -24,34 +24,34 @@ struct ListNode
 //AC - 0ms;
 struct ListNode* reverseBetween(struct ListNode* head, int m, int n)
 {
-    if(!head || !head->next || n==m) return head;
+    if(!head || !head->next || n==m) return head; //corner cases;
     int count = 0;
-    struct ListNode *newHead = (struct ListNode*)malloc(sizeof(struct ListNode));
+    struct ListNode *newHead = (struct ListNode*)malloc(sizeof(struct ListNode)); //allocate a new node as the 'head';
     newHead->next = head;
     struct ListNode *start=NULL, *pre=NULL, *next=NULL,*p = newHead;
-    while(p)
+    while(p) //till the (m-1)th node of the list;
     {
         if(count == m-1)
         {
-            start = p;
+            start = p; //record the (m-1)th node;
             break;
         }
         p = p->next;
         count++;
     }
-    pre = start->next;
-    p = pre->next;
+    pre = start->next; //start to reverse, record the pre for being pointed to by p;
+    p = pre->next; //record the next node of p in case of losing it;
     while(p)
     {
-        if(count == n-1)
+        if(count == n-1) //till the nth node of the list;
             break;
-        next = p->next;
-        p->next = pre;
-        pre = p;
+        next = p->next; //record the next of the p;
+        p->next = pre; //reverse -> connect the p to its previous node;
+        pre = p; //update pre and p;
         p = next;
         count++;
     }
-    start->next->next = next;
-    start->next = pre;
-    return newHead->next;
+    start->next->next = next; //connect the mth to the (n+1)th node;
+    start->next = pre; //connect (m-1)th to the nth;
+    return newHead->next; //return the m-to-n-reversed list;
 }
