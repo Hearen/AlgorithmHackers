@@ -23,10 +23,10 @@ struct ListNode *deleteDuplicates(struct ListNode* head)
     struct ListNode *newHead = (struct ListNode*)malloc(sizeof(struct ListNode)); //we need a head node for more convenient handling needless to consider the first node separately now ^^;
     newHead->next = head;
     struct ListNode *pre=newHead, *cur=head;
-    int preVal = head->val-1; //record the previous value of the current node;
+    int preVal = head->val-1; //record the previous value of the current node, the default value should affect the first node collecting - so we set it different from head->val;
     while(cur)
     {
-        if(cur->val!=preVal && (!cur->next||cur->next->val!=cur->val)) //only when both the previous value and the next are not equal to the current one, we can then collect it;
+        if(cur->val!=preVal && (!cur->next||cur->next->val!=cur->val)) //only when both the previous value and the next are not equal to the current one - by the way, the next node is null will definitely considered unequal, we can then collect it;
         {
             pre->next = cur;
             pre = pre->next;
