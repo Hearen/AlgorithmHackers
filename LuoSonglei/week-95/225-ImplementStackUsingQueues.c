@@ -40,7 +40,7 @@ void stackPush(Stack *stack, int element)
 void stackPop(Stack *stack)
 {
     int size = stack->size;
-    for(int i = 0; i < size-1; i++)
+    for(int i = 0; i < size-1; i++) //popping queue0 to queue1 all elements except for the last;
         stack->queue1[i] = stack->queue0[i];
     stack->size--; //delete the last element in queue0;
     for(int i = 0; i < size-1; i++) //popping queue1 back to queue0 and update stack->size;
@@ -50,7 +50,7 @@ void stackPop(Stack *stack)
 int stackTop(Stack *stack)
 {
     int size = stack->size;
-    for(int i = 0; i < size-1; i++)  //popping queue0 to queue1 all elements except for the last;
+    for(int i = 0; i < size-1; i++) //popping queue0 to queue1 all elements except for the last;
         stack->queue1[i] = stack->queue0[i];
     int ret = stack->queue0[size-1]; //pop the last from queue0;
     for(int i = 0; i < size-1; i++) //popping queue1 back to queue0;
