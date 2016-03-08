@@ -393,6 +393,59 @@ public class Solution {
 		return count;
 	}
 
+	public ListNode rotateRight(ListNode head, int k) {
+		if (head == null)
+			return head;
+		ListNode dummyHead = new ListNode(0);
+		dummyHead.next = head;
+		ListNode p = head, q = head;
+
+		int len = 1;
+		while (q.next != null) {
+			q = q.next;
+			len++;
+		}
+		for (int i = 0; i < len - k % len; i++)
+			p = p.next;
+
+		q.next = dummyHead.next;
+		dummyHead.next = p.next;
+		p.next = null;
+
+		return dummyHead.next;
+	}
+
+	// 151. Reverse Words in a String
+	public String reverseWords(String s) {
+		StringBuilder reversed = new StringBuilder();
+		int j = s.length();
+		for (int i = s.length() - 1; i >= 0; i--) {
+			if (s.charAt(i) == ' ') {
+				j = i;
+			} else if (i == 0 || s.charAt(i - 1) == ' ') {
+				if (reversed.length() != 0) {
+					reversed.append(' ');
+				}
+				reversed.append(s.substring(i, j));
+			}
+		}
+		return reversed.toString();
+	}
+
+	// 3. Longest Substring Without Repeating Characters
+	public int lengthOfLongestSubstring(String s) {
+		boolean[] exists = new boolean[256];
+		int i = 0, maxLen = 0, len = s.length();
+		for (int j = 0; j < len; j++) {
+			while (exists[s.charAt(j)]) {
+				exists[s.charAt(i++)] = false;
+			}
+			exists[s.charAt(j)] = true;
+			maxLen = Math.max(j - i + 1, maxLen);
+		}
+		return maxLen;
+	}
+
 	public static void main(String[] args) {
 		Solution s = new Solution();
 		System.out.println(s.uniquePaths(2, 3));
@@ -423,6 +476,30 @@ public class Solution {
 		}
 
 		System.out.println(s.fractionToDecimal(-1, -2147483648));
+
+		ListNode head = new ListNode(1);
+		ListNode node2 = new ListNode(2);
+		ListNode node3 = new ListNode(3);
+		ListNode node4 = new ListNode(4);
+		ListNode node5 = new ListNode(5);
+		head.next = node2;
+		node2.next = node3;
+		node3.next = node4;
+		node4.next = node5;
+		node5.next = null;
+
+		s.rotateRight(head, 4).toString();
+
+		System.out.println(s.reverseWords("the sky is blue"));
 	}
 
+}
+
+class ListNode {
+	int val;
+	ListNode next;
+
+	ListNode(int x) {
+		val = x;
+	};
 }
