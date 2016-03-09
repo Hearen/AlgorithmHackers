@@ -63,7 +63,7 @@ char** split(char* s, int* size)
 //AC - 8ms;
 //https://leetcode.com/discuss/83825/simple-python-solution-using-stack-with-explanation
 //https://leetcode.com/discuss/84073/straight-forward-c-solution-with-explanation
-bool isValidSerialization(char* preorder)
+bool isValidSerialization0(char* preorder)
 {
     int size = 1;
     char** arr = split(preorder, &size);
@@ -77,5 +77,26 @@ bool isValidSerialization(char* preorder)
         if(difference>1 || (difference==1&&i!=size-1)) return false;
     }
     if(difference < 1) return false;
+    return true;
+}
+
+//AC - 0ms;
+bool isValidSerialization(char* preorder)
+{
+    int difference = 0;
+    int size = strlen(preorder);
+    for(int i = 1; i <= size; i++)
+    {
+        if(preorder[i]==',' || preorder[i]=='\0') 
+        {
+            if(preorder[i-1] == '#') //null;
+                difference++;
+            else //not null; 
+                difference--;
+        }
+        if(difference > 1) return false; //surpass more than 1, return false directly;
+        if(difference==1 && i!=size) return false; //not end of the string but it reaches difference 1 already, terminate the checking directly;
+    }
+    if(difference < 1) return false; //after traversing the difference should be exactly one;
     return true;
 }
