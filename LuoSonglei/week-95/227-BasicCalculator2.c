@@ -14,62 +14,43 @@ Some examples:
 " 3+5 / 2 " = 5
 Source      : https://leetcode.com/problems/basic-calculator-ii/
 *******************************************/
-int helper(char* s, int len, int sign) //sign is used to record the previous sign before the current operator -> 1:positive, -1:negative;
+#include <cstdbool.h>
+int calculate(char* s)
 {
-    int num = 0;
-    for(int i = 0; i < len; i++)
+    bool d = false;
+    int ret=0, sign=1, num=0, pre=0;
+    for(int i = 0; s[i]; i++)
     {
         if(isdigit(s[i]))
             num = 10*num+s[i]-'0';
-        else if(s[i]=='+') //'+' or '-' can be handled in the last round since there is no bracket;;
+        else if(s[i]=='+' || s[i]=='-' || s[i]=='*' || s[i]=='/')
         {
-            if(sign == 1) return num+helper(s+i+1, len-i-1, 1);
-            else return num-helper(s+i+1, len-i-1, 1);
-        }
-        else if(s[i] == '-')
-        {
-            if(sign == 1) return num-helper(s+i+1, len-i-1, -1);
-            else return num+helper(s+i+1, len-i-1, -1);
-        }
-        else if(s[i]=='*' || s[i]=='/')
-        {
-            char *t = (char*)malloc(sizeof(char)*len);  //used to store the result string for next round;
-            int num1 = 0;
-            int j = 1;
-            for(; isdigit(s[i+j]); j++) //collect the second operand;
-                num1 = 10*num1+s[i+j]-'0';
-            long long ret = 0; //store the result of the operation '*' or '/';
-            if(s[i] == '*')
-                ret = num*num1;
-            else if(s[i] == '/')
+            if(d)
             {
-                if(num1 == 0) ret = 0;
-                else ret = num/num1;
+                num = pre/num;
+                d = !d;
             }
-            if(s[i+j] == '\0') return ret; //nothing left just return;
-            int index = 0; //turn the integer to string in reverse order;
-            while(ret)
+            if(s[i] == '/')
             {
-                t[index++] = ret%10+'0';
-                ret /= 10;
+                d = true;
+                pre = num*sign;
+                sign = 1;
             }
-            int k = 0;
-            while(k < index) //
-                s[i+j---1] = t[k++];
-            free(t);
-            s += i+j;
-            return helper(s, strlen(s), 1);
+            else if(s[i] == '*')
+                sign *= num;
+            else
+            {
+                ret += sign*num;
+                sign = (c=='+')? 1 : -1;
+            }
+            num = 0;
         }
     }
-    return num; //there is no operator just number;
-}
-int calculate(char* s)
-{
-    int index = 0;
-    for(int i = 0; s[i]; i++) //remove all white spaces;
-        if(s[i] != ' ')
-            s[index++] = s[i];
-    s[index] = '\0';
-    printf("without space: %s\n", s);
-    return helper(s, index, 1);
+    if(num > 0)
+    {
+        if(d)
+            num = pre/num;
+        ret += sign*num;
+    }
+    return ret;
 }
