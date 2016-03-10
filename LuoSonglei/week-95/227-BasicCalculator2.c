@@ -18,39 +18,34 @@ Source      : https://leetcode.com/problems/basic-calculator-ii/
 int calculate0(char* s)
 {
     bool d = false;
+    int len = strlen(s); 
     int ret=0, sign=1, num=0, pre=0;
-    for(int i = 0; s[i]; i++)
+    for(int i = 0; i < len+1; i++)
     {
         if(isdigit(s[i]))
             num = 10*num+s[i]-'0';
-        else if(s[i]=='+' || s[i]=='-' || s[i]=='*' || s[i]=='/')
+        else if(' ' != s[i])
         {
-            if(d)
+            if(d) //update the current number since the previous operator is '/';
             {
                 num = pre/num;
-                d = !d;
+                d = !d; //reset d flag;
             }
-            if(s[i] == '/')
+            if(s[i] == '/') 
             {
-                d = true;
-                pre = num*sign;
-                sign = 1;
+                d = true; //set d flag;
+                pre = num*sign; //update previous number;
+                sign = 1; //reset sign to its default value;
             }
-            else if(s[i] == '*')
+            else if(s[i] == '*') //store the current number to sign;
                 sign *= num;
             else
             {
-                ret += sign*num;
-                sign = (c=='+')? 1 : -1;
+                ret += sign*num; //collect the result before previous operator;
+                sign = (s[i]=='+')? 1 : -1; //reset sign ignoring the last character since we've done with it already;
             }
-            num = 0;
+            num = 0; //reset number for next collecting;
         }
-    }
-    if(num > 0)
-    {
-        if(d)
-            num = pre/num;
-        ret += sign*num;
     }
     return ret;
 }
