@@ -15,7 +15,7 @@ Some examples:
 Source      : https://leetcode.com/problems/basic-calculator-ii/
 *******************************************/
 #include <cstdbool.h>
-int calculate(char* s)
+int calculate0(char* s)
 {
     bool d = false;
     int ret=0, sign=1, num=0, pre=0;
@@ -52,5 +52,43 @@ int calculate(char* s)
             num = pre/num;
         ret += sign*num;
     }
+    return ret;
+}
+
+int calculate(char* s)
+{
+    int len = strlen(s);
+    int* stack = (int*)malloc(sizeof(int)*len/2); //actually passed, weird;
+    int index = 0;
+    char sign = '+';
+    int num = 0;
+    int t = 0;
+    for(int i = 0; i < len+1; i++) //the last character will be '\0', used to collect the last number;
+    {
+        if(isdigit(s[i]))
+            num = 10*num+s[i]-'0';
+        else if(' ' != s[i]) //avoid white spaces;
+        {
+            if(sign == '-') //the previous operator;
+                stack[index++] = -1*num;
+            else if(sign == '+')
+                stack[index++] = num;
+            else if(sign == '*')
+            {
+                t = stack[--index]*num;
+                stack[index++] = t;
+            }
+            else if(sign == '/')
+            {
+                t = stack[--index]/num;
+                stack[index++] = t;
+            }
+            sign = s[i];
+            num = 0;
+        }
+    }
+    int ret = 0; //sum them up;
+    for(int i = 0; i < index; i++)
+        ret += stack[i];
     return ret;
 }
