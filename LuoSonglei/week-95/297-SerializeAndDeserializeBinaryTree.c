@@ -33,18 +33,18 @@ char* serialize(struct TreeNode* root)
     char *t = (char*)malloc(sizeof(char)*LEN);
     int size = 0;
     int val = root->val;
-    while(val)
+    while(val) //collect the string and convert it number in reverse order;
     {
         t[size++] = val%10 + '0';
         val /= 10;
     }
-    for(int i = 0; i < size/2; i++)
+    for(int i = 0; i < size/2; i++) //since it's reversed, then reverse it again to make it normal;
     {
         char c = t[size-i-1]; t[size-i-1]=t[i]; t[i]=c;
     }
-    t[size++] = ',';
-    t[size] = '\0';
-    char *left = serialize(root->left);
+    t[size++] = ','; //add splitter;
+    t[size] = '\0'; //terminate the string;
+    char *left = serialize(root->left); //collect left and right children;
     char *right = serialize(root->right);
     int leftSize = strlen(left);
     int rightSize = strlen(right);
@@ -54,7 +54,7 @@ char* serialize(struct TreeNode* root)
     return  t;
 }
 
-char** split(char* s, int* size)
+char** split(char* s, int* size) //split a string by ',';
 {
     char** arr = (char**)malloc(sizeof(char*));
     *size = 0;
@@ -77,7 +77,7 @@ char** split(char* s, int* size)
     return arr;
 }
 
-struct TreeNode* helper*(char*** arr)
+struct TreeNode* helper0(char*** arr) //using the pointer of the array to move it for recursion;
 {
     if(strcmp(**arr, "X") == 0) return NULL;
     int num = 0;
@@ -85,13 +85,13 @@ struct TreeNode* helper*(char*** arr)
         num = 10*num + (**arr)[i]-'0';
     struct TreeNode* root = (struct TreeNode*)malloc(sizeof(struct TreeNode));
     root->val = num;
-    *arr += 1;
+    *arr += 1; //move to skip the current number;
     root->left = helper(arr);
-    *arr += 1;
+    *arr += 1; //skip the left number;
     root->right = helper(arr);
     return root;
 }
-struct TreeNode* deserialize*(char *s)
+struct TreeNode* deserialize0(char *s)
 {
     int size = 0;
     char** arr = split(s, &size);
@@ -100,10 +100,10 @@ struct TreeNode* deserialize*(char *s)
 
 struct TreeNode* helper(char** s)
 {
-    if(**s == 'X') return NULL;
+    if(**s == 'X') return NULL; 
     int num = 0;
     int count = 0;
-    while(**s != ',') //collect number;
+    while(**s != ',') //collect number and meantime skip the current number;
         num = 10*num + *((*s)++) - '0';
     *s += 1; //skip the comma ',';
     struct TreeNode *root = (struct TreeNode*)malloc(sizeof(struct TreeNode));
