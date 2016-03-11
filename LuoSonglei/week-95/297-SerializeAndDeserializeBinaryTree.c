@@ -77,7 +77,7 @@ char** split(char* s, int* size)
     return arr;
 }
 
-struct TreeNode* helper(char*** arr)
+struct TreeNode* helper*(char*** arr)
 {
     if(strcmp(**arr, "X") == 0) return NULL;
     int num = 0;
@@ -91,9 +91,30 @@ struct TreeNode* helper(char*** arr)
     root->right = helper(arr);
     return root;
 }
-struct TreeNode* deserialize(char *s)
+struct TreeNode* deserialize*(char *s)
 {
     int size = 0;
     char** arr = split(s, &size);
     return helper(&arr);
+}
+
+struct TreeNode* helper(char** s)
+{
+    if(**s == 'X') return NULL;
+    int num = 0;
+    int count = 0;
+    while(**s != ',') //collect number;
+        num = 10*num + *((*s)++) - '0';
+    *s += 1; //skip the comma ',';
+    struct TreeNode *root = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+    root->val = num;
+    root->left = helper(s);
+    while((*(*s)++) != ','); //skip the left value;
+    root->right = helper(s);
+    retrn root;
+}
+
+struct TreeNode* deserialize(char* s)
+{
+    return helper(&s);
 }
