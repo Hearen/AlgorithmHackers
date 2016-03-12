@@ -31,23 +31,24 @@ Source      : https://leetcode.com/problems/combination-sum-iii/
 #include <stdio.h>
 void traverse(int* nums, int size, int start, int k, int target, int* stack, int top, int*** arr, int** colSizes, int* returnSize)
 {
-    if(top+1 > k) return ;
-    /*printf("start index for this round: %d\t target: %d\ttop number: %d\t stack size: %d\n", start, target, stack[top], top+1);*/
-    if(target==0 && top+1==k)
+    if(top+1 == k) //there are k elements in stack already;
     {
-        *returnSize += 1;
-        *colSizes = (int*)realloc(*colSizes, sizeof(int)*(*returnSize));
-        (*colSizes)[*returnSize-1] = k;
-        *arr = (int**)realloc(*arr, sizeof(int*)*(*returnSize));
-        (*arr)[*returnSize-1] = (int*)malloc(sizeof(int)*k);
-        for(int i = 0; i < k; i++)
-            (*arr)[*returnSize-1][i] = stack[i];
+        if(target==0) //check whether the stack should be collected as a valid result;
+        {
+            *returnSize += 1;
+            *colSizes = (int*)realloc(*colSizes, sizeof(int)*(*returnSize));
+            (*colSizes)[*returnSize-1] = k;
+            *arr = (int**)realloc(*arr, sizeof(int*)*(*returnSize));
+            (*arr)[*returnSize-1] = (int*)malloc(sizeof(int)*k);
+            for(int i = 0; i < k; i++)
+                (*arr)[*returnSize-1][i] = stack[i];
+        }
         return ;
     }
     for(int i = start; i < size; i++)
     {
-        if(nums[i] > target) return ;
-        stack[top+1] = nums[i];
+        if(nums[i] > target) return ; //pruning, since it's already bigger than the target, no need to move to the next round;
+        stack[top+1] = nums[i]; //collect the number if it's still less or equal to the target;
         traverse(nums, size, i+1, k, target-nums[i], stack, top+1, arr, colSizes, returnSize);
     }
 }
@@ -62,7 +63,7 @@ int** combinationSum3(int k, int target, int** colSizes, int* returnSize)
     int top = -1;
     for(int i = 0; i < size; i++)
     {
-        if(nums[i] > target) break;
+        if(nums[i] > target) break; //pruning, since it's already bigger than the target, no need to move to the next round;
         stack[top+1] = nums[i];
         traverse(nums, size, i+1, k, target-nums[i], stack, top+1, &arr, colSizes, returnSize);
     }
