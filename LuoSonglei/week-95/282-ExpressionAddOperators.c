@@ -17,11 +17,11 @@ Source      : https://leetcode.com/problems/expression-add-operators/
 #include <stdlib.h>
 void helper(char* num, int len, int start, int target, long long sum, long long pre, char* stack, int top, char*** arr, int* returnSize)
 {
-    if(start == len)
+    if(start == len) //end of the string;
     {
-        if(target == sum)
+        if(target == sum) //check whether it's valid;
         {
-            stack[++top] = '\0';
+            stack[++top] = '\0'; //terminate the string;
             *returnSize += 1; 
             *arr = (char**)realloc(*arr, sizeof(char*)*(*returnSize));
             (*arr)[*returnSize-1] = (char*)malloc(sizeof(char)*(top+1));
@@ -31,11 +31,11 @@ void helper(char* num, int len, int start, int target, long long sum, long long 
         return ; 
     }
     long long val = 0; //in case of INT_MAX or INT_MIN;
-    int index = top+1;
+    int index = top+1; //record the index for the operator;
     for(int i = start; i < len; i++)
     {
-        val = 10*val + num[i] - '0';
-        if(start == 0)
+        val = 10*val + num[i] - '0'; //collect the number;
+        if(start == 0) //if it's the first number, no operator should be added;
         {
             stack[top+1] = num[i];
             helper(num, len, i+1, target, val, val, stack, top+1, arr, returnSize);
@@ -43,11 +43,11 @@ void helper(char* num, int len, int start, int target, long long sum, long long 
         else
         {
             stack[top+2] = num[i];
-            stack[index] = '-';
+            stack[index] = '-'; //get the sum directly by sum-val and record -1*val as pre in case the next operator is '*';
             helper(num, len, i+1, target, sum-val, -1*val, stack, top+2, arr, returnSize);
-            stack[index] = '+';
+            stack[index] = '+'; //store val as pre in case the next operator is '*';
             helper(num, len, i+1, target, sum+val, val, stack, top+2, arr, returnSize);
-            stack[index] = '*';
+            stack[index] = '*'; //we have to delete the pre first and then add the product of pre and var and then store pre*val in case the next operator is '*';
             helper(num, len, i+1, target, sum-pre+pre*val, pre*val, stack, top+2, arr, returnSize);
         }
         if(num[start] == '0') break; //no number starts with 0;
