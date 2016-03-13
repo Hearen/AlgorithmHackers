@@ -11,6 +11,8 @@ Return 0 if the array contains less than 2 elements.
 You may assume all elements in the array are non-negative integers and fit in the 32-bit signed integer range.
 Source      : https://leetcode.com/problems/maximum-gap/
 *******************************************/
+//https://leetcode.com/discuss/80529/clean-implementation-linear-sort-with-detailed-explaination
+//https://leetcode.com/discuss/18499/bucket-sort-java-solution-with-explanation-o-time-and-space
 int maximumGap(int* nums, int size)
 {
 
