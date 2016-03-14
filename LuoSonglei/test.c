@@ -2,7 +2,7 @@
 Author: LHearen
 E-mail: LHearen@126.com
 Time  :	2015-12-04 08:23
-Description: 
+Description: Used to assist others for testing;
 Source: 
 *******************************************/
 //this file is used to test some C features;
@@ -57,8 +57,15 @@ void main()
     /*sort(numbers, SIZE);*/
     /*printArray(numbers, SIZE);*/
     /*checkAscending(numbers, SIZE);*/
-    char s[80];
-    sprintf(s, "%d->%d", 2, 3);
-    printf("length: %d\n",strlen(s));
-
+    /*char s[80];*/
+    /*sprintf(s, "%d->%d", 2, 3);*/
+    /*printf("length: %d\n",strlen(s));*/
+    int a = 1;
+    for(int i = 0; i <= 32; i++)
+    {
+        printf("%d,", a);
+        a *= 2;
+        if(i % 10 == 0)
+            printf("\n");
+    }
 }

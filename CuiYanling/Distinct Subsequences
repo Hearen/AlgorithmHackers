@@ -1,0 +1,15 @@
+public class Solution {
+    public int numDistinct(String s, String t) {
+        char[] ss= s.toCharArray();
+        char[] tt = t.toCharArray();
+        int sub[][] = new int[ss.length+1][tt.length+1];
+        for(int i=0;i<=ss.length;++i) sub[i][0] = 1;
+        
+        for(int i=0;i<ss.length;++i)
+            for(int j=0;j<tt.length;++j){
+                sub[i+1][j+1] = sub[i][j+1];
+                if(ss[i]==tt[j]) sub[i+1][j+1] +=sub[i][j];
+            }
+        return sub[ss.length][tt.length];
+    }
+}
