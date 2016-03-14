@@ -26,10 +26,10 @@ struct ListNode* reverseList(struct ListNode* head) //reverse a linked list by i
     struct ListNode *p=head, *next;
     while(p)
     {
-        next = p->next;
-        p->next = t->next;
-        t->next = p;
-        p = next;
+        next = p->next; //store the next pointer;
+        p->next = t->next; //insert p just after the head pointer;
+        t->next = p; //connect p;
+        p = next; //move to the next;
     }
     return newHead->next;
 }
