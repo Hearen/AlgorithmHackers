@@ -18,7 +18,7 @@ struct ListNode
     int val;
     struct ListNode *next;
 };
-struct ListNode* reverseList(struct ListNode* head)
+struct ListNode* reverseList(struct ListNode* head) //reverse a linked list by insertion mode;
 {
     struct ListNode *newHead = (struct ListNode*)malloc(sizeof(struct ListNode));
     newHead->next = NULL;
@@ -44,24 +44,24 @@ struct ListNode* reverseKGroup(struct ListNode* head, int k)
     struct ListNode *p = head, *next, *start;
     while(p)
     {
-        start = p;
-        last = start;
-        int count = k-1;
+        start = p; //store the start for reversal;
+        last = start; //after reversal, the start will be the last;
+        int count = k-1; //move forward k-1 times to get the group of length k;
         while(count && p)
         {
             p = p->next;
             count--;
         }
-        if(!p)
+        if(!p) //reached the end before the end of the group, directly connect it without reversal;
         {
             t->next = start;
             break;
         }
-        next = p->next;
-        p->next = NULL;
-        t->next = reverseList(start);
+        next = p->next; //store the next;
+        p->next = NULL; //terminate the current group;
+        t->next = reverseList(start); //reverse the group;
         p = next;
-        t = last;
+        t = last; //move t to the last of the collecting list;
     }
-    return newHead->next;
+    return newHead->next; //using a head node will always make the list operations much simpler;
 }
