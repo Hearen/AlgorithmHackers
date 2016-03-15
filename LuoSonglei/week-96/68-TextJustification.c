@@ -52,7 +52,7 @@ char** fullJustify(char** words, int wSize, int maxWidth, int* returnSize)
         else //normally full justification;
         {
             int averageSpace = (maxWidth-len)/spaceCount; //average white spaces should be filled in each slot between words;
-            int remainder = (maxWidth-len)/spaceCount; //the left;
+            int remainder = (maxWidth-len)%spaceCount; //the left;
             for(int i = start; i < index; i++)
             {
                 strcat(t, words[i]);
