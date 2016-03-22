@@ -1,16 +1,35 @@
 ###################################################################
+ISCAS14 - AlgorithmHackers - week12
+Tue Mar 22 11:24:15 CST 2016
+1. 陈晓旭
+Add and Search Word - Data structure design
+https://leetcode.com/problems/add-and-search-word-data-structure-design/
+2. 罗松磊
+Wiggle Sort II
+https://leetcode.com/problems/wiggle-sort-ii/
+3. 郑莹莹
+Range Sum Query - Mutable
+https://leetcode.com/problems/range-sum-query-mutable/
+4. 邬登峰
+LRU Cache
+https://leetcode.com/problems/lru-cache/
+5. 王子勇
+Maximum Gap
+https://leetcode.com/problems/maximum-gap/
+
+###################################################################
 ISCAS14 - AlgorithmHackers - week11
 Wed Mar 16 13:57:27 CST 2016
 1. 梁建华
 Reverse Nodes in k-Group
 https://leetcode.com/problems/reverse-nodes-in-k-group/
-2. 刘财政
+2. 倪嘉志
 The Skyline Problem
 https://leetcode.com/problems/the-skyline-problem/
 3. 段世凯
 Palindrome Pairs
 https://leetcode.com/problems/palindrome-pairs/
-4. 崔艳玲
+4. 徐培兴
 Course Schedule II
 https://leetcode.com/problems/course-schedule-ii/
 5. 崔光范
