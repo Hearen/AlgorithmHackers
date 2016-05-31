@@ -15,7 +15,8 @@ void swap(int* p, int* q)
     int t=*p; *p=*q; *q=t;
 }
 
-void sort(int* nums, int* counters, int begin, int end)
+//Sort the array nums and keep its indexes along with it;
+void sort(int* nums, int* indexes, int begin, int end)
 {
     int l=begin, r=end;
     int v = nums[l+(r-l)/2];
@@ -25,24 +26,24 @@ void sort(int* nums, int* counters, int begin, int end)
         while(nums[r] > v) r--;
         if(l <= r) 
         {
-            swap(counters+l, counters+r);
+            swap(indexes+l, indexes+r);
             swap(nums+l++, nums+r--);
         }
     }
     if(begin < r)
-        sort(nums, counters, begin, r);
+        sort(nums, indexes, begin, r);
     if(l < end)
-        sort(nums, counters, l, end);
+        sort(nums, indexes, l, end);
 }
 
 //AC - 24ms;
 int* topKFrequent(int* nums, int size, int k, int* returnSize)
 {
     int* indexes = (int*)malloc(sizeof(int)*size);
-    int* arr = (int*)malloc(sizeof(int)*size);
-    sort(nums, arr, 0, size-1);
+    int* arr = (int*)malloc(sizeof(int)*size); //used to count and also be used as return array;
+    sort(nums, arr, 0, size-1); //arr here is used for parameter position-taker, nothing more;
     int top = -1;
-    for(int i = 0; i < size; i++)
+    for(int i = 0; i < size; i++) //count elements, recording its first index and frequency;
     {
         if(top==-1 || nums[indexes[top]]!=nums[i])
         {
@@ -51,8 +52,8 @@ int* topKFrequent(int* nums, int size, int k, int* returnSize)
         }
         else arr[top]++;
     }
-    sort(arr, indexes, 0, top);
-    for(int i = 0; i < k; i++)
+    sort(arr, indexes, 0, top); //make the frequency array arr in ascending order;
+    for(int i = 0; i < k; i++) //collect the first k most frequent elements;
         arr[i] = nums[indexes[top-i]];
     *returnSize = k;
     return arr;
